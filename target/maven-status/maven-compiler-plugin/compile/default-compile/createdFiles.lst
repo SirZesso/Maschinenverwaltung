@@ -1,1 +1,10 @@
-ch/controller/SiteController.class
+ch\model\machine\Press.class
+ch\controller\SiteController.class
+ch\model\Site.class
+ch\model\Floor.class
+ch\model\Overview.class
+ch\model\Area.class
+ch\model\machine\ProcessCell.class
+ch\controller\ProcessCellController.class
+ch\model\Enterprise.class
+ch\model\machine\Laser.class
