@@ -1,4 +1,4 @@
-package ch.hftm;
+
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
