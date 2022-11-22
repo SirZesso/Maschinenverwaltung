@@ -1,3 +1,4 @@
+
 package ch.hftm;
 /*
 Put header here
@@ -13,17 +14,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 public class FXMLController implements Initializable {
-    
+
     @FXML
     private Label lblOut;
-    
+
     @FXML
     private void btnClickAction(ActionEvent event) {
         lblOut.setText("Hello World!");
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 }
