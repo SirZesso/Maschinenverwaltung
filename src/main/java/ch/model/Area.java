@@ -10,4 +10,5 @@ public class Area {
     // private layout Picture;
     private String manager;
     private Map<String, String> processCells;
+
 }

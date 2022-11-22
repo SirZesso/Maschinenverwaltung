@@ -10,6 +10,10 @@ import java.io.IOException;
 public class MainApp extends Application {
     private static Stage stage;
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(@SuppressWarnings("exports") Stage s) throws IOException {
         stage = s;
@@ -30,10 +34,6 @@ public class MainApp extends Application {
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/fxml/" + fxml + ".fxml"));
         return fxmlLoader.load();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
 }
