@@ -57,7 +57,7 @@ public class MainApp extends Application {
 		try {
 			// Load the fxml file and create a new scene
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("/view/layouts.fxml"));
+			loader.setLocation(MainApp.class.getResource("/view/customer/layouts.fxml"));
 
 			Scene scene = new Scene(loader.load());
 			this.stage.setScene(scene);
