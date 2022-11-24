@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import controller.CustomerController;
 import controller.LoginController;
+import controller.SupplierController;
 
 public class MainApp extends Application {
     private Stage stage;
@@ -28,7 +29,7 @@ public class MainApp extends Application {
 	public void start(Stage stage) {
 
 		this.stage = stage;
-		this.stage.setTitle("Login");
+		
 
 		this.showMainView();
 	}
@@ -36,13 +37,12 @@ public class MainApp extends Application {
     public void showMainView() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("/view/primary.fxml"));
+			loader.setLocation(MainApp.class.getResource("/view/login.fxml"));
+			this.stage.setTitle("Login");
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(loader.load());
 			this.stage.setScene(scene);
-			this.stage.setMinWidth(500);
-			this.stage.setMinHeight(300);
 			this.stage.show();
 
 			// Give the controller access to the main app.
@@ -58,12 +58,31 @@ public class MainApp extends Application {
 			// Load the fxml file and create a new scene
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/view/customer/layouts.fxml"));
+			this.stage.setTitle("Customer");
 
 			Scene scene = new Scene(loader.load());
 			this.stage.setScene(scene);
 
 			// Set the prisoner into the controller and give access to the main app
 			CustomerController controller = loader.getController();
+			controller.setMainApp(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void showSupplierView() {
+		try {
+			// Load the fxml file and create a new scene
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("/view/supplier/layouts.fxml"));
+			this.stage.setTitle("Supplier");
+
+			Scene scene = new Scene(loader.load());
+			this.stage.setScene(scene);
+
+			// Set the prisoner into the controller and give access to the main app
+			SupplierController controller = loader.getController();
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -24,6 +24,7 @@ public class LoginController {
     @FXML
     void btnClickSupplier(ActionEvent event) {
         System.out.println("Login As Supplier");
+        this.mainApp.showSupplierView();
     }
 
 
