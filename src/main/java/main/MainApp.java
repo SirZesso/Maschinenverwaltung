@@ -1,25 +1,21 @@
 package main;
 
-
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.MainApp;
-
 import java.io.IOException;
-
 import controller.CustomerController;
 import controller.LoginController;
 import controller.SupplierController;
 
 public class MainApp extends Application {
-    private Stage stage;
+	private Stage stage;
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 	public Stage getStage() {
 		return this.stage;
@@ -29,12 +25,11 @@ public class MainApp extends Application {
 	public void start(Stage stage) {
 
 		this.stage = stage;
-		
 
 		this.showMainView();
 	}
 
-    public void showMainView() {
+	public void showMainView() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/view/login.fxml"));
@@ -53,7 +48,7 @@ public class MainApp extends Application {
 		}
 	}
 
-    public void showCustomerView() {
+	public void showCustomerView() {
 		try {
 			// Load the fxml file and create a new scene
 			FXMLLoader loader = new FXMLLoader();
@@ -63,7 +58,6 @@ public class MainApp extends Application {
 			Scene scene = new Scene(loader.load());
 			this.stage.setScene(scene);
 
-			// Set the prisoner into the controller and give access to the main app
 			CustomerController controller = loader.getController();
 			controller.setMainApp(this);
 		} catch (IOException e) {
@@ -81,7 +75,6 @@ public class MainApp extends Application {
 			Scene scene = new Scene(loader.load());
 			this.stage.setScene(scene);
 
-			// Set the prisoner into the controller and give access to the main app
 			SupplierController controller = loader.getController();
 			controller.setMainApp(this);
 		} catch (IOException e) {
