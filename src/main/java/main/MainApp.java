@@ -1,8 +1,13 @@
 package main;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.MainApp;
 import java.io.IOException;
@@ -27,6 +32,7 @@ public class MainApp extends Application {
 		this.stage = stage;
 
 		this.showMainView();
+		this.showUpdateRelationView(stage);
 	}
 
 	public void showMainView() {
@@ -80,6 +86,34 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void showUpdateRelationView(Stage s) {
+		s.setTitle("Relation...");
+
+		// TODO: update layout
+		BorderPane border = new BorderPane();
+
+		// TODO: add dropdowns to create relations
+		Button btnSave = new Button("Speichern");
+		// Button btnCancel = new Button("abbrechen");
+
+		EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				showCustomerView();
+				// TODO: change action
+			}
+		};
+		btnSave.setOnAction(event);
+
+		Pane p = new Pane();
+		p.getChildren().add(btnSave);
+		// p.getChildren().add(btnCancel);
+
+		Scene scene = new Scene(p, 500, 200);
+		s.setScene(scene);
+		s.show();
+
 	}
 
 }
