@@ -4,7 +4,7 @@
     "width": 2000,
     "height": 2000,
     "scrollTop": -1,
-    "scrollLeft": -57,
+    "scrollLeft": -58,
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -166,7 +166,7 @@
           "active": false,
           "left": 225,
           "top": 225,
-          "zIndex": 362,
+          "zIndex": 3,
           "widthName": 60,
           "widthComment": 60
         },
@@ -343,7 +343,7 @@
           "active": false,
           "left": 1026,
           "top": 589,
-          "zIndex": 441,
+          "zIndex": 6,
           "widthName": 60,
           "widthComment": 60
         },
@@ -405,7 +405,7 @@
           "active": false,
           "left": 701,
           "top": 278,
-          "zIndex": 378,
+          "zIndex": 4,
           "widthName": 60,
           "widthComment": 60
         },
@@ -559,7 +559,7 @@
           "active": false,
           "left": 1045,
           "top": 278,
-          "zIndex": 401,
+          "zIndex": 5,
           "widthName": 60,
           "widthComment": 60
         },
@@ -621,7 +621,7 @@
           "active": false,
           "left": 140,
           "top": 583,
-          "zIndex": 342,
+          "zIndex": 2,
           "widthName": 83.6435546875,
           "widthComment": 60
         },
@@ -683,7 +683,7 @@
           "active": false,
           "left": 392,
           "top": 584,
-          "zIndex": 340,
+          "zIndex": 1,
           "widthName": 87.25537109375,
           "widthComment": 60
         },
@@ -856,7 +856,7 @@
       },
       {
         "identification": false,
-        "relationshipType": "OneN",
+        "relationshipType": "ZeroN",
         "startRelationshipType": "Ring",
         "start": {
           "tableId": "97d30623-d7b6-4b59-abbf-e67cb5b3470c",
