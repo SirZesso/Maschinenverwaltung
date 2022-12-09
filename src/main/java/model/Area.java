@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class Area {
     private String description;
-    private Floor floor;
+    private int floor;
     private String name;
     private double surface;
     // private layout Picture;
