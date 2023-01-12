@@ -10,11 +10,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-
+import javafx.scene.control.ListView;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.Separator;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -91,35 +95,97 @@ public class MainApp extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				showUpdateRelationView();
+				showRelationManagerView();
 			}
 		});
 
-		StackPane root = new StackPane();
-		root.getChildren().add(btn);
+		BorderPane customerPane = new BorderPane();
 
-		Scene scene = new Scene(root, 300, 250);
+		// TOP
+		MenuBar menu = new MenuBar();
+
+		customerPane.setTop(menu);
+
+		// RIGHT
+
+		TextField title = new TextField("Platinen Fertigung");
+		title.maxWidth(200);
+		title.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
+
+		Separator divider = new Separator();
+		Separator divider2 = new Separator();
+
+		Text plant = new Text("Werk");
+		ComboBox<String> choicePlant = new ComboBox<>();
+		choicePlant.setMinWidth(200);
+
+		Text building = new Text("Gebäude");
+		ComboBox<String> choiceBuilding = new ComboBox<>();
+		choiceBuilding.setMinWidth(200);
+
+		Text level = new Text("Etage");
+		ComboBox<String> choiceLevel = new ComboBox<>();
+		choiceLevel.setMinWidth(200);
+
+		GridPane grid = new GridPane();
+		grid.setHgap(10);
+		grid.setVgap(10);
+
+		grid.add(plant, 0, 0);
+		grid.add(choicePlant, 1, 0);
+		grid.add(building, 0, 1);
+		grid.add(choiceBuilding, 1, 1);
+		grid.add(level, 0, 2);
+		grid.add(choiceLevel, 1, 2);
+
+		Text machineTypes = new Text("Maschinen Typen");
+		machineTypes.setFont(Font.font("Tahoma", FontWeight.BOLD, 15));
+
+		Button addMachineTypes = new Button("+");
+
+		HBox hMachineTypes = new HBox(10, machineTypes, addMachineTypes);
+		hMachineTypes.setAlignment(Pos.CENTER_LEFT);
+
+		ListView<String> machineList = new ListView<String>();
+		machineList.maxHeight(30);
+
+		VBox hContent = new VBox(10, title, divider, grid, divider2, hMachineTypes, machineList);
+		hContent.setAlignment(Pos.TOP_LEFT);
+		hContent.setPadding(new Insets(25, 25, 25, 25));
+
+		customerPane.setCenter(hContent);
+		BorderPane.setAlignment(btn, Pos.CENTER);
+
+		// LEFT
+		ListView<String> list = new ListView<String>();
+		list.maxWidth(50);
+
+		customerPane.setLeft(list);
+
+		// SCENE
+		Scene scene = new Scene(customerPane, 750, 550);
 
 		stage.setScene(scene);
 		stage.show();
 
 	}
 
-	public void showUpdateRelationView() {
+	public void showRelationManagerView() {
 		Stage relStage = new Stage();
-		relStage.setTitle("Verknüpfung erstellen");
+		relStage.setTitle("Verknüpfungs Manager");
 
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
+
 		stage.setTitle("Customer View");
 
 		Scene scene = new Scene(grid, 400, 300);
 		relStage.setScene(scene);
 
-		Text scenetitle = new Text("Maschine zuweisen");
+		Text scenetitle = new Text("Neue Maschine zuweisen");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		grid.add(scenetitle, 0, 0);
 
@@ -169,6 +235,7 @@ public class MainApp extends Application {
 		grid.add(actiontarget, 1, 7);
 
 		btnRel.setOnAction(new EventHandler<ActionEvent>() {
+			// TODO: add business logic
 			@Override
 			public void handle(ActionEvent e) {
 				actiontarget.setFill(Color.FIREBRICK);
