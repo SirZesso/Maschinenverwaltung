@@ -1,12 +1,14 @@
 package model.machine;
 
+import lombok.Data;
 import model.Enterprise;
 
+@Data
 abstract class ProcessCell {
-    int id;
-    String name;
-    Enterprise manufacturer;
-    Enterprise customer;
-    String type;
+    private int id;
+    private String name;
+    private Enterprise manufacturer;
+    private Enterprise customer;
+    private String type;
 
 }

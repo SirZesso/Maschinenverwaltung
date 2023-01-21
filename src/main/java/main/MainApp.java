@@ -1,34 +1,26 @@
 package main;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.Separator;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import main.MainApp;
+import model.customer.Floor;
 
 import java.io.IOException;
 
+import controller.AreaController;
 import controller.LoginController;
 import controller.SupplierController;
 
@@ -39,13 +31,8 @@ public class MainApp extends Application {
 		launch(args);
 	}
 
-	public Stage getStage() {
-		return this.stage;
-	}
-
 	@Override
 	public void start(Stage stage) {
-
 		this.stage = stage;
 		this.showMainView();
 	}
@@ -89,17 +76,26 @@ public class MainApp extends Application {
 	public void showCustomerView() {
 		stage.setTitle("Customer View");
 
-		Button btn = new Button();
-		btn.setText("Neue Verknüpfung erstellen'");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				showRelationManagerView();
-			}
-		});
+		AreaController areaCtr = new AreaController();
+		areaCtr.initDemoAreas();
 
 		BorderPane customerPane = new BorderPane();
+
+		// BOTTOM
+		Button btnSaveArea = new Button();
+		btnSaveArea.setText("Speichern");
+
+		Button btnDeleteArea = new Button();
+		btnDeleteArea.setText("Löschen");
+
+		Button btnCreateArea = new Button();
+		btnCreateArea.setText("Neues Area erstellen");
+
+		HBox actionBtns = new HBox(10, btnDeleteArea, btnSaveArea, btnCreateArea);
+		actionBtns.setAlignment(Pos.CENTER_RIGHT);
+		actionBtns.setPadding(new Insets(20, 20, 20, 20));
+
+		customerPane.setBottom(actionBtns);
 
 		// TOP
 		MenuBar menu = new MenuBar();
@@ -112,6 +108,10 @@ public class MainApp extends Application {
 		title.maxWidth(200);
 		title.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
 
+		TextArea description = new TextArea("Maschinelle Herstellung von Platinen");
+		description.maxWidth(200);
+		description.minHeight(60);
+
 		Separator divider = new Separator();
 		Separator divider2 = new Separator();
 
@@ -119,12 +119,10 @@ public class MainApp extends Application {
 		ComboBox<String> choicePlant = new ComboBox<>();
 		choicePlant.setMinWidth(200);
 
-		Text building = new Text("Gebäude");
-		ComboBox<String> choiceBuilding = new ComboBox<>();
-		choiceBuilding.setMinWidth(200);
-
 		Text level = new Text("Etage");
-		ComboBox<String> choiceLevel = new ComboBox<>();
+		ComboBox<Floor> choiceLevel = new ComboBox<>();
+		choiceLevel.setItems(FXCollections.observableArrayList(Floor.values()));
+		choiceLevel.getSelectionModel().select(Floor.EG);
 		choiceLevel.setMinWidth(200);
 
 		GridPane grid = new GridPane();
@@ -133,15 +131,14 @@ public class MainApp extends Application {
 
 		grid.add(plant, 0, 0);
 		grid.add(choicePlant, 1, 0);
-		grid.add(building, 0, 1);
-		grid.add(choiceBuilding, 1, 1);
-		grid.add(level, 0, 2);
-		grid.add(choiceLevel, 1, 2);
+		grid.add(level, 0, 1);
+		grid.add(choiceLevel, 1, 1);
 
 		Text machineTypes = new Text("Maschinen Typen");
 		machineTypes.setFont(Font.font("Tahoma", FontWeight.BOLD, 15));
 
 		Button addMachineTypes = new Button("+");
+		// TODO addMachineTypes.setOnAction();
 
 		HBox hMachineTypes = new HBox(10, machineTypes, addMachineTypes);
 		hMachineTypes.setAlignment(Pos.CENTER_LEFT);
@@ -149,12 +146,12 @@ public class MainApp extends Application {
 		ListView<String> machineList = new ListView<String>();
 		machineList.maxHeight(30);
 
-		VBox hContent = new VBox(10, title, divider, grid, divider2, hMachineTypes, machineList);
+		VBox hContent = new VBox(10, title, description, divider, grid, divider2, hMachineTypes, machineList);
 		hContent.setAlignment(Pos.TOP_LEFT);
 		hContent.setPadding(new Insets(25, 25, 25, 25));
 
 		customerPane.setCenter(hContent);
-		BorderPane.setAlignment(btn, Pos.CENTER);
+		BorderPane.setAlignment(btnCreateArea, Pos.CENTER);
 
 		// LEFT
 		ListView<String> list = new ListView<String>();
@@ -162,12 +159,9 @@ public class MainApp extends Application {
 
 		customerPane.setLeft(list);
 
-		// SCENE
-		Scene scene = new Scene(customerPane, 750, 550);
-
+		Scene scene = new Scene(customerPane, 800, 400);
 		stage.setScene(scene);
 		stage.show();
-
 	}
 
 	public void showRelationManagerView() {
@@ -182,7 +176,7 @@ public class MainApp extends Application {
 
 		stage.setTitle("Customer View");
 
-		Scene scene = new Scene(grid, 400, 300);
+		Scene scene = new Scene(grid, 600, 300);
 		relStage.setScene(scene);
 
 		Text scenetitle = new Text("Neue Maschine zuweisen");

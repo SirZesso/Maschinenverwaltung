@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Enterprise;
@@ -10,12 +11,20 @@ public class EnterpriseController {
     public List<Enterprise> suppliers;
 
     void createDemoCustomer() {
+        List<Site> demoSites = new ArrayList<>();
+        demoSites.add(new Site("W01", "Schild-Ruststrasse 16", "Grenchen", 2540));
+        demoSites.add(new Site("W02", "Oelirein 3", "Grenchen", 2540));
+        demoSites.add(new Site("W04", "Blumenrainstrasse 1", "Grenchen", 2540));
+        demoSites.add(new Site("W06", "Storchengasse 9", "Grenchen", 2540));
+
         customers.add(new Enterprise("ETA SA Manufacture Horlogère Suisse", null,
-                new Site("W01", "Schild-Ruststrasse 16", "Grenchen", 2540)));
+                demoSites));
     }
 
     void createDemoSupplier() {
-        suppliers.add(new Enterprise("AxNum GmbH", null, new Site("Headquarters", "Blumenweg 123", "Biel", 4444)));
+        List<Site> demoSites = new ArrayList<>();
+        demoSites.add(new Site("Headquarters", "Blumenweg 123", "Biel", 4444));
+        suppliers.add(new Enterprise("AxNum GmbH", null, demoSites));
     }
 
     // In the future this controller can be used to load the configured enterprise
