@@ -1,95 +1,56 @@
 package model.machine;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import model.Enterprise;
 import model.Enterprise;
 
 public class Press extends ProcessCell {
 
-    
 
-    private int newton;
+private IntegerProperty newton;
 
-    public Press(int id) {
-        super(id);
-    }
+public Press() {
+    super();
+}
 
-    public Press(int id, String name, Enterprise manufacturer, Enterprise customer, String type, int newton) {
-        super(id, name, manufacturer, customer, type);
-        this.newton = newton;
-        //TODO Auto-generated constructor stub
-    }
+public Press(int id, String name, Enterprise manufacturer, Enterprise customer,String type, int newton) {
+    super(id, name, manufacturer,customer, type);
+    this.newton = new SimpleIntegerProperty(newton);
+}
 
-    @Override
-    public String toString() {
-        return "Press []";
-    }
+public int getNewton() {
+    return newton.get();
+}
 
-    @Override
-    public Enterprise getCustomer() {
-        // TODO Auto-generated method stub
-        return super.getCustomer();
-    }
+public void setNewton(int newton) {
+    this.newton = new SimpleIntegerProperty();
+}
 
-    @Override
-    public int getId() {
-        // TODO Auto-generated method stub
-        return super.getId();
-    }
+public IntegerProperty newtonProperty() {
+    return newton;
+}
 
-    @Override
-    public Enterprise getManufacturer() {
-        // TODO Auto-generated method stub
-        return super.getManufacturer();
-    }
+@Override
+public void writeExternal(ObjectOutput out) throws IOException {
+    out.writeInt(getId());
+    out.writeObject(getName());
+    out.writeObject(getType());
+    out.writeInt(getNewton());
+}
 
-    @Override
-    public String getName() {
-        // TODO Auto-generated method stub
-        return super.getName();
-    }
-
-    @Override
-    public String getType() {
-        // TODO Auto-generated method stub
-        return super.getType();
-    }
-
-    @Override
-    public void setCustomer(Enterprise customer) {
-        // TODO Auto-generated method stub
-        super.setCustomer(customer);
-    }
-
-    @Override
-    public void setId(int id) {
-        // TODO Auto-generated method stub
-        super.setId(id);
-    }
-
-    @Override
-    public void setManufacturer(Enterprise manufacturer) {
-        // TODO Auto-generated method stub
-        super.setManufacturer(manufacturer);
-    }
-
-    @Override
-    public void setName(String name) {
-        // TODO Auto-generated method stub
-        super.setName(name);
-    }
-
-    @Override
-    public void setType(String type) {
-        // TODO Auto-generated method stub
-        super.setType(type);
-    }
-
-    public int getNewton() {
-        return newton;
-    }
-
-    public void setNewton(int newton) {
-        this.newton = newton;
-    }
-    
-
+@Override
+public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+    setId(in.readInt());
+    setName((String) in.readObject());
+    setType((String) in.readObject());
+    setNewton(in.readInt());
+}
 }

@@ -1,45 +1,57 @@
 package model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.StringProperty;
+import model.customer.Site;
+
+
 import java.util.List;
 import java.util.UUID;
 
-import model.customer.Site;
+import javafx.beans.property.IntegerProperty;
 
 public class Enterprise {
-    String id;
-    String name;
-    String logo_path;
-    List<Site> sites;
+    private StringProperty id;
+    private StringProperty name;
+    private StringProperty logo_path;
+    private List<Site> sites;
 
     public Enterprise(String name, String logo_path, List<Site> sites) {
-        this.id = UUID.randomUUID().toString();
-        this.name = name;
-        this.logo_path = logo_path;
+        this.id = new SimpleStringProperty(UUID.randomUUID().toString());
+        this.name = new SimpleStringProperty(name);
+        this.logo_path = new SimpleStringProperty(logo_path);
         this.sites = sites;
     }
 
-    public String getId() {
+    public StringProperty idProperty() {
         return id;
     }
-
+    public String getId() {
+        return id.get();
+    }
     public void setId(String id) {
-        this.id = id;
+        this.id.set(id);
     }
 
-    public String getName() {
+    public StringProperty nameProperty() {
         return name;
     }
-
+    public String getName() {
+        return name.get();
+    }
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
-    public String getLogo_path() {
+    public StringProperty logo_pathProperty() {
         return logo_path;
     }
-
+    public String getLogo_path() {
+        return logo_path.get();
+    }
     public void setLogo_path(String logo_path) {
-        this.logo_path = logo_path;
+        this.logo_path.set(logo_path);
     }
 
     public List<Site> getSites() {
@@ -49,6 +61,4 @@ public class Enterprise {
     public void setSites(List<Site> sites) {
         this.sites = sites;
     }
-
-
 }

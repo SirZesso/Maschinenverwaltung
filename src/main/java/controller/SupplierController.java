@@ -3,38 +3,74 @@ package controller;
 
 import main.MainApp;
 import model.Enterprise;
-import model.machine.*;
-
+import model.machine.Laser;
+import model.machine.Press;
+import model.machine.ProcessCell;
+import service.SerializationService;
 import javafx.fxml.FXML;
 
-import java.io.UTFDataFormatException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
 
 
 
 
 public class SupplierController{
 
-    private static ObservableList<ProcessCell> processcells;
-
-    
-
-
+    private static ObservableList<ProcessCell> processCells;
     private MainApp mainApp;
+    
+    //FXML Elements*************************************************
+    @FXML
+    private TableView<ProcessCell> processCellTable;
+    @FXML
+    private TableColumn<ProcessCell, Integer> processCellId;
 
+    //Methodes******************************************************
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
+    @FXML
+	private void initialize() {
+        //processCells = createDemoProcessCells();
+        processCells = SerializationService.deSerializePersonDatao();
+        processCellTable.setItems(processCells);
+        processCellId.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
 
+    }
     @FXML
     void btnClickExit(ActionEvent event) {
         System.out.println("Exit without safe");
         this.mainApp.showMainView();
     }
+
+    @FXML
+    void btnClickSaveExit(ActionEvent event) {
+        SerializationService.serializeProcessCellData(processCells);
+        System.out.println("Exit");
+        this.mainApp.showMainView();
+    }
+
+    private ObservableList<ProcessCell> createDemoProcessCells(){
+        List<ProcessCell> processCells = new ArrayList<>();
+    
+        Enterprise manufacturer = new Enterprise("Manufacturer A", "logo_path", null);
+        Enterprise customer = new Enterprise("Customer B", "logo_path", null);
+    
+        processCells.add(new Press(1, "Press 1", manufacturer, customer, "Type 1", 1000));
+        processCells.add(new Laser(2, "Laser 1", manufacturer, customer, "Type 2", 2000));
+        processCells.add(new Press(3, "Press 2", manufacturer, customer, "Type 1", 1500));
+        processCells.add(new Laser(4, "Laser 2", manufacturer, customer, "Type 2", 2500));
+    
+        ObservableList<ProcessCell> observableList = FXCollections.observableArrayList(processCells);
+        return observableList;
+    }
+    
 
 }
