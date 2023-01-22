@@ -18,34 +18,33 @@ import javafx.collections.ObservableList;
  */
 public class SerializationService {
 
-	private final static String FILE_PATH = "C:/temp/processCells.ser";
+	private final static String FILE_PATH = "src/main/resources/processcells/processCells.ser";
 
-	public static void serializePersonData(ObservableList<ProcessCell> persons) {
+	public static void serializeProcessCellData(ObservableList<ProcessCell> processCells) {
 		try (FileOutputStream fileOut = new FileOutputStream(FILE_PATH);
 				ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-			out.writeObject(new ArrayList<ProcessCell>(persons));
+			out.writeObject(new ArrayList<ProcessCell>(processCells));
 		} catch (IOException e) {
 			System.out.println(
-					"Aktuelle Daten konnten nicht f�r n�chste Verwendendung gespeichert werden: " + e.getMessage());
+					"Aktuelle Daten konnten nicht furr naechste Verwendendung gespeichert werden: " + e.getMessage());
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	public static ObservableList<ProcessCell> deSerializePersonDatao() {
-		ArrayList<ProcessCell> persons = new ArrayList<>();
+		ArrayList<ProcessCell> processCells = new ArrayList<>();
 
 		// Deserialize if File exists
 		if (Files.exists(Paths.get(FILE_PATH))) {
 			try (FileInputStream fileIn = new FileInputStream(FILE_PATH);
 					ObjectInputStream in = new ObjectInputStream(fileIn)) {
-				persons = (ArrayList<ProcessCell>) in.readObject();
+				processCells = (ArrayList<ProcessCell>) in.readObject();
 			} catch (Exception e) {
 				System.out.println("Letzte Daten konnten nicht gelesen werden: " + e.getMessage());
 			}
 		}
 
-		return FXCollections.observableArrayList(persons);
-
+		return FXCollections.observableArrayList(processCells);
 	}
 
 }

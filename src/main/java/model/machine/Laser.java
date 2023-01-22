@@ -6,6 +6,10 @@ public class Laser extends ProcessCell {
 
     int wavelength;
 
+    public Laser(int id) {
+        super(id);
+    }
+
     public Laser(int id, String name, Enterprise manufacturer, Enterprise customer, String type, int wavelength) {
         super(id, name, manufacturer, customer, type);
         this.wavelength = wavelength;

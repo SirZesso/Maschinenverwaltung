@@ -4,8 +4,13 @@ import model.Enterprise;
 
 public class Press extends ProcessCell {
 
+    
+
     private int newton;
 
+    public Press(int id) {
+        super(id);
+    }
 
     public Press(int id, String name, Enterprise manufacturer, Enterprise customer, String type, int newton) {
         super(id, name, manufacturer, customer, type);

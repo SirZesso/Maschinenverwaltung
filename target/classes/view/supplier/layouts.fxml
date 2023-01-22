@@ -51,9 +51,9 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="489.0" prefWidth="280.0">
                            <children>
-                              <TableView prefHeight="337.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                              <TableView fx:id="processCellTable" prefHeight="337.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                                 <columns>
-                                  <TableColumn prefWidth="280.0" text="Maschinen" />
+                                  <TableColumn fx:id="processCellId" prefWidth="280.0" text="Maschinen" />
                                 </columns>
                               </TableView>
                            </children>
@@ -114,7 +114,7 @@
                     <menus>
                       <Menu mnemonicParsing="false" text="LogOut">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Safe and Exit" />
+                          <MenuItem mnemonicParsing="false" onAction="#btnClickSaveExit" text="Safe and Exit" />
                               <SeparatorMenuItem mnemonicParsing="false" />
                               <MenuItem mnemonicParsing="false" onAction="#btnClickExit" text="Exit" />
                         </items>

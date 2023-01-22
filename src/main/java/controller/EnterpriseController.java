@@ -23,7 +23,7 @@ public class EnterpriseController {
 
     void createDemoSupplier() {
         List<Site> demoSites = new ArrayList<>();
-        demoSites.add(new Site("Headquarters", "Blumenweg 123", "Biel", 4444));
+        demoSites.add(new Site("Headquarters", "Solothurnstrasse", "Biel", 2504));
         suppliers.add(new Enterprise("AxNum GmbH", null, demoSites));
     }
 
