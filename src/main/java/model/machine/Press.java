@@ -1,6 +1,5 @@
 package model.machine;
 
-import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
@@ -10,7 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Enterprise;
-import model.Enterprise;
+
 
 public class Press extends ProcessCell {
 

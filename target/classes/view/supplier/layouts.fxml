@@ -51,9 +51,11 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="489.0" prefWidth="280.0">
                            <children>
-                              <TableView fx:id="processCellTable" prefHeight="337.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                              <TableView fx:id="processCellTable" prefHeight="484.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                                 <columns>
-                                  <TableColumn fx:id="processCellId" prefWidth="280.0" text="Maschinen" />
+                                  <TableColumn fx:id="processCellId" prefWidth="45.0" text="Id" />
+                                    <TableColumn fx:id="processCellName" prefWidth="125.0" text="Maschinen" />
+                                    <TableColumn fx:id="processCellType" prefWidth="109.0" text="Typ" />
                                 </columns>
                               </TableView>
                            </children>

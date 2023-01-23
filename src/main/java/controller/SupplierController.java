@@ -31,6 +31,10 @@ public class SupplierController{
     private TableView<ProcessCell> processCellTable;
     @FXML
     private TableColumn<ProcessCell, Integer> processCellId;
+    @FXML
+    private TableColumn<ProcessCell, String> processCellName;
+    @FXML
+    private TableColumn<ProcessCell, String> processCellType;
 
     //Methodes******************************************************
     public void setMainApp(MainApp mainApp) {
@@ -42,7 +46,8 @@ public class SupplierController{
         processCells = SerializationService.deSerializePersonDatao();
         processCellTable.setItems(processCells);
         processCellId.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
-
+        processCellName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        processCellType.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
     }
     @FXML
     void btnClickExit(ActionEvent event) {
@@ -63,10 +68,10 @@ public class SupplierController{
         Enterprise manufacturer = new Enterprise("Manufacturer A", "logo_path", null);
         Enterprise customer = new Enterprise("Customer B", "logo_path", null);
     
-        processCells.add(new Press(1, "Press 1", manufacturer, customer, "Type 1", 1000));
-        processCells.add(new Laser(2, "Laser 1", manufacturer, customer, "Type 2", 2000));
-        processCells.add(new Press(3, "Press 2", manufacturer, customer, "Type 1", 1500));
-        processCells.add(new Laser(4, "Laser 2", manufacturer, customer, "Type 2", 2500));
+        processCells.add(new Press(1, "Press 1", manufacturer, customer, "UFM 01", 1000));
+        processCells.add(new Laser(2, "Laser 1", manufacturer, customer, "Faser", 2000));
+        processCells.add(new Press(3, "Press 2", manufacturer, customer, "UFM 10", 10000));
+        processCells.add(new Laser(4, "Laser 2", manufacturer, customer, "Diode", 2500));
     
         ObservableList<ProcessCell> observableList = FXCollections.observableArrayList(processCells);
         return observableList;

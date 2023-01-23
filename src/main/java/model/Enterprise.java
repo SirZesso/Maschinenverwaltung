@@ -9,7 +9,6 @@ import model.customer.Site;
 import java.util.List;
 import java.util.UUID;
 
-import javafx.beans.property.IntegerProperty;
 
 public class Enterprise {
     private StringProperty id;
