@@ -31,7 +31,7 @@ public class CustomerScene extends Scene {
 
     BorderPane customerPane;
 
-    public void initialize() {
+    public void initialize(MainApp main) {
 
         AreaController areaCtr = new AreaController();
         areaCtr.initDemoAreas();
@@ -93,7 +93,9 @@ public class CustomerScene extends Scene {
         machineTypes.setFont(Font.font("Tahoma", FontWeight.BOLD, 15));
 
         Button addMachineTypes = new Button("+");
-        // TODO: Action
+        addMachineTypes.setOnAction(e -> {
+            main.showRelationManagerView("W01");
+        });
 
         HBox hMachineTypes = new HBox(10, machineTypes, addMachineTypes);
         hMachineTypes.setAlignment(Pos.CENTER_LEFT);
