@@ -1,5 +1,12 @@
 package controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +18,8 @@ public class AreaController {
     // TODO persist the list locally
     private List<Area> areas = new ArrayList<>();
 
+    private String dataPath = "C:/Temp/Maschinenverwaltung/";
+
     public void initDemoAreas() {
         areas.add(new Area("T0 Montagepark", "Automatisierte Montage von T0 Komponenten", "W01", Floor.EG, 643.00,
                 "Sascha Seepferd", null));
@@ -21,7 +30,39 @@ public class AreaController {
     // CRUD methods
     // TODO create a test class that tests these functions
     public void createArea(Area area) {
-        areas.add(area);
+        try {
+            FileOutputStream f = new FileOutputStream(dataPath + "Areas/" + area.getId() + ".area");
+            ObjectOutputStream o = new ObjectOutputStream(f);
+
+            // Write objects to file
+            o.writeObject(area);
+
+            o.close();
+            f.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        }
+    }
+
+    public Area readArea(String areaID) throws ClassNotFoundException, IOException {
+        FileInputStream fi = new FileInputStream(new File(dataPath + "Areas/" + areaID));
+        ObjectInputStream oi = new ObjectInputStream(fi);
+
+        // Read objects
+        Area userClassic = (Area) oi.readObject();
+        oi.close();
+        fi.close();
+        return userClassic;
+    }
+
+    public void updateArea(int index, Area area) {
+        areas.set(index, area);
+    }
+
+    public void deleteArea(int index) {
+        areas.remove(index);
     }
 
     public Area getAreaByIndex(int index) {
@@ -45,14 +86,6 @@ public class AreaController {
             }
         }
         return areaNames;
-    }
-
-    public void updateArea(int index, Area area) {
-        areas.set(index, area);
-    }
-
-    public void deleteArea(int index) {
-        areas.remove(index);
     }
 
 }
