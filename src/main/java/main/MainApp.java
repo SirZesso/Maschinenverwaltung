@@ -17,14 +17,17 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.MainApp;
-import model.customer.Floor;
+import service.XmlService;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.Writer;
 
 import controller.AreaController;
 import controller.EnterpriseController;
 import controller.LoginController;
 import controller.SupplierController;
+import jakarta.xml.bind.JAXBException;
 
 public class MainApp extends Application {
 	private Stage stage;
@@ -36,8 +39,48 @@ public class MainApp extends Application {
 	@Override
 	public void start(Stage stage) {
 		this.stage = stage;
-		this.showMainView();
+		showMainView();
 
+	}
+
+	public static void createFiles() {
+		// check if any file exists
+		File areaFile = new File("C:/Temp/Maschinenverwaltung/Areas/ID.txt");
+		boolean areaFileEx = areaFile.exists();
+
+		// check if account-directory exists
+		File processCellFile = new File("C:/Temp/Maschinenverwaltung/ProcessCells/ID.txt");
+		boolean processCellFileEx = processCellFile.exists();
+
+		Writer writer = null;
+
+		try {
+			// create user-directory and id-file
+			if (areaFileEx == false) {
+				new File("C:/Temp/Bank/User/").mkdirs();
+				// writer = new BufferedWriter(
+				// new OutputStreamWriter(new FileOutputStream("C:/Temp/Bank/ID.txt"),
+				// "utf-8"));
+				writer.write("0");
+				writer.close();
+			}
+			// create account directory and id-file
+			if (processCellFileEx == false) {
+				new File("C:/Temp/Bank/Accounts/").mkdirs();
+				// writer = new BufferedWriter(
+				// new OutputStreamWriter(new FileOutputStream("C:/Temp/Bank/Accounts/ID.txt"),
+				// "utf-8"));
+				writer.write("0");
+			}
+		} catch (IOException e) {
+
+		} finally {
+			try {
+				writer.close();
+			} catch (Exception e) {
+
+			}
+		}
 	}
 
 	public void showMainView() {
@@ -80,94 +123,20 @@ public class MainApp extends Application {
 		stage.setTitle("Customer View");
 
 		AreaController areaCtr = new AreaController();
-		areaCtr.initDemoAreas();
+		// areaCtr.initDemoAreas();
 
 		EnterpriseController eCtr = new EnterpriseController();
-		eCtr.initDemoCustomer();
+		// eCtr.initDemoCustomer();
 
 		BorderPane customerPane = new BorderPane();
 
-		// BOTTOM
-		Button btnSaveArea = new Button();
-		btnSaveArea.setText("Speichern");
-
-		Button btnDeleteArea = new Button();
-		btnDeleteArea.setText("Löschen");
-
-		Button btnCreateArea = new Button();
-		btnCreateArea.setText("Neues Area erstellen");
-
-		HBox actionBtns = new HBox(10, btnDeleteArea, btnSaveArea, btnCreateArea);
-		actionBtns.setAlignment(Pos.CENTER_RIGHT);
-		actionBtns.setPadding(new Insets(20, 20, 20, 20));
-
-		customerPane.setBottom(actionBtns);
-
 		// TOP
-		MenuBar menu = new MenuBar();
-
+		MenuBar menu = new SharedMenu().init(this);
 		customerPane.setTop(menu);
 
 		// RIGHT
-
-		TextField title = new TextField("Platinen Fertigung");
-		title.maxWidth(200);
-		title.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
-
-		TextArea description = new TextArea("Maschinelle Herstellung von Platinen");
-		description.maxWidth(200);
-		description.minHeight(60);
-
-		Separator divider = new Separator();
-		Separator divider2 = new Separator();
-
-		Text area = new Text("Werk");
-		ObservableList<String> siteList = FXCollections.observableList(eCtr.getSiteNames());
-		ComboBox<String> choiceSite = new ComboBox<>();
-		choiceSite.setItems(siteList);
-		choiceSite.getSelectionModel().selectFirst();
-		choiceSite.setMinWidth(200);
-
-		Text level = new Text("Etage");
-		ComboBox<Floor> choiceLevel = new ComboBox<>();
-		choiceLevel.setItems(FXCollections.observableArrayList(Floor.values()));
-		choiceLevel.getSelectionModel().select(Floor.EG);
-		choiceLevel.setMinWidth(200);
-
-		GridPane grid = new GridPane();
-		grid.setHgap(10);
-		grid.setVgap(10);
-
-		grid.add(area, 0, 0);
-		grid.add(choiceSite, 1, 0);
-		grid.add(level, 0, 1);
-		grid.add(choiceLevel, 1, 1);
-
-		Text machineTypes = new Text("Maschinen Typen");
-		machineTypes.setFont(Font.font("Tahoma", FontWeight.BOLD, 15));
-
-		Button addMachineTypes = new Button("+");
-		addMachineTypes.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				showRelationManagerView(choiceSite.getSelectionModel().getSelectedItem());
-			}
-		});
-
-		HBox hMachineTypes = new HBox(10, machineTypes, addMachineTypes);
-		hMachineTypes.setAlignment(Pos.CENTER_LEFT);
-
-		ListView<String> machineList = new ListView<String>();
-		// TODO populate list based on entries
-		machineList.maxHeight(30);
-		machineList.setItems(siteList);
-
-		VBox hContent = new VBox(10, title, description, divider, grid, divider2, hMachineTypes, machineList);
-		hContent.setAlignment(Pos.TOP_LEFT);
-		hContent.setPadding(new Insets(25, 25, 25, 25));
-
+		BorderPane hContent = new AreaPane().init();
 		customerPane.setCenter(hContent);
-		BorderPane.setAlignment(btnCreateArea, Pos.CENTER);
 
 		// LEFT
 		// List with all Areas
@@ -178,21 +147,19 @@ public class MainApp extends Application {
 
 		customerPane.setLeft(list);
 
-		Scene scene = new Scene(customerPane, 800, 400);
+		Scene scene = new Scene(customerPane, 800, 600);
 		stage.setScene(scene);
 		stage.show();
 	}
 
 	public void showRelationManagerView(String inputSiteId) { // TODO Add optional inputs: Site, MachineType
-
-		String iSite = inputSiteId;
 		// TODO add parameter MachineType
 
 		Stage relStage = new Stage();
 		relStage.setTitle("Verknüpfungs Manager");
 
 		EnterpriseController eCtr = new EnterpriseController();
-		eCtr.initDemoCustomer(); // TODO bad code...
+		// eCtr.initDemoCustomer(); // TODO bad code...
 
 		AreaController aCtr = new AreaController();
 

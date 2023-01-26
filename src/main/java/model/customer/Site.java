@@ -3,11 +3,11 @@ package model.customer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import javafx.beans.property.IntegerProperty;
 
-
+@XmlRootElement
 public class Site {
-
     private StringProperty id;
     private StringProperty street;
     private StringProperty city;
@@ -19,12 +19,15 @@ public class Site {
         this.city = new SimpleStringProperty(city);
         this.postalcode = new SimpleIntegerProperty(postalcode);
     }
+
     public StringProperty idProperty() {
         return id;
     }
+
     public String getId() {
         return id.get();
     }
+
     public void setId(String id) {
         this.id.set(id);
     }
@@ -32,9 +35,11 @@ public class Site {
     public StringProperty streetProperty() {
         return street;
     }
+
     public String getStreet() {
         return street.get();
     }
+
     public void setStreet(String street) {
         this.street.set(street);
     }
@@ -42,9 +47,11 @@ public class Site {
     public StringProperty cityProperty() {
         return city;
     }
+
     public String getCity() {
         return city.get();
     }
+
     public void setCity(String city) {
         this.city.set(city);
     }
@@ -52,9 +59,11 @@ public class Site {
     public IntegerProperty postalcodeProperty() {
         return postalcode;
     }
+
     public int getPostalcode() {
         return postalcode.get();
     }
+
     public void setPostalcode(int postalcode) {
         this.postalcode.set(postalcode);
     }

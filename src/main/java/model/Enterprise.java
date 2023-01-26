@@ -1,19 +1,24 @@
 package model;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
 import model.customer.Site;
-
 
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlValue;
 
+@XmlRootElement
 public class Enterprise {
-    private StringProperty id;
+    private @XmlValue StringProperty id;
     private StringProperty name;
     private StringProperty logo_path;
+    @XmlElementWrapper(name = "locations")
+    @XmlElement(name = "location")
     private List<Site> sites;
 
     public Enterprise(String name, String logo_path, List<Site> sites) {
@@ -26,9 +31,11 @@ public class Enterprise {
     public StringProperty idProperty() {
         return id;
     }
+
     public String getId() {
         return id.get();
     }
+
     public void setId(String id) {
         this.id.set(id);
     }
@@ -36,9 +43,11 @@ public class Enterprise {
     public StringProperty nameProperty() {
         return name;
     }
+
     public String getName() {
         return name.get();
     }
+
     public void setName(String name) {
         this.name.set(name);
     }
@@ -46,9 +55,11 @@ public class Enterprise {
     public StringProperty logo_pathProperty() {
         return logo_path;
     }
+
     public String getLogo_path() {
         return logo_path.get();
     }
+
     public void setLogo_path(String logo_path) {
         this.logo_path.set(logo_path);
     }
