@@ -27,7 +27,6 @@ import controller.AreaController;
 import controller.EnterpriseController;
 import controller.LoginController;
 import controller.SupplierController;
-import jakarta.xml.bind.JAXBException;
 
 public class MainApp extends Application {
 	private Stage stage;

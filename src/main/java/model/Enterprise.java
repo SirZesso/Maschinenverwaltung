@@ -11,18 +11,10 @@ import java.io.ObjectOutput;
 import java.util.List;
 import java.util.UUID;
 
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElementWrapper;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlValue;
-
-@XmlRootElement
-public class Enterprise implements Externalizable{
-    private @XmlValue StringProperty id;
+public class Enterprise {
+    private StringProperty id;
     private StringProperty name;
     private StringProperty logo_path;
-    @XmlElementWrapper(name = "locations")
-    @XmlElement(name = "location")
     private List<Site> sites;
 
     public Enterprise(){

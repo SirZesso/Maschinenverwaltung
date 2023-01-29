@@ -3,13 +3,8 @@ package model.customer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
-
-import java.io.Serializable;
-
-import jakarta.xml.bind.annotation.XmlRootElement;
 import javafx.beans.property.IntegerProperty;
 
-@XmlRootElement
 public class Site implements Serializable{
     private StringProperty id;
     private StringProperty street;
