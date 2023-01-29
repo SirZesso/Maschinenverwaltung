@@ -23,6 +23,8 @@ public class SupplierController {
     private static ObservableList<ProcessCell> processCells;
     private static ObservableList<Enterprise> enterprises;
     private MainApp mainApp;
+    private String lasertype = "Wellenlänge";
+    private String presstype = "Newton";
     ProcessCell selectCell;
 
     // FXML Elements*************************************************
@@ -80,10 +82,8 @@ public class SupplierController {
     @FXML
     private void initialize() {
 
-
-
-        //enterprises = createDemoEnterprises();
-        //processCells = createDemoProcessCells();
+        // enterprises = createDemoEnterprises();
+        // processCells = createDemoProcessCells();
         enterprises = SerializationService.deSerializeEnterpriseDatao();
         processCells = SerializationService.deSerializeProcessCellDatao();
 
@@ -132,6 +132,14 @@ public class SupplierController {
 
     @FXML
     void clearProcessCellInformations() {
+        Alert confirmationAlert = new Alert(AlertType.INFORMATION);
+        confirmationAlert.setTitle("ProcessCell");
+        confirmationAlert.setContentText("Typ der neuen ProcessCell anwählen");
+        ButtonType buttonPress = new ButtonType("Press");
+        ButtonType buttonLaser = new ButtonType("Laser");
+        confirmationAlert.getButtonTypes().setAll(buttonPress, buttonLaser);
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        processCellEditView(true);
         tableProcessCells.getSelectionModel().clearSelection();
 
         labelSerialnumber.setText("");
@@ -140,7 +148,14 @@ public class SupplierController {
         labelCustomer.setText("");
         labelType.setText("");
         labelSpecial.setText("");
-        labelSpecialAbout.setText("Info");
+        if (result.get() == buttonPress) {
+            labelSpecialAbout.setText(presstype); 
+            labelSpecification.setText("Presse");
+        }
+        else{
+            labelSpecialAbout.setText(lasertype);
+            labelSpecification.setText("Laser");
+        }
 
         // Textfield
         textfieldSerialnumber.setText("");
@@ -182,16 +197,16 @@ public class SupplierController {
 
     @FXML
     void saveNewProcessCell(ActionEvent event) {
-        if (isInputValid()){
+        if (isInputValid()) {
             ProcessCell selectProcessCell = tableProcessCells.getSelectionModel().getSelectedItem();
-            if (selectProcessCell != null){
+            if (selectProcessCell != null) {
                 selectProcessCell.setSerialnumber(Integer.parseInt(textfieldSerialnumber.getText()));
                 selectProcessCell.setName(textfieldName.getText());
                 selectProcessCell.setManufacturer(choiceboxManufacturer.getValue());
                 selectProcessCell.setCustomer(choiceboxCustomer.getValue());
                 selectProcessCell.setType(choiceboxType.getValue());
-            }
-            else{
+                
+            } else {
                 ProcessCell newProcessCell = new ProcessCell();
                 newProcessCell.setSerialnumber(Integer.parseInt(textfieldSerialnumber.getText()));
                 newProcessCell.setName(textfieldName.getText());
@@ -202,6 +217,7 @@ public class SupplierController {
                 processCells.add(newProcessCell);
                 showProcessCellInfo(newProcessCell);
             }
+            processCellEditView(false);
         }
 
     }
@@ -214,20 +230,25 @@ public class SupplierController {
         enterprises.add(new Enterprise("Customer B", "logo_path", null));
         ObservableList<Enterprise> enterpriseList = FXCollections.observableList(enterprises);
         return enterpriseList;
-        
+
     }
 
     private ObservableList<ProcessCell> createDemoProcessCells() {
         List<ProcessCell> processCells = new ArrayList<>();
 
-        //Enterprise manufacturer = new Enterprise("Manufacturer A", "logo_path", null);
-        //Enterprise customer = new Enterprise("Customer B", "logo_path", null);
+        // Enterprise manufacturer = new Enterprise("Manufacturer A", "logo_path",
+        // null);
+        // Enterprise customer = new Enterprise("Customer B", "logo_path", null);
 
-        processCells.add(new Press(1, "Press 1", enterprises.get(0), enterprises.get(1), MachineType.HANDARBEITSPLATZ, 1000));
-        processCells.add(new Laser(2, "Laser 1", enterprises.get(0), enterprises.get(1), MachineType.HANDARBEITSPLATZ, 2000));
-        processCells.add(new Press(3, "Press 2", enterprises.get(0), enterprises.get(1), MachineType.INTEGRIERT, 10000));
+        processCells.add(
+                new Press(1, "Press 1", enterprises.get(0), enterprises.get(1), MachineType.HANDARBEITSPLATZ, 1000));
+        processCells.add(
+                new Laser(2, "Laser 1", enterprises.get(0), enterprises.get(1), MachineType.HANDARBEITSPLATZ, 2000));
+        processCells
+                .add(new Press(3, "Press 2", enterprises.get(0), enterprises.get(1), MachineType.INTEGRIERT, 10000));
         processCells.add(new Laser(4, "Laser 2", enterprises.get(0), enterprises.get(1), MachineType.INTEGRIERT, 2500));
-        processCells.add(new Press(23658, "UFM01", enterprises.get(1), enterprises.get(1), MachineType.HANDARBEITSPLATZ, 10000));
+        processCells.add(
+                new Press(23658, "UFM01", enterprises.get(1), enterprises.get(1), MachineType.HANDARBEITSPLATZ, 10000));
 
         ObservableList<ProcessCell> observableList = FXCollections.observableArrayList(processCells);
         return observableList;
@@ -251,14 +272,14 @@ public class SupplierController {
 
             if (processCell instanceof Press) {
                 Press press = (Press) processCell;
-                labelSpecialAbout.setText("Newton");
+                labelSpecialAbout.setText(presstype);
                 labelSpecial.setText(String.valueOf(press.getNewton()));
                 textfieldSpecial.setText(String.valueOf(press.getNewton()));
                 labelSpecification.setText("Presse");
             }
             if (processCell instanceof Laser) {
                 Laser laser = (Laser) processCell;
-                labelSpecialAbout.setText("Wellenlänge");
+                labelSpecialAbout.setText(lasertype);
                 labelSpecial.setText(String.valueOf(laser.getWavelength()));
                 textfieldSpecial.setText(String.valueOf(laser.getWavelength()));
                 labelSpecification.setText("Laser");
@@ -319,9 +340,9 @@ public class SupplierController {
         if (choiceboxType.getValue() == null) {
             errorMessage += "Kein Type zugeweisen.\n";
         }
-        //if (textfieldSpecial.getText().isEmpty()) {
-        //    errorMessage += "Informationen Fehlen!\n";
-        //}
+        // if (textfieldSpecial.getText().isEmpty()) {
+        // errorMessage += "Informationen Fehlen!\n";
+        // }
         if (errorMessage.length() == 0) {
             return true;
         } else {
