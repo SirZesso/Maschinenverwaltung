@@ -11,7 +11,7 @@ import java.io.ObjectOutput;
 import java.util.List;
 import java.util.UUID;
 
-public class Enterprise {
+public class Enterprise implements Externalizable{
     private StringProperty id;
     private StringProperty name;
     private StringProperty logo_path;
