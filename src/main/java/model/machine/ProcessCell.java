@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -19,34 +20,39 @@ public class ProcessCell implements Externalizable {
     private StringProperty name;
     private ObjectProperty<Enterprise> manufacturer;
     private ObjectProperty<Enterprise> customer;
-    private StringProperty type;
+    private ObjectProperty<MachineType> type;
+
+
 
     public ProcessCell() {
         this.serialnumber = new SimpleIntegerProperty();
         this.name = new SimpleStringProperty();
         this.manufacturer = new SimpleObjectProperty<>();
         this.customer = new SimpleObjectProperty<>();
-        this.type = new SimpleStringProperty();
+        this.type = new SimpleObjectProperty<>();
+        
     }
+    
 
-    public ProcessCell(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, String type) {
+    public ProcessCell(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type) {
         this.serialnumber = new SimpleIntegerProperty(serialnumber);
         this.name = new SimpleStringProperty(name);
         this.manufacturer = new SimpleObjectProperty<>(manufacturer);
         this.customer = new SimpleObjectProperty<>(customer);
-        this.type = new SimpleStringProperty(type);
+        this.type = new SimpleObjectProperty<>(type);
+        
     }
 
     public int getSerialnumber() {
         return serialnumber.get();
     }
 
-    public void setId(int serialnumber) {
+    public void setSerialnumber(int serialnumber) {
 
         this.serialnumber.set(serialnumber);
     }
 
-    public IntegerProperty idProperty() {
+    public IntegerProperty serialnumberProperty() {
         return serialnumber;
     }
 
@@ -85,18 +91,17 @@ public class ProcessCell implements Externalizable {
     public ObjectProperty<Enterprise> customerProperty() {
         return customer;
     }
-
-    public String getType() {
+    public MachineType getType() {
         return type.get();
     }
 
-    public void setType(String type) {
+    public void setType(MachineType type) {
         this.type.set(type);
     }
-
-    public StringProperty typeProperty() {
+    public ObjectProperty<MachineType> typeProperty() {
         return type;
     }
+
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
@@ -109,10 +114,11 @@ public class ProcessCell implements Externalizable {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        setId(in.readInt());
+        setSerialnumber(in.readInt());
         setName((String) in.readObject());
         setManufacturer((Enterprise) in.readObject());
         setCustomer((Enterprise) in.readObject());
-        setType((String) in.readObject());
+        setType((MachineType) in.readObject());
     }
+
 }

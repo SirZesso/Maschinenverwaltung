@@ -3,15 +3,25 @@ package model.customer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
+
+import java.io.Serializable;
+
 import jakarta.xml.bind.annotation.XmlRootElement;
 import javafx.beans.property.IntegerProperty;
 
 @XmlRootElement
-public class Site {
+public class Site implements Serializable{
     private StringProperty id;
     private StringProperty street;
     private StringProperty city;
     private IntegerProperty postalcode;
+
+    public Site(){
+        this.id = new SimpleStringProperty();
+        this.street = new SimpleStringProperty();
+        this.city = new SimpleStringProperty();
+        this.postalcode = new SimpleIntegerProperty();
+    }
 
     public Site(String id, String street, String city, int postalcode) {
         this.id = new SimpleStringProperty(id);

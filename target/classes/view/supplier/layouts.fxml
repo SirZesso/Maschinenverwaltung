@@ -68,12 +68,12 @@
                         </TableView>
                         <VBox prefWidth="248.0">
                            <children>
-                              <Label text="Process Cell Informationen">
+                              <Label text="Process Cell">
                                  <font>
-                                    <Font size="15.0" />
+                                    <Font name="System Bold" size="30.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets left="10.0" top="10.0" />
+                                    <Insets left="5.0" top="10.0" />
                                  </VBox.margin>
                               </Label>
                               <GridPane prefHeight="273.0" prefWidth="228.0">
@@ -105,14 +105,14 @@
                                     <Label fx:id="labelManufacturer" prefHeight="17.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Label text="Type" GridPane.rowIndex="4" />
                                     <Label fx:id="labelType" prefHeight="17.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label fx:id="labelSpezialAbout" text="Zusatz Info" GridPane.rowIndex="5" />
+                                    <Label fx:id="labelSpecialAbout" text="Zusatz Info" GridPane.rowIndex="5" />
                                     <Label fx:id="labelSpecial" prefHeight="17.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                     <TextField fx:id="textfieldSerialnumber" GridPane.columnIndex="1" />
                                     <TextField fx:id="textfieldName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="textfieldType" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                     <TextField fx:id="textfieldSpecial" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                     <ChoiceBox fx:id="choiceboxManufacturer" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <ChoiceBox fx:id="choiceboxCustomer" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <ChoiceBox fx:id="choiceboxType" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
                                  <VBox.margin>
                                     <Insets left="10.0" />
@@ -155,11 +155,14 @@
                            <children>
                               <AnchorPane>
                                  <children>
-                                    <ImageView fitHeight="58.0" fitWidth="155.0" layoutX="45.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
-                                       <image>
-                                          <Image url="@../../../../../../../99_Abgeschlossene%20Fächer/Fachstudium/03_OOP1/Projektarbeit_Teilnehmerliste/teilnehmerliste/target/classes/images/Logo_AmmischaddaiundHände.png" />
-                                       </image>
-                                    </ImageView>
+                                    <Label fx:id="labelSpecification" text="Spezification" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="30.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                    </Label>
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="220.0" prefWidth="300.0">
