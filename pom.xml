@@ -34,18 +34,6 @@
       <artifactId>javafx-fxml</artifactId>
       <version>${javafx.version}</version>
     </dependency>
-    <!-- XML -->
-    <dependency>
-      <groupId>jakarta.xml.bind</groupId>
-      <artifactId>jakarta.xml.bind-api</artifactId>
-      <version>4.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.xml.bind</groupId>
-      <artifactId>jaxb-ri</artifactId>
-      <version>4.0.0</version>
-      <type>pom</type>
-    </dependency>
     <!-- Lombok Project -->
     <dependency>
       <groupId>org.projectlombok</groupId>
