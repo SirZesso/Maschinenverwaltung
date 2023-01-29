@@ -15,39 +15,39 @@ import model.Enterprise;
 
 public class ProcessCell implements Externalizable {
 
-    private IntegerProperty id;
+    private IntegerProperty serialnumber;
     private StringProperty name;
     private ObjectProperty<Enterprise> manufacturer;
     private ObjectProperty<Enterprise> customer;
     private StringProperty type;
 
     public ProcessCell() {
-        this.id = new SimpleIntegerProperty();
+        this.serialnumber = new SimpleIntegerProperty();
         this.name = new SimpleStringProperty();
         this.manufacturer = new SimpleObjectProperty<>();
         this.customer = new SimpleObjectProperty<>();
         this.type = new SimpleStringProperty();
     }
 
-    public ProcessCell(int id, String name, Enterprise manufacturer, Enterprise customer, String type) {
-        this.id = new SimpleIntegerProperty(id);
+    public ProcessCell(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, String type) {
+        this.serialnumber = new SimpleIntegerProperty(serialnumber);
         this.name = new SimpleStringProperty(name);
         this.manufacturer = new SimpleObjectProperty<>(manufacturer);
         this.customer = new SimpleObjectProperty<>(customer);
         this.type = new SimpleStringProperty(type);
     }
 
-    public int getId() {
-        return id.get();
+    public int getSerialnumber() {
+        return serialnumber.get();
     }
 
-    public void setId(int id) {
+    public void setId(int serialnumber) {
 
-        this.id.set(id);
+        this.serialnumber.set(serialnumber);
     }
 
     public IntegerProperty idProperty() {
-        return id;
+        return serialnumber;
     }
 
     public String getName() {
@@ -100,7 +100,7 @@ public class ProcessCell implements Externalizable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(getId());
+        out.writeInt(getSerialnumber());
         out.writeObject(getName());
         out.writeObject(getManufacturer());
         out.writeObject(getCustomer());

@@ -19,8 +19,8 @@ public Laser() {
     this.wavelength = new SimpleIntegerProperty();
 }
 
-public Laser(int id, String name, Enterprise manufacturer, Enterprise customer, String type, int wavelength) {
-    super(id, name, manufacturer,customer, type);
+public Laser(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, String type, int wavelength) {
+    super(serialnumber, name, manufacturer,customer, type);
     this.wavelength = new SimpleIntegerProperty(wavelength);
 }
 
@@ -38,7 +38,7 @@ public IntegerProperty wavelengthProperty() {
 
 @Override
 public void writeExternal(ObjectOutput out) throws IOException {
-    out.writeInt(getId());
+    out.writeInt(getSerialnumber());
     out.writeObject(getName());
     out.writeObject(getType());
     out.writeInt(getWavelength());

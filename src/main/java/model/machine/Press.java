@@ -20,8 +20,8 @@ public Press() {
     super();
 }
 
-public Press(int id, String name, Enterprise manufacturer, Enterprise customer,String type, int newton) {
-    super(id, name, manufacturer,customer, type);
+public Press(int serialnumber, String name, Enterprise manufacturer, Enterprise customer,String type, int newton) {
+    super(serialnumber, name, manufacturer,customer, type);
     this.newton = new SimpleIntegerProperty(newton);
 }
 
@@ -39,7 +39,7 @@ public IntegerProperty newtonProperty() {
 
 @Override
 public void writeExternal(ObjectOutput out) throws IOException {
-    out.writeInt(getId());
+    out.writeInt(getSerialnumber());
     out.writeObject(getName());
     out.writeObject(getType());
     out.writeInt(getNewton());

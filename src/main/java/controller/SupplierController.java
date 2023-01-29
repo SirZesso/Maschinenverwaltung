@@ -3,9 +3,7 @@ package controller;
 
 import main.MainApp;
 import model.Enterprise;
-import model.machine.Laser;
-import model.machine.Press;
-import model.machine.ProcessCell;
+import model.machine.*;
 import service.SerializationService;
 import javafx.fxml.FXML;
 
@@ -15,8 +13,9 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+
 
 
 
@@ -25,16 +24,33 @@ public class SupplierController{
 
     private static ObservableList<ProcessCell> processCells;
     private MainApp mainApp;
+    ProcessCell selectCell;
     
     //FXML Elements*************************************************
-    @FXML
-    private TableView<ProcessCell> processCellTable;
-    @FXML
-    private TableColumn<ProcessCell, Integer> processCellId;
-    @FXML
-    private TableColumn<ProcessCell, String> processCellName;
-    @FXML
-    private TableColumn<ProcessCell, String> processCellType;
+    @FXML private TableView<ProcessCell> tableProcessCells;
+    @FXML private TableColumn<ProcessCell, Integer> columnSerialnumber;
+    @FXML private TableColumn<ProcessCell, String> columnName;
+    //@FXML private TableColumn<ProcessCell, String> processCellType;
+    @FXML private ImageView imageProcessCell;
+    @FXML private Button buttonChangeProcessCellView;
+    @FXML private Button buttonNew;
+    @FXML private Button buttonSave;
+    @FXML private Button buttonDelete;
+    @FXML private ChoiceBox<Enterprise> choiceboxManufacturer;
+    @FXML private ChoiceBox<Enterprise> choiceboxCustomer;
+    @FXML private Label labelSerialnumber;
+    @FXML private Label labelName;
+    @FXML private Label labelManufacturer;
+    @FXML private Label labelCustomer;
+    @FXML private Label labelType;
+    @FXML private Label labelSpecial;
+    @FXML private Label labelSpezialAbout;
+    @FXML private TextField textfieldSerialnumber;
+    @FXML private TextField textfieldName;
+    @FXML private TextField textfieldType;
+    @FXML private TextField textfieldSpecial;
+
+
 
     //Methodes******************************************************
     public void setMainApp(MainApp mainApp) {
@@ -44,11 +60,23 @@ public class SupplierController{
 	private void initialize() {
         //processCells = createDemoProcessCells();
         processCells = SerializationService.deSerializePersonDatao();
-        processCellTable.setItems(processCells);
-        processCellId.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
-        processCellName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        processCellType.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
+        tableProcessCells.setItems(processCells);
+        columnSerialnumber.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+        columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        //processCellType.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
+
+        showProcessCellInfo(null);
+        processCellEditView(false);
+
+        //Listeners
+
+        tableProcessCells.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showProcessCellInfo(newValue));
+
+
+
     }
+
+
     @FXML
     void btnClickExit(ActionEvent event) {
         System.out.println("Exit without safe");
@@ -60,6 +88,27 @@ public class SupplierController{
         SerializationService.serializeProcessCellData(processCells);
         System.out.println("Exit");
         this.mainApp.showMainView();
+    }
+
+    @FXML
+    void modifyProcessCell(ActionEvent event) {
+        processCellEditView(true);
+
+    }
+
+    @FXML
+    void clearProcessCellInformations(ActionEvent event) {
+
+    }
+
+    @FXML
+    void deleteProcessCell(ActionEvent event) {
+
+    }
+
+    @FXML
+    void saveNewProcessCell(ActionEvent event) {
+
     }
 
     private ObservableList<ProcessCell> createDemoProcessCells(){
@@ -75,6 +124,54 @@ public class SupplierController{
     
         ObservableList<ProcessCell> observableList = FXCollections.observableArrayList(processCells);
         return observableList;
+    }
+
+    private void showProcessCellInfo(ProcessCell processCell){
+        if (processCell != null){
+            //Label
+            labelSerialnumber.setText(""+processCell.getSerialnumber());
+            labelName.setText(processCell.getName());
+            labelManufacturer.setText(""+processCell.getManufacturer());
+            labelCustomer.setText(""+processCell.getCustomer());
+            labelType.setText(processCell.getType());
+
+            //Textfield
+            textfieldSerialnumber.setText(""+processCell.getSerialnumber());
+            textfieldName.setText(processCell.getName());
+            choiceboxManufacturer.setValue(processCell.getManufacturer());
+            choiceboxCustomer.setValue(processCell.getCustomer());
+            textfieldType.setText(processCell.getType());
+            
+
+
+        } else{
+
+        }
+
+    }
+
+
+    @FXML
+    void button3(ActionEvent event) {
+
+    }
+    private void processCellEditView(boolean status){
+        //Textfelder
+        textfieldSerialnumber.setVisible(status);
+        textfieldName.setVisible(status);
+        choiceboxCustomer.setVisible(status);
+        choiceboxManufacturer.setVisible(status);
+        textfieldType.setVisible(status);
+        textfieldSpecial.setVisible(status);
+        //Label
+        labelSerialnumber.setVisible(!status);
+        labelName.setVisible(!status);
+        labelManufacturer.setVisible(!status);
+        labelCustomer.setVisible(!status);
+        labelType.setVisible(!status);
+        labelSpecial.setVisible(!status);
+
+        
     }
     
 
