@@ -3,6 +3,9 @@ package model.customer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
+
+import java.io.Serializable;
+
 import javafx.beans.property.IntegerProperty;
 
 public class Site implements Serializable{
