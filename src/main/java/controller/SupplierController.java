@@ -12,12 +12,15 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 
 public class SupplierController {
 
@@ -341,67 +344,97 @@ public class SupplierController {
         tableProcessCells.getSelectionModel().clearSelection();
 
     }
-    private Enterprise getEnterprisebyName(String enterpriseName) throws Exception{
-        for (Enterprise e : manufacturers){
-            if (e.getName().equals(enterpriseName)){
+
+    private Enterprise getEnterprisebyName(String enterpriseName) throws Exception {
+        for (Enterprise e : manufacturers) {
+            if (e.getName().equals(enterpriseName)) {
                 return e;
             }
         }
-        for ( Enterprise e : customers){
-            if (e.getName().equals(enterpriseName)){
+        for (Enterprise e : customers) {
+            if (e.getName().equals(enterpriseName)) {
                 return e;
             }
         }
         throw new NoSuchElementException();
-        
+
     }
 
     private boolean isInputValid() {
         String errorMessage = "";
+        boolean valid = true;
         if (textfieldSerialnumber.getText().isEmpty()) {
             errorMessage += "Serienummer darf nicht leer sein!\n";
-            textfieldSerialnumber.setCursor(null);
+            textfieldSerialnumber.setStyle("-fx-background-color: #ffad99");
+            valid = false;
         }
-        try{
-             Integer.parseInt(textfieldSerialnumber.getText());
-        }catch (NumberFormatException e)
-        {
+        try {
+            Integer.parseInt(textfieldSerialnumber.getText());
+
+        } catch (NumberFormatException e) {
             errorMessage += "Serienummer darf nur Zahlen enthalten\n";
+            textfieldSerialnumber.setStyle("-fx-background-color: #ffad99");
+            valid = false;
         }
         if (textfieldName.getText().isEmpty()) {
             errorMessage += "Name darf nicht leer sein!\n";
+            textfieldName.setStyle("-fx-background-color: #ffad99");
+            valid = false;
         }
         if (choiceboxManufacturer.getValue() == null) {
             errorMessage += "Hersteller nicht zugewiesen.\n";
+            choiceboxManufacturer.setStyle("-fx-background-color: #ffad99");
+            valid = false;
         }
         if (choiceboxCustomer.getValue() == null) {
             errorMessage += "Kunde nicht zugeweisen.\n";
+            choiceboxCustomer.setStyle("-fx-background-color: #ffad99");
+            valid = false;
         }
         if (choiceboxType.getValue() == null) {
             errorMessage += "Kein Type zugeweisen.\n";
+            choiceboxType.setStyle("-fx-background-color: #ffad99");
+            valid = false;
         }
         if (textfieldSpecial.getText().isEmpty()) {
-        errorMessage += "Informationen Fehlen!\n";
+            errorMessage += "Informationen Fehlen!\n";
+            textfieldSpecial.setStyle("-fx-background-color: #ffad99");
+            valid = false;
         }
-        try{
+        try {
             Integer.parseInt(textfieldSpecial.getText());
-       }catch (NumberFormatException e)
-       {
-           errorMessage += "Nicht zulässige Werte definiert!\n";
-       }
-        if (errorMessage.length() == 0) {
-            return true;
-        } else {
+        } catch (NumberFormatException e) {
+            errorMessage += "Nicht zulässige Werte definiert!\n";
+        }
+
+        if (!valid) {
             // Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Felder Valdierung");
             alert.setHeaderText("Bitte korrigieren Sie die ungültigen Felder.");
             alert.setContentText(errorMessage);
             alert.showAndWait();
+
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000);
+                    Platform.runLater(() -> {
+                        textfieldSerialnumber.setStyle("");
+                        textfieldName.setStyle("");
+                        choiceboxCustomer.setStyle("");
+                        choiceboxManufacturer.setStyle("");
+                        choiceboxType.setStyle("");
+                        textfieldSpecial.setStyle("");
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
-        return false;
+        return valid;
     }
-    // Create Demo Values***********************************************************************
+    // Create Demo
+    // Values***********************************************************************
 
     private ObservableList<Enterprise> createDemoManufactors() {
         // Standart Enterprise
@@ -416,6 +449,7 @@ public class SupplierController {
         return manufactorList;
 
     }
+
     private ObservableList<Enterprise> createDemoCustomers() {
         // Standart Enterprise
         List<Enterprise> customers = new ArrayList<>();
