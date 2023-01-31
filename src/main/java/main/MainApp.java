@@ -17,7 +17,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.MainApp;
-import service.XmlService;
 
 import java.io.File;
 import java.io.IOException;

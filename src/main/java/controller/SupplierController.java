@@ -22,7 +22,8 @@ import javafx.scene.image.ImageView;
 public class SupplierController {
 
     private static ObservableList<ProcessCell> processCells;
-    private static ObservableList<Enterprise> enterprises;
+    private static ObservableList<Enterprise> customers;
+    private static ObservableList<Enterprise> manufacturers;
     private MainApp mainApp;
     private String lasertype = "Wellenlänge";
     private String presstype = "Newton";
@@ -83,9 +84,11 @@ public class SupplierController {
     @FXML
     private void initialize() {
 
-        // enterprises = createDemoEnterprises();
+        // manufacturers = createDemoManufactors();
+        // customers = createDemoCustomers();
         // processCells = createDemoProcessCells();
-        enterprises = SerializationService.deSerializeEnterpriseDatao();
+        manufacturers = SerializationService.deSerializeEnterpriseDatao("manufactures.ser");
+        customers = SerializationService.deSerializeEnterpriseDatao("customers.ser");
         processCells = SerializationService.deSerializeProcessCellDatao();
 
         tableProcessCells.setItems(processCells);
@@ -99,13 +102,19 @@ public class SupplierController {
         ObservableList<MachineType> typeList = FXCollections.observableList(types);
         choiceboxType.setItems(typeList);
 
-        List<String> enterpriseNames = new ArrayList<>();
-        for (Enterprise e : enterprises) {
-            enterpriseNames.add(e.getName());
+        List<String> manufacturerNames = new ArrayList<>();
+        for (Enterprise e : manufacturers) {
+            manufacturerNames.add(e.getName());
         }
-        ObservableList<String> namesList = FXCollections.observableList(enterpriseNames);
-        choiceboxManufacturer.setItems(namesList);
-        choiceboxCustomer.setItems(namesList);
+        ObservableList<String> manufacturerNameList = FXCollections.observableList(manufacturerNames);
+        choiceboxManufacturer.setItems(manufacturerNameList);
+
+        List<String> customerNames = new ArrayList<>();
+        for (Enterprise e : customers) {
+            customerNames.add(e.getName());
+        }
+        ObservableList<String> customerNamesList = FXCollections.observableList(customerNames);
+        choiceboxCustomer.setItems(customerNamesList);
 
         // Listeners
 
@@ -122,7 +131,8 @@ public class SupplierController {
 
     @FXML
     void btnClickSaveExit(ActionEvent event) {
-        SerializationService.serializeEnterpriseData(enterprises);
+        SerializationService.serializeEnterpriseData(manufacturers, "manufactures.ser");
+        SerializationService.serializeEnterpriseData(customers, "customers.ser");
         SerializationService.serializeProcessCellData(processCells);
         System.out.println("Exit");
         this.mainApp.showMainView();
@@ -239,43 +249,6 @@ public class SupplierController {
 
     }
 
-    private ObservableList<Enterprise> createDemoEnterprises() {
-        // Standart Enterprise
-        List<Enterprise> enterprises = new ArrayList<>();
-
-        enterprises.add(new Enterprise("Promess", "logo_path", null));
-        enterprises.add(new Enterprise("ACI Laser GMBH", "logo_path", null));
-        enterprises.add(new Enterprise("Gechter", "logo_path", null));
-        enterprises.add(new Enterprise("SIC Marking", "logo_path", null));
-        enterprises.add(new Enterprise("ETA", "logo_path", null));
-        enterprises.add(new Enterprise("Ypsomed", "logo_path", null));
-        enterprises.add(new Enterprise("Asic", "logo_path", null));
-        ObservableList<Enterprise> enterpriseList = FXCollections.observableList(enterprises);
-        return enterpriseList;
-
-    }
-
-    private ObservableList<ProcessCell> createDemoProcessCells() {
-        List<ProcessCell> processCells = new ArrayList<>();
-
-        // Enterprise manufacturer = new Enterprise("Manufacturer A", "logo_path",
-        // null);
-        // Enterprise customer = new Enterprise("Customer B", "logo_path", null);
-
-        processCells.add(
-                new Press(1, "Press 1", enterprises.get(0), enterprises.get(4), MachineType.HANDARBEITSPLATZ, 1000));
-        processCells.add(
-                new Laser(2, "Laser 1", enterprises.get(1), enterprises.get(4), MachineType.HANDARBEITSPLATZ, 2000));
-        processCells
-                .add(new Press(3, "Press 2", enterprises.get(2), enterprises.get(5), MachineType.INTEGRIERT, 10000));
-        processCells.add(new Laser(4, "Laser 2", enterprises.get(3), enterprises.get(5), MachineType.INTEGRIERT, 2500));
-        processCells.add(
-                new Press(23658, "UFM01", enterprises.get(0), enterprises.get(6), MachineType.HANDARBEITSPLATZ, 10000));
-
-        ObservableList<ProcessCell> observableList = FXCollections.observableArrayList(processCells);
-        return observableList;
-    }
-
     private void showProcessCellInfo(ProcessCell processCell) {
         if (processCell != null) {
             // Label
@@ -369,7 +342,12 @@ public class SupplierController {
 
     }
     private Enterprise getEnterprisebyName(String enterpriseName) throws Exception{
-        for (Enterprise e : enterprises){
+        for (Enterprise e : manufacturers){
+            if (e.getName().equals(enterpriseName)){
+                return e;
+            }
+        }
+        for ( Enterprise e : customers){
             if (e.getName().equals(enterpriseName)){
                 return e;
             }
@@ -382,6 +360,13 @@ public class SupplierController {
         String errorMessage = "";
         if (textfieldSerialnumber.getText().isEmpty()) {
             errorMessage += "Serienummer darf nicht leer sein!\n";
+            textfieldSerialnumber.setCursor(null);
+        }
+        try{
+             Integer.parseInt(textfieldSerialnumber.getText());
+        }catch (NumberFormatException e)
+        {
+            errorMessage += "Serienummer darf nur Zahlen enthalten\n";
         }
         if (textfieldName.getText().isEmpty()) {
             errorMessage += "Name darf nicht leer sein!\n";
@@ -395,9 +380,15 @@ public class SupplierController {
         if (choiceboxType.getValue() == null) {
             errorMessage += "Kein Type zugeweisen.\n";
         }
-        // if (textfieldSpecial.getText().isEmpty()) {
-        // errorMessage += "Informationen Fehlen!\n";
-        // }
+        if (textfieldSpecial.getText().isEmpty()) {
+        errorMessage += "Informationen Fehlen!\n";
+        }
+        try{
+            Integer.parseInt(textfieldSpecial.getText());
+       }catch (NumberFormatException e)
+       {
+           errorMessage += "Nicht zulässige Werte definiert!\n";
+       }
         if (errorMessage.length() == 0) {
             return true;
         } else {
@@ -409,6 +400,54 @@ public class SupplierController {
             alert.showAndWait();
         }
         return false;
+    }
+    // Create Demo Values***********************************************************************
+
+    private ObservableList<Enterprise> createDemoManufactors() {
+        // Standart Enterprise
+        List<Enterprise> manufactors = new ArrayList<>();
+
+        manufactors.add(new Enterprise("Promess", "logo_path", null));
+        manufactors.add(new Enterprise("ACI Laser GMBH", "logo_path", null));
+        manufactors.add(new Enterprise("Gechter", "logo_path", null));
+        manufactors.add(new Enterprise("SIC Marking", "logo_path", null));
+
+        ObservableList<Enterprise> manufactorList = FXCollections.observableList(manufactors);
+        return manufactorList;
+
+    }
+    private ObservableList<Enterprise> createDemoCustomers() {
+        // Standart Enterprise
+        List<Enterprise> customers = new ArrayList<>();
+
+        customers.add(new Enterprise("ETA", "logo_path", null));
+        customers.add(new Enterprise("Ypsomed", "logo_path", null));
+        customers.add(new Enterprise("Asic", "logo_path", null));
+
+        ObservableList<Enterprise> customerList = FXCollections.observableList(customers);
+        return customerList;
+
+    }
+
+    private ObservableList<ProcessCell> createDemoProcessCells() {
+        List<ProcessCell> processCells = new ArrayList<>();
+
+        // Enterprise manufacturer = new Enterprise("Manufacturer A", "logo_path",
+        // null);
+        // Enterprise customer = new Enterprise("Customer B", "logo_path", null);
+
+        processCells.add(
+                new Press(1, "Press 1", manufacturers.get(0), customers.get(0), MachineType.HANDARBEITSPLATZ, 1000));
+        processCells.add(
+                new Laser(2, "Laser 1", manufacturers.get(1), customers.get(0), MachineType.HANDARBEITSPLATZ, 2000));
+        processCells
+                .add(new Press(3, "Press 2", manufacturers.get(2), customers.get(1), MachineType.INTEGRIERT, 10000));
+        processCells.add(new Laser(4, "Laser 2", manufacturers.get(3), customers.get(1), MachineType.INTEGRIERT, 2500));
+        processCells.add(
+                new Press(23658, "UFM01", manufacturers.get(0), customers.get(2), MachineType.HANDARBEITSPLATZ, 10000));
+
+        ObservableList<ProcessCell> observableList = FXCollections.observableArrayList(processCells);
+        return observableList;
     }
 
 }

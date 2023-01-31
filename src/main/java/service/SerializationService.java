@@ -21,7 +21,7 @@ public class SerializationService {
 
 	//private final static String FILE_PATH = "src/main/resources/serialisation/";
 	private final static String PROCESSCELL_PATH = "src/main/resources/serialisation/processCells.ser";
-	private final static String ENTERPRISE_PATH = "src/main/resources/serialisation/enterprises.ser";
+	private final static String ENTERPRISE_PATH = "src/main/resources/serialisation/";
 
 	//ProcessCell************************************************************************************************************
 	public static void serializeProcessCellData(ObservableList<ProcessCell> processCells) {
@@ -51,8 +51,8 @@ public class SerializationService {
 		return FXCollections.observableArrayList(processCells);
 	}
 	//Enterprise************************************************************************************************************
-	public static void serializeEnterpriseData(ObservableList<Enterprise> enterprises) {
-		try (FileOutputStream fileOut = new FileOutputStream(ENTERPRISE_PATH);
+	public static void serializeEnterpriseData(ObservableList<Enterprise> enterprises, String file) {
+		try (FileOutputStream fileOut = new FileOutputStream(ENTERPRISE_PATH + file);
 				ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
 			out.writeObject(new ArrayList<Enterprise>(enterprises));
 		} catch (IOException e) {
@@ -62,12 +62,12 @@ public class SerializationService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static ObservableList<Enterprise> deSerializeEnterpriseDatao() {
+	public static ObservableList<Enterprise> deSerializeEnterpriseDatao(String file) {
 		ArrayList<Enterprise> enterprises = new ArrayList<>();
 
 		// Deserialize if File exists
-		if (Files.exists(Paths.get(ENTERPRISE_PATH))) {
-			try (FileInputStream fileIn = new FileInputStream(ENTERPRISE_PATH);
+		if (Files.exists(Paths.get(ENTERPRISE_PATH + file))) {
+			try (FileInputStream fileIn = new FileInputStream(ENTERPRISE_PATH + file);
 					ObjectInputStream in = new ObjectInputStream(fileIn)) {
 					enterprises = (ArrayList<Enterprise>) in.readObject();
 			} catch (Exception e) {
@@ -77,5 +77,6 @@ public class SerializationService {
 
 		return FXCollections.observableArrayList(enterprises);
 	}
+	
 
 }
