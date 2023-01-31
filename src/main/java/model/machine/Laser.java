@@ -1,15 +1,17 @@
 package model.machine;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
 import javafx.beans.property.*;
 
 import model.Enterprise;
 
-public class Laser extends ProcessCell {
+public class Laser extends ProcessCell{
 
 
 private IntegerProperty wavelength;
-
-
 
 public Laser() {
     this.wavelength = new SimpleIntegerProperty();
@@ -30,6 +32,25 @@ public void setWavelength(int wavelength) {
 
 public IntegerProperty wavelengthProperty() {
     return wavelength;
+}
+@Override
+public void writeExternal(ObjectOutput out) throws IOException {
+    out.writeInt(getSerialnumber());
+    out.writeObject(getName());
+    out.writeObject(getManufacturer());
+    out.writeObject(getCustomer());
+    out.writeObject(getType());
+    out.writeInt(getWavelength());
+}
+
+@Override
+public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+    setSerialnumber(in.readInt());
+    setName((String) in.readObject());
+    setManufacturer((Enterprise) in.readObject());
+    setCustomer((Enterprise) in.readObject());
+    setType((MachineType) in.readObject());
+    setWavelength(in.readInt());
 }
 
 }
