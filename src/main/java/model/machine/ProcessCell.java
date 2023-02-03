@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.image.Image;
 import model.Enterprise;
 
 public class ProcessCell implements Externalizable {
@@ -21,6 +22,7 @@ public class ProcessCell implements Externalizable {
     private ObjectProperty<Enterprise> manufacturer;
     private ObjectProperty<Enterprise> customer;
     private ObjectProperty<MachineType> type;
+    private ObjectProperty<Image> image;
 
 
 
@@ -30,9 +32,9 @@ public class ProcessCell implements Externalizable {
         this.manufacturer = new SimpleObjectProperty<>();
         this.customer = new SimpleObjectProperty<>();
         this.type = new SimpleObjectProperty<>();
+        this.image = new SimpleObjectProperty<>();
         
     }
-    
 
     public ProcessCell(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type) {
         this.serialnumber = new SimpleIntegerProperty(serialnumber);
@@ -40,6 +42,18 @@ public class ProcessCell implements Externalizable {
         this.manufacturer = new SimpleObjectProperty<>(manufacturer);
         this.customer = new SimpleObjectProperty<>(customer);
         this.type = new SimpleObjectProperty<>(type);
+        this.image = new SimpleObjectProperty<>(new Image("images/ProcessCell_default.png"));
+        
+    }
+    
+
+    public ProcessCell(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type, Image image) {
+        this.serialnumber = new SimpleIntegerProperty(serialnumber);
+        this.name = new SimpleStringProperty(name);
+        this.manufacturer = new SimpleObjectProperty<>(manufacturer);
+        this.customer = new SimpleObjectProperty<>(customer);
+        this.type = new SimpleObjectProperty<>(type);
+        this.image = new SimpleObjectProperty<>(image);
         
     }
 
@@ -101,6 +115,17 @@ public class ProcessCell implements Externalizable {
     public ObjectProperty<MachineType> typeProperty() {
         return type;
     }
+    public Image getImage() {
+        return image.get();
+    }
+
+    public void setImage(Image image) {
+        this.image.set(image);
+    }
+
+    public ObjectProperty<Image> imageProperty() {
+        return image;
+    }
 
 
     @Override
@@ -109,6 +134,7 @@ public class ProcessCell implements Externalizable {
         out.writeObject(getName());
         out.writeObject(getManufacturer());
         out.writeObject(getCustomer());
+        out.writeObject(getType());
         out.writeObject(getType());
     }
 
@@ -119,6 +145,7 @@ public class ProcessCell implements Externalizable {
         setManufacturer((Enterprise) in.readObject());
         setCustomer((Enterprise) in.readObject());
         setType((MachineType) in.readObject());
+        setImage((Image) in.readObject());
     }
 
 }

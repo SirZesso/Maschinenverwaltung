@@ -5,6 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import javafx.beans.property.*;
+import javafx.scene.image.Image;
 import model.Enterprise;
 
 
@@ -17,8 +18,13 @@ public Press() {
     this.newton = new SimpleIntegerProperty();
 }
 
-public Press(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type, int newton) {
+public Press(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type,  int newton) {
     super(serialnumber, name, manufacturer, customer, type);
+    this.newton = new SimpleIntegerProperty(newton);
+}
+
+public Press(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type, Image image, int newton) {
+    super(serialnumber, name, manufacturer, customer, type, image);
     this.newton = new SimpleIntegerProperty(newton);
 }
 

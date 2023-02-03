@@ -167,11 +167,12 @@
                               </AnchorPane>
                               <AnchorPane prefHeight="220.0" prefWidth="300.0">
                                  <children>
-                                    <ImageView fx:id="imageProcessCell" fitHeight="200.0" fitWidth="200.0" layoutX="24.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="30.0">
-                                       <image>
-                                          <Image url="@../../../../../../../99_Abgeschlossene%20Fächer/Fachstudium/03_OOP1/Projektarbeit_Teilnehmerliste/teilnehmerliste/target/classes/images/default.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="imageProcessCell" fitHeight="200.0" fitWidth="200.0" layoutX="24.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="30.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="buttonChooseImage" layoutX="26.0" layoutY="18.0" mnemonicParsing="false" onAction="#chooseImage" text="Bild auswählen" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
                                  </children>
                               </AnchorPane>
                            </children>
