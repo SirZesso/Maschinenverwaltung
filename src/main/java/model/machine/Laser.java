@@ -21,6 +21,10 @@ public Laser(int serialnumber, String name, Enterprise manufacturer, Enterprise 
     super(serialnumber, name, manufacturer,customer, type);
     this.wavelength = new SimpleIntegerProperty(wavelength);
 }
+public Laser(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type, String imagePath, int wavelength) {
+    super(serialnumber, name, manufacturer, customer, type, imagePath);
+    this.wavelength = new SimpleIntegerProperty(wavelength);
+}
 
 public int getWavelength() {
     return wavelength.get();
@@ -40,6 +44,7 @@ public void writeExternal(ObjectOutput out) throws IOException {
     out.writeObject(getManufacturer());
     out.writeObject(getCustomer());
     out.writeObject(getType());
+    out.writeObject(getImagePath());
     out.writeInt(getWavelength());
 }
 
@@ -50,6 +55,7 @@ public void readExternal(ObjectInput in) throws IOException, ClassNotFoundExcept
     setManufacturer((Enterprise) in.readObject());
     setCustomer((Enterprise) in.readObject());
     setType((MachineType) in.readObject());
+    setImagePath((String) in.readObject());
     setWavelength(in.readInt());
 }
 
