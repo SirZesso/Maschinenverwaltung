@@ -17,8 +17,13 @@ public Press() {
     this.newton = new SimpleIntegerProperty();
 }
 
-public Press(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type, int newton) {
+public Press(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type,  int newton) {
     super(serialnumber, name, manufacturer, customer, type);
+    this.newton = new SimpleIntegerProperty(newton);
+}
+
+public Press(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type, String imagePath, int newton) {
+    super(serialnumber, name, manufacturer, customer, type, imagePath);
     this.newton = new SimpleIntegerProperty(newton);
 }
 
@@ -40,6 +45,7 @@ public void writeExternal(ObjectOutput out) throws IOException {
     out.writeObject(getManufacturer());
     out.writeObject(getCustomer());
     out.writeObject(getType());
+    out.writeObject(getImagePath());
     out.writeInt(getNewton());
 }
 
@@ -50,6 +56,7 @@ public void readExternal(ObjectInput in) throws IOException, ClassNotFoundExcept
     setManufacturer((Enterprise) in.readObject());
     setCustomer((Enterprise) in.readObject());
     setType((MachineType) in.readObject());
+    setImagePath((String) in.readObject());
     setNewton(in.readInt());
 }
 

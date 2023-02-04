@@ -21,6 +21,7 @@ public class ProcessCell implements Externalizable {
     private ObjectProperty<Enterprise> manufacturer;
     private ObjectProperty<Enterprise> customer;
     private ObjectProperty<MachineType> type;
+    private StringProperty imagePath;
 
 
 
@@ -30,9 +31,9 @@ public class ProcessCell implements Externalizable {
         this.manufacturer = new SimpleObjectProperty<>();
         this.customer = new SimpleObjectProperty<>();
         this.type = new SimpleObjectProperty<>();
+        this.imagePath = new SimpleStringProperty();
         
     }
-    
 
     public ProcessCell(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type) {
         this.serialnumber = new SimpleIntegerProperty(serialnumber);
@@ -40,6 +41,18 @@ public class ProcessCell implements Externalizable {
         this.manufacturer = new SimpleObjectProperty<>(manufacturer);
         this.customer = new SimpleObjectProperty<>(customer);
         this.type = new SimpleObjectProperty<>(type);
+        this.imagePath = new SimpleStringProperty("images/ProcessCell_default.png");
+        
+    }
+    
+
+    public ProcessCell(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type, String imagePath) {
+        this.serialnumber = new SimpleIntegerProperty(serialnumber);
+        this.name = new SimpleStringProperty(name);
+        this.manufacturer = new SimpleObjectProperty<>(manufacturer);
+        this.customer = new SimpleObjectProperty<>(customer);
+        this.type = new SimpleObjectProperty<>(type);
+        this.imagePath = new SimpleStringProperty(imagePath);
         
     }
 
@@ -101,6 +114,18 @@ public class ProcessCell implements Externalizable {
     public ObjectProperty<MachineType> typeProperty() {
         return type;
     }
+    public String getImagePath() {
+        return imagePath.get();
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath.set(imagePath);
+    }
+
+    public StringProperty imagePathProperty() {
+        return imagePath;
+    }
+
 
 
     @Override
@@ -110,6 +135,7 @@ public class ProcessCell implements Externalizable {
         out.writeObject(getManufacturer());
         out.writeObject(getCustomer());
         out.writeObject(getType());
+        out.writeObject(getImagePath());
     }
 
     @Override
@@ -119,6 +145,7 @@ public class ProcessCell implements Externalizable {
         setManufacturer((Enterprise) in.readObject());
         setCustomer((Enterprise) in.readObject());
         setType((MachineType) in.readObject());
+        setImagePath((String) in.readObject());
     }
 
 }

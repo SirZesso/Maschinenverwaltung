@@ -6,6 +6,9 @@ import model.machine.*;
 import service.SerializationService;
 import javafx.fxml.FXML;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,9 +21,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.stage.FileChooser;
 
 public class SupplierController {
 
@@ -50,6 +53,8 @@ public class SupplierController {
     private Button buttonSave;
     @FXML
     private Button buttonDelete;
+    @FXML
+    private Button buttonChooseImage;
     @FXML
     private ChoiceBox<String> choiceboxManufacturer;
     @FXML
@@ -204,24 +209,24 @@ public class SupplierController {
     @FXML
     void saveNewProcessCell(ActionEvent event) throws Exception {
         if (isInputValid()) {
-            ProcessCell selectProcessCell = tableProcessCells.getSelectionModel().getSelectedItem();
-            if (selectProcessCell != null) {
-                selectProcessCell.setSerialnumber(Integer.parseInt(textfieldSerialnumber.getText()));
-                selectProcessCell.setName(textfieldName.getText());
-                selectProcessCell.setManufacturer(getEnterprisebyName(choiceboxManufacturer.getValue()));
-                selectProcessCell.setCustomer(getEnterprisebyName(choiceboxCustomer.getValue()));
-                selectProcessCell.setType(choiceboxType.getValue());
-                if (selectProcessCell instanceof Press) {
+            ProcessCell selectedProcessCell = tableProcessCells.getSelectionModel().getSelectedItem();
+            if (selectedProcessCell != null) {
+                selectedProcessCell.setSerialnumber(Integer.parseInt(textfieldSerialnumber.getText()));
+                selectedProcessCell.setName(textfieldName.getText());
+                selectedProcessCell.setManufacturer(getEnterprisebyName(choiceboxManufacturer.getValue()));
+                selectedProcessCell.setCustomer(getEnterprisebyName(choiceboxCustomer.getValue()));
+                selectedProcessCell.setType(choiceboxType.getValue());
+                if (selectedProcessCell instanceof Press) {
                     Press selectPress = new Press();
-                    selectPress = (Press) selectProcessCell;
+                    selectPress = (Press) selectedProcessCell;
                     selectPress.setNewton(Integer.parseInt(textfieldSpecial.getText()));
                 }
-                if (selectProcessCell instanceof Laser) {
+                if (selectedProcessCell instanceof Laser) {
                     Laser selectLaser = new Laser();
-                    selectLaser = (Laser) selectProcessCell;
+                    selectLaser = (Laser) selectedProcessCell;
                     selectLaser.setWavelength(Integer.parseInt(textfieldSpecial.getText()));
                 }
-                showProcessCellInfo(selectProcessCell);
+                showProcessCellInfo(selectedProcessCell);
 
             } else {
                 if (labelSpecification.getText().equals("Press")) {
@@ -252,6 +257,28 @@ public class SupplierController {
 
     }
 
+    @FXML
+    void chooseImage(ActionEvent event) {
+        ProcessCell selectedProcessCell = tableProcessCells.getSelectionModel().getSelectedItem();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Wähle ein Bild");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Bild-Dateien", "*.png", "*.jpg", "*.jpeg"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            try {
+                String newFilePath = "src/main/resources/images/" + selectedFile.getName();
+                File newFile = new File(newFilePath);
+                Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("images/"+ selectedFile.getName());
+                selectedProcessCell.setImagePath("images/"+ selectedFile.getName());
+                showProcessCellInfo(selectedProcessCell);
+            } catch (Exception ex) {
+                System.out.println("Fehler beim Kopieren des Bildes: " + ex.getMessage());
+            }
+        }
+    }
+
     private void showProcessCellInfo(ProcessCell processCell) {
         if (processCell != null) {
             // Label
@@ -267,6 +294,9 @@ public class SupplierController {
             choiceboxManufacturer.setValue(processCell.getManufacturer().getName());
             choiceboxCustomer.setValue((processCell.getCustomer().getName()));
             choiceboxType.setValue(processCell.getType());
+
+            // Image
+            imageProcessCell.setImage(new Image(processCell.getImagePath()));
 
             if (processCell instanceof Press) {
                 changeProcessCellInfo("Press");
@@ -307,6 +337,7 @@ public class SupplierController {
         }
         buttonSave.setVisible(status);
         buttonDelete.setVisible(status);
+        buttonChooseImage.setVisible(status);
 
         // Textfelder
         textfieldSerialnumber.setVisible(status);
@@ -471,14 +502,17 @@ public class SupplierController {
         // Enterprise customer = new Enterprise("Customer B", "logo_path", null);
 
         processCells.add(
-                new Press(1, "Press 1", manufacturers.get(0), customers.get(0), MachineType.HANDARBEITSPLATZ, 1000));
+                new Press(1, "Compact_S", manufacturers.get(0), customers.get(0), MachineType.HANDARBEITSPLATZ,
+                        "images/ProcessCell_default.png", 1000));
         processCells.add(
                 new Laser(2, "Laser 1", manufacturers.get(1), customers.get(0), MachineType.HANDARBEITSPLATZ, 2000));
         processCells
-                .add(new Press(3, "Press 2", manufacturers.get(2), customers.get(1), MachineType.INTEGRIERT, 10000));
+                .add(new Press(3, "Press 2", manufacturers.get(2), customers.get(1), MachineType.INTEGRIERT,
+                "images/ProcessCell_default.png", 10000));
         processCells.add(new Laser(4, "Laser 2", manufacturers.get(3), customers.get(1), MachineType.INTEGRIERT, 2500));
         processCells.add(
-                new Press(23658, "UFM01", manufacturers.get(0), customers.get(2), MachineType.HANDARBEITSPLATZ, 10000));
+                new Press(23658, "UFM01", manufacturers.get(0), customers.get(2), MachineType.HANDARBEITSPLATZ,
+                "images/ProcessCell_default.png", 10000));
 
         ObservableList<ProcessCell> observableList = FXCollections.observableArrayList(processCells);
         return observableList;
