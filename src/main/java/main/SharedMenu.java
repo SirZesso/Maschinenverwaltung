@@ -7,21 +7,16 @@ import javafx.scene.control.MenuItem;
 public class SharedMenu extends MenuBar {
     public MenuBar init(MainApp main) {
         MenuBar menuBar = new MenuBar();
+        Autors autors = new Autors();
 
         // Menu Creation
         Menu menuNew = new Menu("Neu");
-        MenuItem areaCreation = new MenuItem("Area erstellen");
+        MenuItem areaCreation = new MenuItem("Layout");
         areaCreation.setOnAction(e -> {
             main.showSupplierView();
         });
 
-        MenuItem processCellCreation = new MenuItem("Process Cell erstellen");
-        processCellCreation.setOnAction(e -> {
-            main.showSupplierView();
-        });
-
         menuNew.getItems().add(areaCreation);
-        menuNew.getItems().add(processCellCreation);
 
         // Menu Settings
         Menu menuSettings = new Menu("Einstellungen");
@@ -32,7 +27,7 @@ public class SharedMenu extends MenuBar {
 
         MenuItem about = new MenuItem("Autoren");
         about.setOnAction(e -> {
-            // TODO: Show app autors
+            autors.showAutorsAlert();
         });
 
         menuSettings.getItems().add(logout);

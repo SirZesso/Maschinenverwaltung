@@ -21,12 +21,6 @@ public class EnterpriseController {
                 demoSites);
     }
 
-    public void initDemoSupplier() {
-        List<Site> demoSites = new ArrayList<>();
-        demoSites.add(new Site("Headquarters", "Solothurnstrasse", "Biel", 2504));
-        supplier = new Enterprise("AxNum GmbH", null, demoSites);
-    }
-
     // In the future this controller can be used to load the configured enterprise
     // B2B version. Currently only one supplier and one enterprise are supportet but
     // with this architecture it can be easily adapted to support multiple
