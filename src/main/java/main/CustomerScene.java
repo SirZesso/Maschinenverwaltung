@@ -34,7 +34,7 @@ public class CustomerScene extends Scene {
     public void initialize(MainApp main) {
 
         AreaController areaCtr = new AreaController();
-        areaCtr.createDemoAreas();
+        areaCtr.initDemoAreas();
 
         // BOTTOM
         Button btnSaveArea = new Button();
@@ -89,12 +89,12 @@ public class CustomerScene extends Scene {
         grid.add(level, 0, 1);
         grid.add(choiceLevel, 1, 1);
 
-        Text machineTypes = new Text("Process Cells");
+        Text machineTypes = new Text("Maschinen Typen");
         machineTypes.setFont(Font.font("Tahoma", FontWeight.BOLD, 15));
 
         Button addMachineTypes = new Button("+");
         addMachineTypes.setOnAction(e -> {
-            main.showRelationManagerView(0); // TODO update index
+            main.showRelationManagerView("W01");
         });
 
         HBox hMachineTypes = new HBox(10, machineTypes, addMachineTypes);
