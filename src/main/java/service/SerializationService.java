@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import model.Enterprise;
+import model.customer.Area;
 import model.machine.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +23,7 @@ public class SerializationService {
 	//private final static String FILE_PATH = "src/main/resources/serialisation/";
 	private final static String PROCESSCELL_PATH = "src/main/resources/serialisation/processCells.ser";
 	private final static String ENTERPRISE_PATH = "src/main/resources/serialisation/";
+	private final static String AREA_PATH = "src/main/resources/serialisation/areas.ser";
 
 	//ProcessCell************************************************************************************************************
 	public static void serializeProcessCellData(ObservableList<ProcessCell> processCells) {
@@ -44,7 +46,7 @@ public class SerializationService {
 					ObjectInputStream in = new ObjectInputStream(fileIn)) {
 				processCells = (ArrayList<ProcessCell>) in.readObject();
 			} catch (Exception e) {
-				System.out.println("Letzte Daten konnten nicht gelesen werden: " + e.getMessage());
+				System.out.println("ProcessCells: Letzte Daten konnten nicht gelesen werden: " + e.getMessage());
 			}
 		}
 
@@ -71,12 +73,38 @@ public class SerializationService {
 					ObjectInputStream in = new ObjectInputStream(fileIn)) {
 					enterprises = (ArrayList<Enterprise>) in.readObject();
 			} catch (Exception e) {
-				System.out.println("Letzte Daten konnten nicht gelesen werden: " + e.getMessage());
+				System.out.println("Enterprises: Letzte Daten konnten nicht gelesen werden: " + e.getMessage());
 			}
 		}
 
 		return FXCollections.observableArrayList(enterprises);
 	}
+		//Areas************************************************************************************************************
+		public static void serializeAreaData(ObservableList<Area> areas) {
+			try (FileOutputStream fileOut = new FileOutputStream(AREA_PATH);
+					ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+				out.writeObject(new ArrayList<Area>(areas));
+			} catch (IOException e) {
+				System.out.println("Areas: Aktuelle Daten konnten nicht furr naechste Verwendendung gespeichert werden: " + e.getMessage());
+			}
+		}
+	
+		@SuppressWarnings("unchecked")
+		public static ObservableList<Area> deSerializeAreaDatao() {
+			ArrayList<Area> areas = new ArrayList<>();
+	
+			// Deserialize if File exists
+			if (Files.exists(Paths.get(AREA_PATH))) {
+				try (FileInputStream fileIn = new FileInputStream(AREA_PATH);
+						ObjectInputStream in = new ObjectInputStream(fileIn)) {
+					areas = (ArrayList<Area>) in.readObject();
+				} catch (Exception e) {
+					System.out.println("Areas: Letzte Daten konnten nicht gelesen werden: " + e.getMessage());
+				}
+			}
+	
+			return FXCollections.observableArrayList(areas);
+		}
 	
 
 }

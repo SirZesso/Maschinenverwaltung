@@ -7,6 +7,7 @@ import java.io.ObjectOutput;
 import javafx.beans.property.*;
 
 import model.Enterprise;
+import model.customer.Area;
 
 public class Laser extends ProcessCell{
 
@@ -23,6 +24,10 @@ public Laser(int serialnumber, String name, Enterprise manufacturer, Enterprise 
 }
 public Laser(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type, String imagePath, int wavelength) {
     super(serialnumber, name, manufacturer, customer, type, imagePath);
+    this.wavelength = new SimpleIntegerProperty(wavelength);
+}
+public Laser(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type, String imagePath, Area area, int wavelength) {
+    super(serialnumber, name, manufacturer, customer, type, imagePath, area);
     this.wavelength = new SimpleIntegerProperty(wavelength);
 }
 
@@ -46,6 +51,7 @@ public void writeExternal(ObjectOutput out) throws IOException {
     out.writeObject(getType());
     out.writeObject(getImagePath());
     out.writeInt(getWavelength());
+    out.writeObject(getArea());
 }
 
 @Override
@@ -57,6 +63,7 @@ public void readExternal(ObjectInput in) throws IOException, ClassNotFoundExcept
     setType((MachineType) in.readObject());
     setImagePath((String) in.readObject());
     setWavelength(in.readInt());
+    setArea((Area) in.readObject());
 }
 
 }

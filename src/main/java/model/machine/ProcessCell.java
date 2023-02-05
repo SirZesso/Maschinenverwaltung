@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Enterprise;
+import model.customer.Area;
 
 public class ProcessCell implements Externalizable {
 
@@ -22,6 +23,7 @@ public class ProcessCell implements Externalizable {
     private ObjectProperty<Enterprise> customer;
     private ObjectProperty<MachineType> type;
     private StringProperty imagePath;
+    private ObjectProperty<Area> area;
 
 
 
@@ -32,6 +34,7 @@ public class ProcessCell implements Externalizable {
         this.customer = new SimpleObjectProperty<>();
         this.type = new SimpleObjectProperty<>();
         this.imagePath = new SimpleStringProperty();
+        this.area = new SimpleObjectProperty<>();
         
     }
 
@@ -42,6 +45,7 @@ public class ProcessCell implements Externalizable {
         this.customer = new SimpleObjectProperty<>(customer);
         this.type = new SimpleObjectProperty<>(type);
         this.imagePath = new SimpleStringProperty("images/ProcessCell_default.png");
+        this.area = new SimpleObjectProperty<>(new Area());
         
     }
     
@@ -53,6 +57,17 @@ public class ProcessCell implements Externalizable {
         this.customer = new SimpleObjectProperty<>(customer);
         this.type = new SimpleObjectProperty<>(type);
         this.imagePath = new SimpleStringProperty(imagePath);
+        this.area = new SimpleObjectProperty<>(new Area());
+        
+    }
+    public ProcessCell(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type, String imagePath, Area area) {
+        this.serialnumber = new SimpleIntegerProperty(serialnumber);
+        this.name = new SimpleStringProperty(name);
+        this.manufacturer = new SimpleObjectProperty<>(manufacturer);
+        this.customer = new SimpleObjectProperty<>(customer);
+        this.type = new SimpleObjectProperty<>(type);
+        this.imagePath = new SimpleStringProperty(imagePath);
+        this.area = new SimpleObjectProperty<>(area);
         
     }
 
@@ -125,6 +140,17 @@ public class ProcessCell implements Externalizable {
     public StringProperty imagePathProperty() {
         return imagePath;
     }
+    public Area getArea() {
+        return area.get();
+    }
+
+    public void setArea(Area area) {
+        this.area.set(area);
+    }
+
+    public ObjectProperty<Area> areaProperty() {
+        return area;
+    }
 
 
 
@@ -136,6 +162,7 @@ public class ProcessCell implements Externalizable {
         out.writeObject(getCustomer());
         out.writeObject(getType());
         out.writeObject(getImagePath());
+        out.writeObject(getArea());
     }
 
     @Override
@@ -146,6 +173,7 @@ public class ProcessCell implements Externalizable {
         setCustomer((Enterprise) in.readObject());
         setType((MachineType) in.readObject());
         setImagePath((String) in.readObject());
+        setArea((Area) in.readObject());
     }
 
 }

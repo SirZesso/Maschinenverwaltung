@@ -118,137 +118,155 @@ public class MainApp extends Application {
 	}
 
 	public void showCustomerView() {
-		stage.setTitle("Customer View");
+		try {
+			// Load the fxml file and create a new scene
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("/view/customer/layouts.fxml"));
+			this.stage.setTitle("Customer");
 
-		AreaController areaCtr = new AreaController();
-		// areaCtr.initDemoAreas();
+			Scene scene = new Scene(loader.load());
+			this.stage.setScene(scene);
 
-		EnterpriseController eCtr = new EnterpriseController();
-		// eCtr.initDemoCustomer();
-
-		BorderPane customerPane = new BorderPane();
-
-		// TOP
-		MenuBar menu = new SharedMenu().init(this);
-		customerPane.setTop(menu);
-
-		// RIGHT
-		BorderPane hContent = new AreaPane().init();
-		customerPane.setCenter(hContent);
-
-		// LEFT
-		// List with all Areas
-		ListView<String> list = new ListView<String>();
-		ObservableList<String> oList = FXCollections.observableArrayList(areaCtr.getCompleteAreaNameList());
-		list.setItems(oList);
-		list.maxWidth(50);
-
-		customerPane.setLeft(list);
-
-		Scene scene = new Scene(customerPane, 800, 600);
-		stage.setScene(scene);
-		stage.show();
+			AreaController controller = loader.getController();
+			controller.setMainApp(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void showRelationManagerView(String inputSiteId) { // TODO Add optional inputs: Site, MachineType
-		// TODO add parameter MachineType
 
-		Stage relStage = new Stage();
-		relStage.setTitle("Verknüpfungs Manager");
 
-		EnterpriseController eCtr = new EnterpriseController();
-		// eCtr.initDemoCustomer(); // TODO bad code...
+		// stage.setTitle("Customer View");
 
-		AreaController aCtr = new AreaController();
+		// AreaController areaCtr = new AreaController();
+		// // areaCtr.initDemoAreas();
 
-		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.CENTER);
-		grid.setHgap(10);
-		grid.setVgap(10);
-		grid.setPadding(new Insets(25, 25, 25, 25));
+		// EnterpriseController eCtr = new EnterpriseController();
+		// // eCtr.initDemoCustomer();
 
-		stage.setTitle("Customer View");
+		// BorderPane customerPane = new BorderPane();
 
-		Scene scene = new Scene(grid, 600, 300);
-		relStage.setScene(scene);
+		// // TOP
+		// MenuBar menu = new SharedMenu().init(this);
+		// customerPane.setTop(menu);
 
-		Text scenetitle = new Text("Neue Maschine zuweisen");
-		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-		grid.add(scenetitle, 0, 0);
+		// // RIGHT
+		// BorderPane hContent = new AreaPane().init();
+		// customerPane.setCenter(hContent);
 
-		Label machine = new Label("Maschinen Typ");
-		grid.add(machine, 0, 1);
+		// // LEFT
+		// // List with all Areas
+		// ListView<String> list = new ListView<String>();
+		// ObservableList<String> oList = FXCollections.observableArrayList(areaCtr.getCompleteAreaNameList());
+		// list.setItems(oList);
+		// list.maxWidth(50);
 
-		ComboBox<String> choiceMachine = new ComboBox<>();
-		choiceMachine.setMaxSize(200, 0);
-		// TODO: populate list automatically
-		choiceMachine.getItems().add("Laser XYZ v33");
-		choiceMachine.getItems().add("Presse zehntausendundeins");
-		choiceMachine.getItems().add("Presse niemandjuckts");
-		grid.add(choiceMachine, 1, 1);
+		// customerPane.setLeft(list);
 
-		Label count = new Label("Anzahl Maschinen");
-		grid.add(count, 0, 2);
+		// Scene scene = new Scene(customerPane, 800, 600);
+		// stage.setScene(scene);
+		// stage.show();
+	
 
-		NumberTextField counter = new NumberTextField();
-		counter.setText("1");
-		grid.add(counter, 1, 2);
+	// public void showRelationManagerView(String inputSiteId) { // TODO Add optional inputs: Site, MachineType
+	// 	// TODO add parameter MachineType
 
-		Label site = new Label("Werk");
-		grid.add(site, 0, 3);
+	// 	Stage relStage = new Stage();
+	// 	relStage.setTitle("Verknüpfungs Manager");
 
-		ObservableList<String> siteList = FXCollections.observableList(eCtr.getSiteNames());
-		ComboBox<String> choiceSite = new ComboBox<>();
-		choiceSite.setMaxSize(200, 0);
-		choiceSite.getSelectionModel().select(inputSiteId);
-		choiceSite.setItems(siteList);
-		choiceSite.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				choiceSite.getSelectionModel().getSelectedItem();
-				// TODO solve selction problem ...
-			}
-		});
-		grid.add(choiceSite, 1, 3);
+	// 	EnterpriseController eCtr = new EnterpriseController();
+	// 	// eCtr.initDemoCustomer(); // TODO bad code...
 
-		Label area = new Label("Ziel Area");
-		grid.add(area, 0, 4);
+	// 	AreaController aCtr = new AreaController();
 
-		ObservableList<String> areaList = FXCollections
-				.observableList(aCtr.getAreaNameList(inputSiteId));
-		ComboBox<String> choiceArea = new ComboBox<>();
-		choiceArea.setMaxSize(200, 0);
-		choiceArea.setItems(areaList);
-		grid.add(choiceArea, 1, 4);
+	// 	GridPane grid = new GridPane();
+	// 	grid.setAlignment(Pos.CENTER);
+	// 	grid.setHgap(10);
+	// 	grid.setVgap(10);
+	// 	grid.setPadding(new Insets(25, 25, 25, 25));
 
-		Button btnRel = new Button("zuweisen");
-		btnRel.isDefaultButton();
+	// 	stage.setTitle("Customer View");
 
-		Button btnCancel = new Button("abbrechen");
-		btnCancel.isCancelButton();
+	// 	Scene scene = new Scene(grid, 600, 300);
+	// 	relStage.setScene(scene);
 
-		HBox hbBtn = new HBox(10);
-		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-		hbBtn.getChildren().add(btnCancel);
-		hbBtn.getChildren().add(btnRel);
-		grid.add(hbBtn, 1, 5);
-		relStage.show();
+	// 	Text scenetitle = new Text("Neue Maschine zuweisen");
+	// 	scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+	// 	grid.add(scenetitle, 0, 0);
 
-		final Text actiontarget = new Text();
-		grid.add(actiontarget, 1, 7);
+	// 	Label machine = new Label("Maschinen Typ");
+	// 	grid.add(machine, 0, 1);
 
-		btnRel.setOnAction(new EventHandler<ActionEvent>() {
-			// TODO: add business logic
-			@Override
-			public void handle(ActionEvent e) {
-				actiontarget.setFill(Color.FIREBRICK);
-				actiontarget.setText("Aktion ausgeführt");
-			}
-		});
+	// 	ComboBox<String> choiceMachine = new ComboBox<>();
+	// 	choiceMachine.setMaxSize(200, 0);
+	// 	// TODO: populate list automatically
+	// 	choiceMachine.getItems().add("Laser XYZ v33");
+	// 	choiceMachine.getItems().add("Presse zehntausendundeins");
+	// 	choiceMachine.getItems().add("Presse niemandjuckts");
+	// 	grid.add(choiceMachine, 1, 1);
 
-		relStage.setScene(scene);
-		relStage.show();
+	// 	Label count = new Label("Anzahl Maschinen");
+	// 	grid.add(count, 0, 2);
 
-	}
+	// 	NumberTextField counter = new NumberTextField();
+	// 	counter.setText("1");
+	// 	grid.add(counter, 1, 2);
+
+	// 	Label site = new Label("Werk");
+	// 	grid.add(site, 0, 3);
+
+	// 	ObservableList<String> siteList = FXCollections.observableList(eCtr.getSiteNames());
+	// 	ComboBox<String> choiceSite = new ComboBox<>();
+	// 	choiceSite.setMaxSize(200, 0);
+	// 	choiceSite.getSelectionModel().select(inputSiteId);
+	// 	choiceSite.setItems(siteList);
+	// 	choiceSite.setOnAction(new EventHandler<ActionEvent>() {
+	// 		@Override
+	// 		public void handle(ActionEvent e) {
+	// 			choiceSite.getSelectionModel().getSelectedItem();
+	// 			// TODO solve selction problem ...
+	// 		}
+	// 	});
+	// 	grid.add(choiceSite, 1, 3);
+
+	// 	Label area = new Label("Ziel Area");
+	// 	grid.add(area, 0, 4);
+
+	// 	ObservableList<String> areaList = FXCollections
+	// 			.observableList(aCtr.getAreaNameList(inputSiteId));
+	// 	ComboBox<String> choiceArea = new ComboBox<>();
+	// 	choiceArea.setMaxSize(200, 0);
+	// 	choiceArea.setItems(areaList);
+	// 	grid.add(choiceArea, 1, 4);
+
+	// 	Button btnRel = new Button("zuweisen");
+	// 	btnRel.isDefaultButton();
+
+	// 	Button btnCancel = new Button("abbrechen");
+	// 	btnCancel.isCancelButton();
+
+	// 	HBox hbBtn = new HBox(10);
+	// 	hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+	// 	hbBtn.getChildren().add(btnCancel);
+	// 	hbBtn.getChildren().add(btnRel);
+	// 	grid.add(hbBtn, 1, 5);
+	// 	relStage.show();
+
+	// 	final Text actiontarget = new Text();
+	// 	grid.add(actiontarget, 1, 7);
+
+	// 	btnRel.setOnAction(new EventHandler<ActionEvent>() {
+	// 		// TODO: add business logic
+	// 		@Override
+	// 		public void handle(ActionEvent e) {
+	// 			actiontarget.setFill(Color.FIREBRICK);
+	// 			actiontarget.setText("Aktion ausgeführt");
+	// 		}
+	// 	});
+
+	// 	relStage.setScene(scene);
+	// 	relStage.show();
+
+	// }
 
 }

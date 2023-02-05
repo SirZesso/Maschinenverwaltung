@@ -6,6 +6,7 @@ import java.io.ObjectOutput;
 
 import javafx.beans.property.*;
 import model.Enterprise;
+import model.customer.Area;
 
 
 public class Press extends ProcessCell{
@@ -24,6 +25,10 @@ public Press(int serialnumber, String name, Enterprise manufacturer, Enterprise 
 
 public Press(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type, String imagePath, int newton) {
     super(serialnumber, name, manufacturer, customer, type, imagePath);
+    this.newton = new SimpleIntegerProperty(newton);
+}
+public Press(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type, String imagePath, Area area, int newton) {
+    super(serialnumber, name, manufacturer, customer, type, imagePath, area);
     this.newton = new SimpleIntegerProperty(newton);
 }
 
@@ -47,6 +52,7 @@ public void writeExternal(ObjectOutput out) throws IOException {
     out.writeObject(getType());
     out.writeObject(getImagePath());
     out.writeInt(getNewton());
+    out.writeObject(getArea());
 }
 
 @Override
@@ -58,6 +64,7 @@ public void readExternal(ObjectInput in) throws IOException, ClassNotFoundExcept
     setType((MachineType) in.readObject());
     setImagePath((String) in.readObject());
     setNewton(in.readInt());
+    setArea((Area) in.readObject());
 }
 
 
