@@ -63,7 +63,7 @@
                         </TableView>
                         <AnchorPane prefHeight="508.0" prefWidth="503.0">
                            <children>
-                              <Label fx:id="labelSpecification" layoutX="214.0" text="Spezification">
+                              <Label fx:id="labelSpecification" layoutX="214.0">
                                  <font>
                                     <Font size="30.0" />
                                  </font>
@@ -76,7 +76,6 @@
                                     <Font name="System Bold" size="30.0" />
                                  </font>
                               </Label>
-                              <TextArea fx:id="textfareaDescription" layoutX="19.0" layoutY="85.0" prefHeight="73.0" prefWidth="465.0" />
                               <Label layoutX="19.0" layoutY="175.0" text="Werk">
                                  <font>
                                     <Font size="14.0" />
@@ -109,6 +108,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
+                              <TextArea fx:id="textareaDescription" layoutX="14.0" layoutY="86.0" prefHeight="63.0" prefWidth="448.0" />
                            </children>
                         </AnchorPane>
                      </children>

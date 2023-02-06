@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,9 @@ import service.SerializationService;
 import model.customer.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 public class AreaController {
 
@@ -58,11 +61,11 @@ public class AreaController {
     private void initialize() {
 
         sites = createSites();
-        //areas = createDemoAreas();
+        areas = createDemoAreas();
 
         processCells = SerializationService.deSerializeProcessCellDatao();
         //sites = SerializationService.deSerializeSiteDatao();
-        areas = SerializationService.deSerializeAreaDatao();
+        //areas = SerializationService.deSerializeAreaDatao();
         
         
 
@@ -132,15 +135,55 @@ public class AreaController {
     }
     @FXML
     void addProcessCell(ActionEvent event) {
-
+        selectedArea = tableAreas.getSelectionModel().getSelectedItem();
+        if (selectedArea != null){
+            Stage stage = new Stage();
+            stage.setTitle("Select Process Cell");
+            ListView<ProcessCell> listViewCells = new ListView<>(FXCollections.observableList(processCells));
+            listViewCells.setCellFactory(listView -> new ListCell<ProcessCell>() {
+                @Override
+                protected void updateItem(ProcessCell processCell, boolean empty) {
+                    super.updateItem(processCell, empty);
+                    if (processCell == null || empty) {
+                        setText(null);
+                    } else {
+                        setText(processCell.getSerialnumber() + " - " + processCell.getName());
+                    }
+                }
+            });
+            listViewCells.setOnMouseClicked(mouseEvent -> {
+                ProcessCell selectedProcessCell = listViewCells.getSelectionModel().getSelectedItem();
+                selectedProcessCell.setArea(selectedArea);
+                showAreaInfo(selectedArea);
+                stage.close();
+                
+            });
+            Scene scene = new Scene(listViewCells);
+            stage.setScene(scene);
+            stage.show();
+            
+            
+        }
+        
     }
+    
     private void showAreaInfo(Area area) {
         if (area != null) {
+            //ProcessCells der Area auswählen und in die Liste einfügen
+            ObservableList<ProcessCell> areaProcessCells = FXCollections.observableList(processCells.stream()
+            .filter(processCell -> processCell.getArea().equals(area))
+            .collect(Collectors.toList()));
+            tableProcessCells.setItems(areaProcessCells);
+            columnSerialnumber.setCellValueFactory(cellData -> cellData.getValue().serialnumberProperty().asObject());
+            columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+
             // Label
             labelSpecification.setText(area.getName());
             // Textfield
+            textareaDescription.setText(area.getDescription());
             choiceboxSite.setValue(area.getSiteId());
             choiceboxFloor.setValue(area.getFloor());
+            
 
         } else {
 

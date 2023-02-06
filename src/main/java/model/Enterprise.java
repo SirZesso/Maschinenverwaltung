@@ -85,6 +85,6 @@ public class Enterprise implements Externalizable{
         id.set(in.readUTF());
         name.set(in.readUTF());
         logo_path.set(in.readUTF());
-        sites = (List<Site>) in.readObject();
+        //sites = (List<Site>) in.readObject();
     }
 }

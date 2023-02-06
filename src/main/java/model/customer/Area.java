@@ -22,20 +22,20 @@ public class Area implements Externalizable {
 
     public Area() {
         
+        this.siteId = new SimpleStringProperty();
         this.name = new SimpleStringProperty();
         this.description = new SimpleStringProperty();
-        this.siteId = new SimpleStringProperty();
         this.floor = new SimpleObjectProperty<>();
         this.surface = new SimpleDoubleProperty();
         this.manager = new SimpleStringProperty();
         
     }
 
-    public Area(String name, String description, String siteId, Floor floor, double surface, String manager) {
+    public Area(String siteId, String name, String description, Floor floor, double surface, String manager) {
 
+        this.siteId = new SimpleStringProperty(siteId);
         this.name = new SimpleStringProperty(name);
         this.description = new SimpleStringProperty(description);
-        this.siteId = new SimpleStringProperty(siteId);
         this.floor = new SimpleObjectProperty<>(floor);
         this.surface = new SimpleDoubleProperty(surface);
         this.manager = new SimpleStringProperty(manager);
