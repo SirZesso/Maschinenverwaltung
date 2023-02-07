@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AreaController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerController">
    <children>
       <BorderPane layoutX="92.0" layoutY="-22.0" prefHeight="550.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -94,7 +94,7 @@
                                  </font>
                               </Label>
                               <Button fx:id="buttonCreateArea" layoutX="85.0" layoutY="22.0" mnemonicParsing="false" onAction="#createArea" prefHeight="30.0" prefWidth="30.0" text="+" />
-                              <Button fx:id="buttonAddProcessCell" layoutX="193.0" layoutY="232.0" mnemonicParsing="false" onAction="#addProcessCell" prefHeight="30.0" prefWidth="30.0" text="+" />
+                              <Button fx:id="buttonAddProcessCell" layoutX="193.0" layoutY="232.0" mnemonicParsing="false" onAction="#modifyProcessCell" prefHeight="30.0" prefWidth="78.0" text="Anpassen" />
                               <TableView fx:id="tableProcessCells" layoutX="19.0" layoutY="295.0" prefHeight="200.0" prefWidth="465.0">
                                 <columns>
                                   <TableColumn fx:id="columnSerialnumber" maxWidth="300.0" minWidth="-1.0" prefWidth="100.0" text="Serienummer" />

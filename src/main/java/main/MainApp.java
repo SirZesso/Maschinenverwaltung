@@ -3,10 +3,11 @@ package main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.MainApp;
 import java.io.IOException;
-import controller.AreaController;
+import controller.CustomerController;
 import controller.LoginController;
 import controller.SupplierController;
 
@@ -67,15 +68,22 @@ public class MainApp extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/view/customer/layouts.fxml"));
 			this.stage.setTitle("Customer");
-
+			
 			Scene scene = new Scene(loader.load());
 			this.stage.setScene(scene);
-
-			AreaController controller = loader.getController();
+			
+			
+			
+			CustomerController controller = loader.getController();
 			controller.setMainApp(this);
+			
+			this.stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 
 }

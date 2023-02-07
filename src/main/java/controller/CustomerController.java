@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,16 +14,19 @@ import service.SerializationService;
 import model.customer.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AreaController {
+public class CustomerController {
 
     private static ObservableList<ProcessCell> processCells;
     private static ObservableList<Area> areas;
     private static ObservableList<Site> sites;
     private MainApp mainApp;
+    private Stage stage;
     Area selectedArea;
     // FXML Elements*************************************************
     @FXML
@@ -51,10 +55,11 @@ public class AreaController {
     private TableView<ProcessCell> tableProcessCells;
     @FXML
     private TextArea textareaDescription;
+    
 
     // Methodes******************************************************
     public void setMainApp(MainApp mainApp) {
-       this.mainApp = mainApp;
+        this.mainApp = mainApp;
     }
 
     @FXML
@@ -64,14 +69,11 @@ public class AreaController {
         areas = createDemoAreas();
 
         processCells = SerializationService.deSerializeProcessCellDatao();
-        //sites = SerializationService.deSerializeSiteDatao();
-        //areas = SerializationService.deSerializeAreaDatao();
-        
-        
+        // sites = SerializationService.deSerializeSiteDatao();
+        // areas = SerializationService.deSerializeAreaDatao();
 
         tableAreas.setItems(areas);
         columnArea.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        
 
         showAreaInfo(null);
 
@@ -93,7 +95,7 @@ public class AreaController {
 
     }
 
-    private ObservableList<Site> createSites(){
+    private ObservableList<Site> createSites() {
 
         List<Site> sites = new ArrayList<>();
         sites.add(new Site("W01", "Schild-Ruststrasse 16", "Grenchen", 2540));
@@ -109,19 +111,21 @@ public class AreaController {
     private ObservableList<Area> createDemoAreas() {
 
         List<Area> areas = new ArrayList<>();
-        areas.add(new Area("W01","T0 Montagepark", "Automatisierte Montage von T0 Komponenten", Floor.EG, 643.00,"Sascha Seepferd"));
-        areas.add(new Area("W02","LaserXD", "Manuelle visuelle Kontrolle von Lasergravuren", Floor.OG3, 643.00,"Nina Nielpferd"));
+        areas.add(new Area("W01", "T0 Montagepark", "Automatisierte Montage von T0 Komponenten", Floor.EG, 643.00,
+                "Sascha Seepferd"));
+        areas.add(new Area("W02", "LaserXD", "Manuelle visuelle Kontrolle von Lasergravuren", Floor.OG3, 643.00,
+                "Nina Nielpferd"));
 
         ObservableList<Area> areaList = FXCollections.observableList(areas);
         return areaList;
     }
-
 
     @FXML
     void btnClickExit(ActionEvent event) {
         System.out.println("Exit without safe");
         this.mainApp.showMainView();
     }
+
     @FXML
     void btnClickSaveExit(ActionEvent event) {
         SerializationService.serializeAreaData(areas);
@@ -129,50 +133,43 @@ public class AreaController {
         System.out.println("Exit");
         this.mainApp.showMainView();
     }
+
     @FXML
     void createArea(ActionEvent event) {
 
     }
+
     @FXML
-    void addProcessCell(ActionEvent event) {
-        selectedArea = tableAreas.getSelectionModel().getSelectedItem();
-        if (selectedArea != null){
-            Stage stage = new Stage();
-            stage.setTitle("Select Process Cell");
-            ListView<ProcessCell> listViewCells = new ListView<>(FXCollections.observableList(processCells));
-            listViewCells.setCellFactory(listView -> new ListCell<ProcessCell>() {
-                @Override
-                protected void updateItem(ProcessCell processCell, boolean empty) {
-                    super.updateItem(processCell, empty);
-                    if (processCell == null || empty) {
-                        setText(null);
-                    } else {
-                        setText(processCell.getSerialnumber() + " - " + processCell.getName());
-                    }
-                }
-            });
-            listViewCells.setOnMouseClicked(mouseEvent -> {
-                ProcessCell selectedProcessCell = listViewCells.getSelectionModel().getSelectedItem();
-                selectedProcessCell.setArea(selectedArea);
-                showAreaInfo(selectedArea);
-                stage.close();
-                
-            });
-            Scene scene = new Scene(listViewCells);
-            stage.setScene(scene);
-            stage.show();
-            
-            
+    void modifyProcessCell(ActionEvent event) {
+        try {
+            // Load the fxml file and create a new scene
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/customer/assigneProcessCelltoArea.fxml"));
+            Stage processCellStage = new Stage();
+            processCellStage.setTitle("Assigne ProcessCell");
+    
+            Scene scene = new Scene(loader.load());
+            processCellStage.setScene(scene);
+    
+            ProcessCellController controller = loader.getController();
+            controller.setMainApp(this);
+    
+            processCellStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        
     }
     
+
+    // this.mainApp.showProcessCellView();
+    
+
     private void showAreaInfo(Area area) {
         if (area != null) {
-            //ProcessCells der Area auswählen und in die Liste einfügen
+            // ProcessCells der Area auswählen und in die Liste einfügen
             ObservableList<ProcessCell> areaProcessCells = FXCollections.observableList(processCells.stream()
-            .filter(processCell -> processCell.getArea().equals(area))
-            .collect(Collectors.toList()));
+                    .filter(processCell -> processCell.getArea().equals(area))
+                    .collect(Collectors.toList()));
             tableProcessCells.setItems(areaProcessCells);
             columnSerialnumber.setCellValueFactory(cellData -> cellData.getValue().serialnumberProperty().asObject());
             columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -183,7 +180,6 @@ public class AreaController {
             textareaDescription.setText(area.getDescription());
             choiceboxSite.setValue(area.getSiteId());
             choiceboxFloor.setValue(area.getFloor());
-            
 
         } else {
 
