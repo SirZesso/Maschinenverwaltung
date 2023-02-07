@@ -64,15 +64,13 @@ public class MainApp extends Application {
 
 	public void showCustomerView() {
 		try {
-			// Load the fxml file and create a new scene
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("/view/customer/layouts.fxml"));
-			this.stage.setTitle("Customer");
-			
+		// Load the fxml file and create a new scene
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(MainApp.class.getResource("/view/customer/layouts.fxml"));
+		this.stage.setTitle("Customer");
+		
 			Scene scene = new Scene(loader.load());
 			this.stage.setScene(scene);
-			
-			
 			
 			CustomerController controller = loader.getController();
 			controller.setMainApp(this);
@@ -81,7 +79,9 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+		}
+		
+		
 	
 	
 	

@@ -27,7 +27,8 @@ public class CustomerController {
     private static ObservableList<Site> sites;
     private MainApp mainApp;
     private Stage stage;
-    Area selectedArea;
+
+    private Area selectedArea;
     // FXML Elements*************************************************
     @FXML
     private Button buttonAddProcessCell;
@@ -55,7 +56,6 @@ public class CustomerController {
     private TableView<ProcessCell> tableProcessCells;
     @FXML
     private TextArea textareaDescription;
-    
 
     // Methodes******************************************************
     public void setMainApp(MainApp mainApp) {
@@ -69,6 +69,8 @@ public class CustomerController {
         areas = createDemoAreas();
 
         processCells = SerializationService.deSerializeProcessCellDatao();
+        //processCells = allprocessCells.filtered(processCells -> processCells.getCustomer().getId() == "ETA");
+        //System.out.println(processCells);
         // sites = SerializationService.deSerializeSiteDatao();
         // areas = SerializationService.deSerializeAreaDatao();
 
@@ -141,28 +143,28 @@ public class CustomerController {
 
     @FXML
     void modifyProcessCell(ActionEvent event) {
-        try {
-            // Load the fxml file and create a new scene
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/view/customer/assigneProcessCelltoArea.fxml"));
-            Stage processCellStage = new Stage();
-            processCellStage.setTitle("Assigne ProcessCell");
-    
-            Scene scene = new Scene(loader.load());
-            processCellStage.setScene(scene);
-    
-            ProcessCellController controller = loader.getController();
-            controller.setMainApp(this);
-    
-            processCellStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
+        selectedArea = tableAreas.getSelectionModel().getSelectedItem();
+        if (selectedArea != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(MainApp.class.getResource("/view/customer/assigneProcessCelltoArea.fxml"));
+                Scene scene = new Scene(loader.load());
+
+                ProcessCellController controller = loader.getController();
+                controller.setProcessCellsAndSelectedArea(processCells, selectedArea);
+
+                Stage stage = new Stage();
+                stage.setTitle("Process Cell");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.initOwner(this.stage);
+                stage.setScene(scene);
+                stage.showAndWait();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
-    
-
-    // this.mainApp.showProcessCellView();
-    
 
     private void showAreaInfo(Area area) {
         if (area != null) {
