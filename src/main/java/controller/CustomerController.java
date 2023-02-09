@@ -68,11 +68,14 @@ public class CustomerController {
         sites = createSites();
         areas = createDemoAreas();
 
-        processCells = SerializationService.deSerializeProcessCellDatao();
+        
         //processCells = allprocessCells.filtered(processCells -> processCells.getCustomer().getId() == "ETA");
         //System.out.println(processCells);
         // sites = SerializationService.deSerializeSiteDatao();
-        // areas = SerializationService.deSerializeAreaDatao();
+        //areas = SerializationService.deSerializeAreaDatao();
+        processCells = SerializationService.deSerializeProcessCellDatao();
+        System.out.println("Cells" + processCells);
+        System.out.println("Areas" + areas);
 
         tableAreas.setItems(areas);
         columnArea.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -138,7 +141,7 @@ public class CustomerController {
 
     @FXML
     void createArea(ActionEvent event) {
-
+        
     }
 
     @FXML
@@ -159,6 +162,7 @@ public class CustomerController {
                 stage.initOwner(this.stage);
                 stage.setScene(scene);
                 stage.showAndWait();
+                showAreaInfo(selectedArea);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -170,11 +174,17 @@ public class CustomerController {
         if (area != null) {
             // ProcessCells der Area auswählen und in die Liste einfügen
             ObservableList<ProcessCell> areaProcessCells = FXCollections.observableList(processCells.stream()
-                    .filter(processCell -> processCell.getArea().equals(area))
+                    .filter(processCell -> {
+                        if (processCell.getArea() == null || processCell.getArea().getName() == null) {
+                            return false;
+                        }
+                        return processCell.getArea().getName().equals(area.getName());
+                    })
                     .collect(Collectors.toList()));
             tableProcessCells.setItems(areaProcessCells);
             columnSerialnumber.setCellValueFactory(cellData -> cellData.getValue().serialnumberProperty().asObject());
             columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+    
 
             // Label
             labelSpecification.setText(area.getName());
@@ -182,6 +192,7 @@ public class CustomerController {
             textareaDescription.setText(area.getDescription());
             choiceboxSite.setValue(area.getSiteId());
             choiceboxFloor.setValue(area.getFloor());
+
 
         } else {
 

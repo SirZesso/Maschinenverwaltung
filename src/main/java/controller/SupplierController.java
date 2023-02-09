@@ -2,6 +2,7 @@ package controller;
 
 import main.MainApp;
 import model.Enterprise;
+import model.customer.Area;
 import model.machine.*;
 import service.SerializationService;
 import javafx.fxml.FXML;
@@ -504,16 +505,16 @@ public class SupplierController {
 
         processCells.add(
                 new Press(1, "Compact_S", manufacturers.get(0), customers.get(0), MachineType.HANDARBEITSPLATZ,
-                        "images/ProcessCell_default.png", 1000));
+                        "images/ProcessCell_default.png",new Area(), 1000));
         processCells.add(
-                new Laser(2, "Laser 1", manufacturers.get(1), customers.get(0), MachineType.HANDARBEITSPLATZ, 2000));
+                new Laser(2, "Laser 1", manufacturers.get(1), customers.get(0), MachineType.HANDARBEITSPLATZ,"images/ProcessCell_default.png",new Area(), 2000));
         processCells
                 .add(new Press(3, "Press 2", manufacturers.get(2), customers.get(1), MachineType.INTEGRIERT,
-                "images/ProcessCell_default.png", 10000));
-        processCells.add(new Laser(4, "Laser 2", manufacturers.get(3), customers.get(1), MachineType.INTEGRIERT, 2500));
+                "images/ProcessCell_default.png",new Area(), 10000));
+        processCells.add(new Laser(4, "Laser 2", manufacturers.get(3), customers.get(1), MachineType.INTEGRIERT,"images/ProcessCell_default.png", new Area(), 2500));
         processCells.add(
                 new Press(23658, "UFM01", manufacturers.get(0), customers.get(2), MachineType.HANDARBEITSPLATZ,
-                "images/ProcessCell_default.png", 10000));
+                "images/ProcessCell_default.png",new Area(), 10000));
 
         ObservableList<ProcessCell> observableList = FXCollections.observableArrayList(processCells);
         return observableList;

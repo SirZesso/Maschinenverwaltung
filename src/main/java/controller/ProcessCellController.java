@@ -1,13 +1,14 @@
 package controller;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import model.customer.Area;
 import model.machine.ProcessCell;
+import javafx.scene.Node;
 
 
 public class ProcessCellController {
@@ -48,33 +49,47 @@ public class ProcessCellController {
     }
     @FXML
     void addProcessCell(ActionEvent event) {
+        ProcessCell selectedProcessCell = tabelAviableProcessCells.getSelectionModel().getSelectedItem();
+        if (selectedProcessCell != null){
+            selectedProcessCell.setArea(selectedArea);
+            setTables();
+        }
+
+    }
+
+    @FXML
+    void removeProcessCell(ActionEvent event) {
+        ProcessCell selectedProcessCell = tabelAssignedProcessCells.getSelectionModel().getSelectedItem();
+        if (selectedProcessCell != null){
+            selectedProcessCell.setArea(new Area());
+            setTables();
+
+        }
 
     }
 
     @FXML
     void exitModification(ActionEvent event) {
-        
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
+    
 
-    @FXML
-    void removeProcessCell(ActionEvent event) {
 
-    }
-
-    @FXML
-    void saveModification(ActionEvent event) {
-
-    }
     public void setProcessCellsAndSelectedArea(ObservableList<ProcessCell> processCells, Area selectedArea) {
         this.processCells = processCells;
         this.selectedArea = selectedArea;
-        System.out.println(this.processCells);
-        System.out.println(this.selectedArea);
         setTables();
     }
     
     public void setTables() {
-        assignedProcessCells = processCells.filtered(processCell -> processCell.getArea() == selectedArea);
+        assignedProcessCells = processCells.filtered(processCell -> {
+            if (selectedArea != null && processCell.getArea() != null && processCell.getArea().getName() != null) {
+                return selectedArea.getName().equals(processCell.getArea().getName());
+            }
+            return false;
+        });
+        
         tabelAssignedProcessCells.setItems(assignedProcessCells);
         columnAssignedNr.setCellValueFactory(cellData -> cellData.getValue().serialnumberProperty().asString());
         columnAssignedName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());

@@ -38,28 +38,6 @@ public class ProcessCell implements Externalizable {
         
     }
 
-    public ProcessCell(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type) {
-        this.serialnumber = new SimpleIntegerProperty(serialnumber);
-        this.name = new SimpleStringProperty(name);
-        this.manufacturer = new SimpleObjectProperty<>(manufacturer);
-        this.customer = new SimpleObjectProperty<>(customer);
-        this.type = new SimpleObjectProperty<>(type);
-        this.imagePath = new SimpleStringProperty("images/ProcessCell_default.png");
-        this.area = new SimpleObjectProperty<>(new Area());
-        
-    }
-    
-
-    public ProcessCell(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type, String imagePath) {
-        this.serialnumber = new SimpleIntegerProperty(serialnumber);
-        this.name = new SimpleStringProperty(name);
-        this.manufacturer = new SimpleObjectProperty<>(manufacturer);
-        this.customer = new SimpleObjectProperty<>(customer);
-        this.type = new SimpleObjectProperty<>(type);
-        this.imagePath = new SimpleStringProperty(imagePath);
-        this.area = new SimpleObjectProperty<>(new Area());
-        
-    }
     public ProcessCell(int serialnumber, String name, Enterprise manufacturer, Enterprise customer, MachineType type, String imagePath, Area area) {
         this.serialnumber = new SimpleIntegerProperty(serialnumber);
         this.name = new SimpleStringProperty(name);

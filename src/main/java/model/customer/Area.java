@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -112,6 +113,7 @@ public class Area implements Externalizable {
     public StringProperty managerProperty() {
         return manager;
     }
+
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(getSiteId());
