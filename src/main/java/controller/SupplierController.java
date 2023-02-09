@@ -94,12 +94,12 @@ public class SupplierController {
     @FXML
     private void initialize() {
 
-        manufacturers = createDemoManufactors();
-        customers = createDemoCustomers();
-        processCells = createDemoProcessCells();
-        // manufacturers = SerializationService.deSerializeEnterpriseDatao("manufactures.ser");
-        // customers = SerializationService.deSerializeEnterpriseDatao("customers.ser");
-        // processCells = SerializationService.deSerializeProcessCellDatao();
+        // manufacturers = createDemoManufactors();
+        // customers = createDemoCustomers();
+        // processCells = createDemoProcessCells();
+        manufacturers = SerializationService.deSerializeEnterpriseDatao("manufactures.ser");
+        customers = SerializationService.deSerializeEnterpriseDatao("customers.ser");
+        processCells = SerializationService.deSerializeProcessCellDatao();
 
         tableProcessCells.setItems(processCells);
         columnSerialnumber.setCellValueFactory(cellData -> cellData.getValue().serialnumberProperty().asObject());

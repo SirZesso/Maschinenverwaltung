@@ -17,6 +17,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -45,9 +47,7 @@ public class CustomerController {
     @FXML
     private TableColumn<ProcessCell, Integer> columnSerialnumber;
     @FXML
-    private TableColumn<ProcessCell, Integer> columnSpezification;
-    @FXML
-    private TableColumn<ProcessCell, MachineType> columnType;
+    private TableColumn<ProcessCell, String> columnType;
     @FXML
     private Label labelSpecification;
     @FXML
@@ -56,6 +56,8 @@ public class CustomerController {
     private TableView<ProcessCell> tableProcessCells;
     @FXML
     private TextArea textareaDescription;
+    @FXML
+    private ImageView imageProcessCell;
 
     // Methodes******************************************************
     public void setMainApp(MainApp mainApp) {
@@ -66,13 +68,10 @@ public class CustomerController {
     private void initialize() {
 
         sites = createSites();
-        areas = createDemoAreas();
+        // areas = createDemoAreas();
 
-        
-        //processCells = allprocessCells.filtered(processCells -> processCells.getCustomer().getId() == "ETA");
-        //System.out.println(processCells);
         // sites = SerializationService.deSerializeSiteDatao();
-        //areas = SerializationService.deSerializeAreaDatao();
+        areas = SerializationService.deSerializeAreaDatao();
         processCells = SerializationService.deSerializeProcessCellDatao();
         System.out.println("Cells" + processCells);
         System.out.println("Areas" + areas);
@@ -98,6 +97,13 @@ public class CustomerController {
         tableAreas.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> showAreaInfo(newValue));
 
+        tableProcessCells.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                imageProcessCell.setImage(new Image(newValue.getImagePath()));
+            } else {
+                imageProcessCell.setImage(null);
+            }
+        });
     }
 
     private ObservableList<Site> createSites() {
@@ -141,7 +147,7 @@ public class CustomerController {
 
     @FXML
     void createArea(ActionEvent event) {
-        
+
     }
 
     @FXML
@@ -184,7 +190,7 @@ public class CustomerController {
             tableProcessCells.setItems(areaProcessCells);
             columnSerialnumber.setCellValueFactory(cellData -> cellData.getValue().serialnumberProperty().asObject());
             columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-    
+            columnType.setCellValueFactory(cellData -> cellData.getValue().typeProperty().asString());
 
             // Label
             labelSpecification.setText(area.getName());
@@ -192,7 +198,6 @@ public class CustomerController {
             textareaDescription.setText(area.getDescription());
             choiceboxSite.setValue(area.getSiteId());
             choiceboxFloor.setValue(area.getFloor());
-
 
         } else {
 

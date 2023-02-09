@@ -30,8 +30,8 @@
             </AnchorPane>
             <AnchorPane prefHeight="400.0" prefWidth="115.0">
                <children>
-                  <Button layoutX="20.0" layoutY="95.0" mnemonicParsing="false" onAction="#removeProcessCell" prefHeight="25.0" prefWidth="59.0" text="&lt;--" />
-                  <Button layoutX="20.0" layoutY="136.0" mnemonicParsing="false" onAction="#addProcessCell" prefHeight="25.0" prefWidth="59.0" text="--&gt;" />
+                  <Button layoutX="21.0" layoutY="147.0" mnemonicParsing="false" onAction="#removeProcessCell" prefHeight="25.0" prefWidth="59.0" text="&lt;--" />
+                  <Button layoutX="20.0" layoutY="104.0" mnemonicParsing="false" onAction="#addProcessCell" prefHeight="25.0" prefWidth="59.0" text="--&gt;" />
                   <Button layoutX="20.0" layoutY="331.0" mnemonicParsing="false" onAction="#exitModification" prefHeight="25.0" prefWidth="59.0" text="Exit" />
                </children>
             </AnchorPane>
