@@ -11,12 +11,14 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerController">
    <children>
@@ -63,7 +65,7 @@
                         </TableView>
                         <AnchorPane prefHeight="508.0" prefWidth="503.0">
                            <children>
-                              <Label fx:id="labelSpecification" layoutX="214.0">
+                              <Label fx:id="labelAreaName" layoutX="214.0" AnchorPane.topAnchor="5.0">
                                  <font>
                                     <Font size="30.0" />
                                  </font>
@@ -93,7 +95,7 @@
                                     <Font name="System Bold" size="30.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="buttonCreateArea" layoutX="85.0" layoutY="22.0" mnemonicParsing="false" onAction="#createArea" prefHeight="30.0" prefWidth="30.0" text="+" />
+                              <Button fx:id="buttonModifyArea" layoutX="89.0" layoutY="23.0" mnemonicParsing="false" onAction="#modifyArea" prefHeight="30.0" text="Anpassen" />
                               <Button fx:id="buttonAddProcessCell" layoutX="193.0" layoutY="232.0" mnemonicParsing="false" onAction="#modifyProcessCell" prefHeight="30.0" prefWidth="78.0" text="Anpassen" />
                               <TableView fx:id="tableProcessCells" layoutX="14.0" layoutY="295.0" prefHeight="200.0" prefWidth="310.0">
                                 <columns>
@@ -107,8 +109,14 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextArea fx:id="textareaDescription" layoutX="14.0" layoutY="86.0" prefHeight="63.0" prefWidth="448.0" />
+                              <TextArea fx:id="textareaDescription" layoutX="14.0" layoutY="86.0" prefHeight="65.0" prefWidth="448.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="85.0" />
                               <ImageView fx:id="imageProcessCell" fitHeight="150.0" fitWidth="150.0" layoutX="339.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true" />
+                              <TextField fx:id="textfieldAreaName" layoutX="201.0" layoutY="5.0" prefHeight="65.0" prefWidth="260.0" AnchorPane.topAnchor="5.0">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </TextField>
+                              <Text fx:id="textDescription" layoutX="14.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="448.13671875" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="85.0" />
                            </children>
                         </AnchorPane>
                      </children>

@@ -19,14 +19,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class CustomerController {
 
-    private static ObservableList<ProcessCell> processCells;
-    private static ObservableList<Area> areas;
-    private static ObservableList<Site> sites;
+    private ObservableList<ProcessCell> processCells;
+    private ObservableList<Area> areas = FXCollections.observableArrayList();
+    private ObservableList<Site> sites;
     private MainApp mainApp;
     private Stage stage;
 
@@ -35,7 +36,7 @@ public class CustomerController {
     @FXML
     private Button buttonAddProcessCell;
     @FXML
-    private Button buttonCreateArea;
+    private Button buttonModifyArea;
     @FXML
     private ChoiceBox<Floor> choiceboxFloor;
     @FXML
@@ -49,13 +50,17 @@ public class CustomerController {
     @FXML
     private TableColumn<ProcessCell, String> columnType;
     @FXML
-    private Label labelSpecification;
+    private Label labelAreaName;
     @FXML
     private TableView<Area> tableAreas;
     @FXML
     private TableView<ProcessCell> tableProcessCells;
     @FXML
     private TextArea textareaDescription;
+    @FXML
+    private TextField textfieldAreaName;
+    @FXML
+    private Text textDescription;
     @FXML
     private ImageView imageProcessCell;
 
@@ -68,18 +73,23 @@ public class CustomerController {
     private void initialize() {
 
         sites = createSites();
-        // areas = createDemoAreas();
 
         // sites = SerializationService.deSerializeSiteDatao();
-        areas = SerializationService.deSerializeAreaDatao();
+        // areas = SerializationService.deSerializeAreaDatao();
         processCells = SerializationService.deSerializeProcessCellDatao();
-        System.out.println("Cells" + processCells);
-        System.out.println("Areas" + areas);
+        loadAreas();
 
-        tableAreas.setItems(areas);
+
+        ObservableList<Area> filteredAreas = FXCollections.observableArrayList(areas.stream()
+                .filter(area -> area.getName() != null && !area.getName().isEmpty())
+                .collect(Collectors.toList()));
+
+        tableAreas.setItems(filteredAreas);
+
         columnArea.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 
         showAreaInfo(null);
+        areaEditView(false);
 
         List<Floor> floors = Arrays.asList(Floor.values());
         ObservableList<Floor> floorList = FXCollections.observableList(floors);
@@ -100,6 +110,7 @@ public class CustomerController {
         tableProcessCells.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 imageProcessCell.setImage(new Image(newValue.getImagePath()));
+                System.out.println(newValue.getArea());
             } else {
                 imageProcessCell.setImage(null);
             }
@@ -146,8 +157,12 @@ public class CustomerController {
     }
 
     @FXML
-    void createArea(ActionEvent event) {
-
+    void modifyArea(ActionEvent event) {
+        if (buttonModifyArea.getText().equals("Anpassen")) {
+            areaEditView(true);
+        } else {
+            areaEditView(false);
+        }
     }
 
     @FXML
@@ -178,24 +193,21 @@ public class CustomerController {
 
     private void showAreaInfo(Area area) {
         if (area != null) {
-            // ProcessCells der Area auswählen und in die Liste einfügen
+
             ObservableList<ProcessCell> areaProcessCells = FXCollections.observableList(processCells.stream()
-                    .filter(processCell -> {
-                        if (processCell.getArea() == null || processCell.getArea().getName() == null) {
-                            return false;
-                        }
-                        return processCell.getArea().getName().equals(area.getName());
-                    })
-                    .collect(Collectors.toList()));
+                .filter(processCell -> processCell.getArea().equals(area))
+                .collect(Collectors.toList()));
             tableProcessCells.setItems(areaProcessCells);
             columnSerialnumber.setCellValueFactory(cellData -> cellData.getValue().serialnumberProperty().asObject());
             columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
             columnType.setCellValueFactory(cellData -> cellData.getValue().typeProperty().asString());
 
             // Label
-            labelSpecification.setText(area.getName());
+            labelAreaName.setText(area.getName());
             // Textfield
             textareaDescription.setText(area.getDescription());
+            textDescription.setText(area.getDescription());
+            textfieldAreaName.setText(area.getName());
             choiceboxSite.setValue(area.getSiteId());
             choiceboxFloor.setValue(area.getFloor());
 
@@ -203,6 +215,36 @@ public class CustomerController {
 
         }
 
+    }
+
+    private void loadAreas() {
+        areas.clear();
+        // Add Areas from ProcessCells
+        for (ProcessCell processCell : processCells) {
+            if (!areas.contains(processCell.getArea())) {
+                areas.add(processCell.getArea());
+            }
+        }
+        // Add Areas from serialization
+        List<Area> savedAreas = SerializationService.deSerializeAreaDatao();
+        areas.addAll(savedAreas
+                .stream().filter(
+                        area -> area.getName() != null && !areas.stream()
+                                .anyMatch(existingArea -> existingArea.getName() != null
+                                        && existingArea.getName().equals(area.getName())))
+                .collect(Collectors.toList()));
+    }
+
+    private void areaEditView(boolean status) {
+        if (status) {
+            buttonModifyArea.setText("Zurück");
+        } else {
+            buttonModifyArea.setText("Anpassen");
+        }
+        textfieldAreaName.setVisible(status);
+        textareaDescription.setVisible(status);
+        labelAreaName.setVisible(!status);
+        textDescription.setVisible(!status);
     }
 
 }

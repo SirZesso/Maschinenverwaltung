@@ -15,7 +15,7 @@ import javafx.beans.property.StringProperty;
 import model.Enterprise;
 import model.customer.Area;
 
-public class ProcessCell implements Externalizable {
+public abstract class ProcessCell implements Externalizable {
 
     private IntegerProperty serialnumber;
     private StringProperty name;

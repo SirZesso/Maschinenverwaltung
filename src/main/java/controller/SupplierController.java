@@ -239,6 +239,8 @@ public class SupplierController {
                     newPress.setCustomer(getEnterprisebyName(choiceboxCustomer.getValue()));
                     newPress.setType(choiceboxType.getValue());
                     newPress.setNewton(Integer.parseInt(textfieldSpecial.getText()));
+                    newPress.setImagePath("images/ProcessCell_default.png");
+                    newPress.setArea(new Area());
                     processCells.add(newPress);
                     showProcessCellInfo(newPress);
                 } else if (labelSpecification.getText().equals("Laser")) {
@@ -249,6 +251,8 @@ public class SupplierController {
                     newLaser.setCustomer(getEnterprisebyName(choiceboxCustomer.getValue()));
                     newLaser.setType(choiceboxType.getValue());
                     newLaser.setWavelength(Integer.parseInt(textfieldSpecial.getText()));
+                    newLaser.setImagePath("images/ProcessCell_default.png");;
+                    newLaser.setArea(new Area());
                     processCells.add(newLaser);
                     showProcessCellInfo(newLaser);
                 }
@@ -299,6 +303,7 @@ public class SupplierController {
 
             // Image
             imageProcessCell.setImage(new Image(processCell.getImagePath()));
+            System.out.println(imageProcessCell.getImage());
 
             if (processCell instanceof Press) {
                 changeProcessCellInfo("Press");
