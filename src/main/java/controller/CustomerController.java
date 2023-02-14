@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import main.MainApp;
@@ -17,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -38,6 +41,12 @@ public class CustomerController {
     @FXML
     private Button buttonModifyArea;
     @FXML
+    private Button buttonNew;
+    @FXML
+    private Button buttonSave;
+    @FXML
+    private Button buttonDelete;
+    @FXML
     private ChoiceBox<Floor> choiceboxFloor;
     @FXML
     private ChoiceBox<String> choiceboxSite;
@@ -51,6 +60,10 @@ public class CustomerController {
     private TableColumn<ProcessCell, String> columnType;
     @FXML
     private Label labelAreaName;
+    @FXML
+    private Label labelSite;
+    @FXML
+    private Label labelFloor;
     @FXML
     private TableView<Area> tableAreas;
     @FXML
@@ -78,15 +91,7 @@ public class CustomerController {
         // areas = SerializationService.deSerializeAreaDatao();
         processCells = SerializationService.deSerializeProcessCellDatao();
         loadAreas();
-
-
-        ObservableList<Area> filteredAreas = FXCollections.observableArrayList(areas.stream()
-                .filter(area -> area.getName() != null && !area.getName().isEmpty())
-                .collect(Collectors.toList()));
-
-        tableAreas.setItems(filteredAreas);
-
-        columnArea.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        setAreaTabel(areas);
 
         showAreaInfo(null);
         areaEditView(false);
@@ -115,6 +120,17 @@ public class CustomerController {
                 imageProcessCell.setImage(null);
             }
         });
+    }
+
+    private void setAreaTabel(ObservableList<Area> areas) {
+
+        ObservableList<Area> filteredAreas = FXCollections.observableArrayList(areas.stream()
+                .filter(area -> area.getName() != null && !area.getName().isEmpty())
+                .collect(Collectors.toList()));
+
+        tableAreas.setItems(filteredAreas);
+        columnArea.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+
     }
 
     private ObservableList<Site> createSites() {
@@ -191,12 +207,96 @@ public class CustomerController {
         }
     }
 
+    @FXML
+    void deleteArea(ActionEvent event) {
+        int selectedIndex = tableAreas.getSelectionModel().getFocusedIndex();
+        if (selectedIndex >= 0) {
+            Alert confirmationAlert = new Alert(AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Area");
+            confirmationAlert.setContentText("Löschen?");
+            ButtonType okButton = new ButtonType("JA");
+            ButtonType noButton = new ButtonType("NEIN");
+            confirmationAlert.getButtonTypes().setAll(okButton, noButton);
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
+            if (result.get() == okButton) {
+                System.out.println("Button YES"); // Konsolenausgabe
+                System.out.println(selectedIndex); // Konsolenausgabe
+                Area area = tableAreas.getItems().get(selectedIndex);
+                for (ProcessCell processCell : processCells) {
+                    if (processCell.getArea() != null && processCell.getArea().equals(area)) {
+                        processCell.setArea(new Area());
+                    }
+                }
+                areas.remove(area);
+                tableAreas.getItems().remove(selectedIndex);
+                clearAreaInformations();
+            } else if (result.get() == noButton) {
+                System.out.println("Button NO"); // Konsolenausgabe
+                confirmationAlert.close();
+            }
+        } else {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Area löschen");
+            alert.setHeaderText("Keine Area ausgewählt");
+            alert.setContentText("Bitte wählen Sie eine Area in der Liste aus.");
+            alert.showAndWait();
+        }
+    }
+
+    private void clearAreaInformations() {
+        labelAreaName.setText("");
+        labelFloor.setText("");
+        labelSite.setText("");
+        textDescription.setText("");
+        textfieldAreaName.setText("");
+        textareaDescription.setText("");
+        choiceboxFloor.setValue(null);
+        choiceboxSite.setValue(null);
+
+        tableAreas.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    void newArea(ActionEvent event) {
+        clearAreaInformations();
+    }
+
+    @FXML
+    void saveArea(ActionEvent event) {
+        if (isInputValid()) {
+            Area selectedArea = tableAreas.getSelectionModel().getSelectedItem();
+            if (selectedArea != null) {
+                selectedArea.setName(textfieldAreaName.getText());
+                selectedArea.setDescription(textareaDescription.getText());
+                selectedArea.setSiteId(choiceboxSite.getValue());
+                selectedArea.setFloor(choiceboxFloor.getValue());
+                // selectedArea.setManager("Test");
+                // selectedArea.setSurface(10);
+                showAreaInfo(selectedArea);
+            } else {
+                Area newArea = new Area();
+                newArea.setName(textfieldAreaName.getText());
+                newArea.setDescription(textareaDescription.getText());
+                newArea.setSiteId(choiceboxSite.getValue());
+                newArea.setFloor(choiceboxFloor.getValue());
+                newArea.setManager("Test");
+                newArea.setSurface(10);
+                areas.add(newArea);
+                setAreaTabel(areas);
+                showAreaInfo(newArea);
+                
+            }
+            areaEditView(false);
+        }
+
+    }
+
     private void showAreaInfo(Area area) {
         if (area != null) {
 
             ObservableList<ProcessCell> areaProcessCells = FXCollections.observableList(processCells.stream()
-                .filter(processCell -> processCell.getArea().equals(area))
-                .collect(Collectors.toList()));
+                    .filter(processCell -> processCell.getArea().equals(area))
+                    .collect(Collectors.toList()));
             tableProcessCells.setItems(areaProcessCells);
             columnSerialnumber.setCellValueFactory(cellData -> cellData.getValue().serialnumberProperty().asObject());
             columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -204,6 +304,8 @@ public class CustomerController {
 
             // Label
             labelAreaName.setText(area.getName());
+            labelSite.setText(area.getSiteId());
+            labelFloor.setText(String.valueOf(area.getFloor()));
             // Textfield
             textareaDescription.setText(area.getDescription());
             textDescription.setText(area.getDescription());
@@ -243,8 +345,64 @@ public class CustomerController {
         }
         textfieldAreaName.setVisible(status);
         textareaDescription.setVisible(status);
+        buttonSave.setVisible(status);
+        buttonNew.setVisible(status);
+        buttonDelete.setVisible(status);
+        choiceboxFloor.setVisible(status);
+        choiceboxSite.setVisible(status);
         labelAreaName.setVisible(!status);
+        labelFloor.setVisible(!status);
+        labelSite.setVisible(!status);
         textDescription.setVisible(!status);
+    }
+
+    private boolean isInputValid() {
+        String errorMessage = "";
+        boolean valid = true;
+        if (textfieldAreaName.getText().isEmpty()) {
+            errorMessage += "Name darf nicht leer sein!\n";
+            textfieldAreaName.setStyle("-fx-background-color: #ffad99");
+            valid = false;
+        }
+        if (textareaDescription.getText().isEmpty()) {
+            errorMessage += "Beschreibung darf nicht leer sein!\n";
+            textareaDescription.setStyle("-fx-background-color: #ffad99");
+            valid = false;
+        }
+        if (choiceboxSite.getValue() == null) {
+            errorMessage += "Werk nicht zugewiesen.\n";
+            choiceboxSite.setStyle("-fx-background-color: #ffad99");
+            valid = false;
+        }
+        if (choiceboxFloor.getValue() == null) {
+            errorMessage += "Etage nicht zugeweisen.\n";
+            choiceboxFloor.setStyle("-fx-background-color: #ffad99");
+            valid = false;
+        }
+
+        if (!valid) {
+            // Show the error message.
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Felder Valdierung");
+            alert.setHeaderText("Bitte korrigieren Sie die ungültigen Felder.");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000);
+                    Platform.runLater(() -> {
+                        textfieldAreaName.setStyle("");
+                        textareaDescription.setStyle("");
+                        choiceboxSite.setStyle("");
+                        choiceboxFloor.setStyle("");
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+        return valid;
     }
 
 }

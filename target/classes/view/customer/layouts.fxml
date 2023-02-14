@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerController">
    <children>
       <BorderPane layoutX="92.0" layoutY="-22.0" prefHeight="550.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -63,9 +63,9 @@
                               <TableColumn fx:id="columnArea" prefWidth="246.0" text="Areas" />
                            </columns>
                         </TableView>
-                        <AnchorPane prefHeight="508.0" prefWidth="503.0">
+                        <AnchorPane prefHeight="508.0" prefWidth="548.0">
                            <children>
-                              <Label fx:id="labelAreaName" layoutX="214.0" AnchorPane.topAnchor="5.0">
+                              <Label fx:id="labelAreaName" layoutX="123.0" layoutY="6.0" text="AreaName" AnchorPane.topAnchor="6.0">
                                  <font>
                                     <Font size="30.0" />
                                  </font>
@@ -80,22 +80,22 @@
                               </Label>
                               <Label layoutX="19.0" layoutY="175.0" text="Werk">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font size="16.0" />
                                  </font>
                               </Label>
                               <Label layoutX="272.0" layoutY="175.0" text="Etage">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font size="16.0" />
                                  </font>
                               </Label>
-                              <ChoiceBox fx:id="choiceboxSite" layoutX="64.0" layoutY="173.0" prefWidth="150.0" />
+                              <ChoiceBox fx:id="choiceboxSite" layoutX="66.0" layoutY="173.0" prefWidth="150.0" />
                               <ChoiceBox fx:id="choiceboxFloor" layoutX="313.0" layoutY="173.0" prefWidth="150.0" />
                               <Label layoutX="14.0" layoutY="224.0" text="ProcessCells">
                                  <font>
                                     <Font name="System Bold" size="30.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="buttonModifyArea" layoutX="89.0" layoutY="23.0" mnemonicParsing="false" onAction="#modifyArea" prefHeight="30.0" text="Anpassen" />
+                              <Button fx:id="buttonModifyArea" layoutX="388.0" layoutY="22.0" mnemonicParsing="false" onAction="#modifyArea" prefHeight="30.0" text="Anpassen" />
                               <Button fx:id="buttonAddProcessCell" layoutX="193.0" layoutY="232.0" mnemonicParsing="false" onAction="#modifyProcessCell" prefHeight="30.0" prefWidth="78.0" text="Anpassen" />
                               <TableView fx:id="tableProcessCells" layoutX="14.0" layoutY="295.0" prefHeight="200.0" prefWidth="310.0">
                                 <columns>
@@ -106,17 +106,28 @@
                               </TableView>
                               <Label layoutX="14.0" layoutY="59.0" text="Beschreibung">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font size="16.0" />
                                  </font>
                               </Label>
-                              <TextArea fx:id="textareaDescription" layoutX="14.0" layoutY="86.0" prefHeight="65.0" prefWidth="448.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="85.0" />
-                              <ImageView fx:id="imageProcessCell" fitHeight="150.0" fitWidth="150.0" layoutX="339.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true" />
-                              <TextField fx:id="textfieldAreaName" layoutX="201.0" layoutY="5.0" prefHeight="65.0" prefWidth="260.0" AnchorPane.topAnchor="5.0">
+                              <TextArea fx:id="textareaDescription" layoutX="14.0" layoutY="86.0" prefHeight="65.0" prefWidth="220.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="85.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></TextArea>
+                              <ImageView fx:id="imageProcessCell" fitHeight="150.0" fitWidth="150.0" layoutX="355.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true" />
+                              <TextField fx:id="textfieldAreaName" layoutX="123.0" layoutY="4.0" prefHeight="65.0" prefWidth="260.0" AnchorPane.topAnchor="4.0">
                                  <font>
                                     <Font size="30.0" />
                                  </font>
                               </TextField>
-                              <Text fx:id="textDescription" layoutX="14.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="448.13671875" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="85.0" />
+                              <Text fx:id="textDescription" layoutX="14.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="220.13671875" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="85.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Text>
+                              <Button fx:id="buttonSave" layoutX="470.0" layoutY="22.0" mnemonicParsing="false" onAction="#saveArea" prefHeight="30.0" text="Speichern" />
+                              <Button fx:id="buttonNew" layoutX="470.0" layoutY="64.0" mnemonicParsing="false" onAction="#newArea" prefHeight="30.0" prefWidth="68.0" text="Neu" />
+                              <Button fx:id="buttonDelete" layoutX="471.0" layoutY="109.0" mnemonicParsing="false" onAction="#deleteArea" prefHeight="30.0" prefWidth="68.0" text="Löschen" />
+                              <Label fx:id="labelSite" layoutX="72.0" layoutY="177.0" />
+                              <Label fx:id="labelFloor" layoutX="319.0" layoutY="177.0" />
                            </children>
                         </AnchorPane>
                      </children>
