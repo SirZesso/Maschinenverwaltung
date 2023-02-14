@@ -147,6 +147,28 @@ public class SupplierController {
         System.out.println("Exit");
         this.mainApp.showMainView();
     }
+    @FXML
+	private void version() {
+
+		// Show the error message.
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("ProcessCell Observation Tool");
+		alert.setHeaderText("Software Versions Informationen");
+		alert.setContentText("Version: 1");
+		alert.showAndWait();
+
+	}
+    @FXML
+	private void authors() {
+
+		// Show the error message.
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("ProcessCell Observation Tool");
+		alert.setHeaderText("Persönliche Informationen");
+		alert.setContentText("Programmierer: \tPatrick Schreyer und Yannic Ziegler \nDatum: \t\t\t20.02.2023");
+		alert.showAndWait();
+
+	}
 
     @FXML
     void modifyProcessCell(ActionEvent event) {
@@ -169,6 +191,8 @@ public class SupplierController {
 
         processCellEditView(true);
         clearProcessCellInformations();
+        imageProcessCell.setImage(new Image("images/ProcessCell_default.png"));
+        buttonChooseImage.setVisible(false);
 
         if (result.get() == buttonPress) {
             changeProcessCellInfo("Press");
@@ -278,10 +302,11 @@ public class SupplierController {
                 Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 System.out.println("images/"+ selectedFile.getName());
                 selectedProcessCell.setImagePath("images/"+ selectedFile.getName());
-                showProcessCellInfo(selectedProcessCell);
+                
             } catch (Exception ex) {
                 System.out.println("Fehler beim Kopieren des Bildes: " + ex.getMessage());
             }
+            showProcessCellInfo(selectedProcessCell);
         }
     }
 
@@ -303,7 +328,7 @@ public class SupplierController {
 
             // Image
             imageProcessCell.setImage(new Image(processCell.getImagePath()));
-            System.out.println(imageProcessCell.getImage());
+            
 
             if (processCell instanceof Press) {
                 changeProcessCellInfo("Press");

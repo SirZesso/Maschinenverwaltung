@@ -65,6 +65,10 @@ public class CustomerController {
     @FXML
     private Label labelFloor;
     @FXML
+    private Label labelManager;
+    @FXML
+    private Label labelSurface;
+    @FXML
     private TableView<Area> tableAreas;
     @FXML
     private TableView<ProcessCell> tableProcessCells;
@@ -72,6 +76,10 @@ public class CustomerController {
     private TextArea textareaDescription;
     @FXML
     private TextField textfieldAreaName;
+    @FXML
+    private TextField textfieldManager;
+    @FXML
+    private TextField textfieldSurface;
     @FXML
     private Text textDescription;
     @FXML
@@ -171,6 +179,28 @@ public class CustomerController {
         System.out.println("Exit");
         this.mainApp.showMainView();
     }
+    @FXML
+	private void version() {
+
+		// Show the error message.
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("ProcessCell Observation Tool");
+		alert.setHeaderText("Software Versions Informationen");
+		alert.setContentText("Version: 1");
+		alert.showAndWait();
+
+	}
+    @FXML
+	private void authors() {
+
+		// Show the error message.
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("ProcessCell Observation Tool");
+		alert.setHeaderText("Persönliche Informationen");
+		alert.setContentText("Programmierer: \tPatrick Schreyer und Yannic Ziegler \nDatum: \t\t\t20.02.2023");
+		alert.showAndWait();
+
+	}
 
     @FXML
     void modifyArea(ActionEvent event) {
@@ -247,9 +277,14 @@ public class CustomerController {
         labelAreaName.setText("");
         labelFloor.setText("");
         labelSite.setText("");
+        labelManager.setText("");
+        labelSurface.setText("");
         textDescription.setText("");
         textfieldAreaName.setText("");
+        textfieldManager.setText("");
+        textfieldSurface.setText("");
         textareaDescription.setText("");
+
         choiceboxFloor.setValue(null);
         choiceboxSite.setValue(null);
 
@@ -270,8 +305,8 @@ public class CustomerController {
                 selectedArea.setDescription(textareaDescription.getText());
                 selectedArea.setSiteId(choiceboxSite.getValue());
                 selectedArea.setFloor(choiceboxFloor.getValue());
-                // selectedArea.setManager("Test");
-                // selectedArea.setSurface(10);
+                selectedArea.setManager(textfieldManager.getText());
+                selectedArea.setSurface(Double.parseDouble(textfieldSurface.getText()));
                 showAreaInfo(selectedArea);
             } else {
                 Area newArea = new Area();
@@ -279,8 +314,8 @@ public class CustomerController {
                 newArea.setDescription(textareaDescription.getText());
                 newArea.setSiteId(choiceboxSite.getValue());
                 newArea.setFloor(choiceboxFloor.getValue());
-                newArea.setManager("Test");
-                newArea.setSurface(10);
+                newArea.setManager(textfieldManager.getText());
+                newArea.setSurface(Double.parseDouble(textfieldSurface.getText()));
                 areas.add(newArea);
                 setAreaTabel(areas);
                 showAreaInfo(newArea);
@@ -306,10 +341,14 @@ public class CustomerController {
             labelAreaName.setText(area.getName());
             labelSite.setText(area.getSiteId());
             labelFloor.setText(String.valueOf(area.getFloor()));
+            labelManager.setText(area.getManager());
+            labelSurface.setText(String.valueOf(area.getSurface()));
             // Textfield
             textareaDescription.setText(area.getDescription());
             textDescription.setText(area.getDescription());
             textfieldAreaName.setText(area.getName());
+            textfieldManager.setText(area.getManager());
+            textfieldSurface.setText(String.valueOf(area.getSurface()));
             choiceboxSite.setValue(area.getSiteId());
             choiceboxFloor.setValue(area.getFloor());
 
@@ -344,15 +383,20 @@ public class CustomerController {
             buttonModifyArea.setText("Anpassen");
         }
         textfieldAreaName.setVisible(status);
+        textfieldManager.setVisible(status);
+        textfieldSurface.setVisible(status);
         textareaDescription.setVisible(status);
         buttonSave.setVisible(status);
         buttonNew.setVisible(status);
         buttonDelete.setVisible(status);
         choiceboxFloor.setVisible(status);
         choiceboxSite.setVisible(status);
+        //Unvisible
         labelAreaName.setVisible(!status);
         labelFloor.setVisible(!status);
         labelSite.setVisible(!status);
+        labelManager.setVisible(!status);
+        labelSurface.setVisible(!status);
         textDescription.setVisible(!status);
     }
 
@@ -362,6 +406,11 @@ public class CustomerController {
         if (textfieldAreaName.getText().isEmpty()) {
             errorMessage += "Name darf nicht leer sein!\n";
             textfieldAreaName.setStyle("-fx-background-color: #ffad99");
+            valid = false;
+        }
+        if (textfieldManager.getText().isEmpty()) {
+            errorMessage += "Es muss jemand zuständig sein.\n";
+            textfieldManager.setStyle("-fx-background-color: #ffad99");
             valid = false;
         }
         if (textareaDescription.getText().isEmpty()) {
@@ -377,6 +426,19 @@ public class CustomerController {
         if (choiceboxFloor.getValue() == null) {
             errorMessage += "Etage nicht zugeweisen.\n";
             choiceboxFloor.setStyle("-fx-background-color: #ffad99");
+            valid = false;
+        }
+        if (textfieldSurface.getText().isEmpty()) {
+            errorMessage += "Die Fläche wurde nicht angegeben\n";
+            textfieldSurface.setStyle("-fx-background-color: #ffad99");
+            valid = false;
+        }
+        try {
+            Double.parseDouble(textfieldSurface.getText());
+
+        } catch (NumberFormatException e) {
+            errorMessage += "Fläche darf nur Zahlen enthalten\n";
+            textfieldSurface.setStyle("-fx-background-color: #ffad99");
             valid = false;
         }
 
