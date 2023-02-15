@@ -99,6 +99,7 @@ public class CustomerController {
         // areas = SerializationService.deSerializeAreaDatao();
         processCells = SerializationService.deSerializeProcessCellDatao();
         loadAreas();
+        //areas = createDemoAreas();
         setAreaTabel(areas);
 
         showAreaInfo(null);
