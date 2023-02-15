@@ -8,47 +8,57 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProcessCellController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+   prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProcessCellController">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
+         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane prefHeight="200.0">
+            <AnchorPane prefHeight="400.0" prefWidth="315.0">
                <children>
-                  <Label text="Verfügbare ProcessCells" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0">
+                  <Label text="Verfügbare ProcessCells" AnchorPane.leftAnchor="5.0"
+                     AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="tabelAviableProcessCells" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
-                    <columns>
-                      <TableColumn fx:id="columnAviableNr" minWidth="-1.0" prefWidth="90.0" text="Serienummer" />
-                      <TableColumn fx:id="columnAviableName" text="Name" />
-                        <TableColumn fx:id="columnAviableType" text="Type" />
-                    </columns>
+                  <TableView fx:id="tabelAviableProcessCells" prefHeight="200.0" prefWidth="287.0"
+                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+                     <columns>
+                        <TableColumn fx:id="columnAviableNr" prefWidth="90.0" text="Serienummer" />
+                        <TableColumn fx:id="columnAviableName" prefWidth="90.0" text="Name" />
+                        <TableColumn fx:id="columnAviableType" prefWidth="120.0" text="Type" />
+                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="400.0" prefWidth="107.0">
+            <AnchorPane prefHeight="400.0" prefWidth="115.0">
                <children>
-                  <Button layoutX="22.0" layoutY="95.0" mnemonicParsing="false" onAction="#removeProcessCell" prefHeight="25.0" prefWidth="59.0" text="&lt;--" />
-                  <Button layoutX="22.0" layoutY="136.0" mnemonicParsing="false" onAction="#addProcessCell" prefHeight="25.0" prefWidth="59.0" text="--&gt;" />
-                  <Button layoutX="22.0" layoutY="294.0" mnemonicParsing="false" onAction="#saveModification" prefHeight="25.0" prefWidth="59.0" text="Save" />
-                  <Button layoutX="22.0" layoutY="332.0" mnemonicParsing="false" onAction="#exitModification" prefHeight="25.0" prefWidth="59.0" text="Exit" />
+                  <Button layoutX="21.0" layoutY="147.0" mnemonicParsing="false"
+                     onAction="#removeProcessCell" prefHeight="25.0" prefWidth="59.0" text="&lt;--" />
+                  <Button layoutX="20.0" layoutY="104.0" mnemonicParsing="false"
+                     onAction="#addProcessCell" prefHeight="25.0" prefWidth="59.0" text="--&gt;" />
+                  <Button layoutX="20.0" layoutY="331.0" mnemonicParsing="false"
+                     onAction="#exitModification" prefHeight="25.0" prefWidth="59.0" text="Exit" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0">
+            <AnchorPane prefHeight="400.0" prefWidth="315.0">
                <children>
-                  <Label text="Zugewiesene ProcessCells" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0">
+                  <Label text="Zugewiesene ProcessCells" AnchorPane.leftAnchor="5.0"
+                     AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="tabelAssignedProcessCells" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+                  <TableView fx:id="tabelAssignedProcessCells" prefHeight="200.0"
+                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
                      <columns>
                         <TableColumn fx:id="columnAssignedNr" prefWidth="90.0" text="Serienummer" />
-                        <TableColumn fx:id="columnAssignedName" text="Name" />
-                        <TableColumn fx:id="columnAssignedType" text="Type" />
+                        <TableColumn fx:id="columnAssignedName" prefWidth="90.0" text="Name" />
+                        <TableColumn fx:id="columnAssignedType" prefWidth="120.0" text="Type" />
                      </columns>
                   </TableView>
                </children>
