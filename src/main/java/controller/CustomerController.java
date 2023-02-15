@@ -294,6 +294,7 @@ public class CustomerController {
     @FXML
     void newArea(ActionEvent event) {
         clearAreaInformations();
+        areaEditView(true);
     }
 
     @FXML
@@ -387,7 +388,6 @@ public class CustomerController {
         textfieldSurface.setVisible(status);
         textareaDescription.setVisible(status);
         buttonSave.setVisible(status);
-        buttonNew.setVisible(status);
         buttonDelete.setVisible(status);
         choiceboxFloor.setVisible(status);
         choiceboxSite.setVisible(status);

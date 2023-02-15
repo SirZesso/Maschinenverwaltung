@@ -95,7 +95,7 @@
                                     <Font name="System Bold" size="30.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="buttonModifyArea" layoutX="466.0" layoutY="22.0" mnemonicParsing="false" onAction="#modifyArea" prefHeight="30.0" text="Anpassen" />
+                              <Button fx:id="buttonModifyArea" layoutX="466.0" layoutY="22.0" mnemonicParsing="false" onAction="#modifyArea" prefHeight="30.0" prefWidth="70.0" text="Anpassen" />
                               <Button fx:id="buttonAddProcessCell" layoutX="193.0" layoutY="232.0" mnemonicParsing="false" onAction="#modifyProcessCell" prefHeight="30.0" prefWidth="78.0" text="Anpassen" />
                               <TableView fx:id="tableProcessCells" layoutX="14.0" layoutY="295.0" prefHeight="200.0" prefWidth="310.0">
                                 <columns>
@@ -117,9 +117,9 @@
                                  </font>
                               </TextField>
                               <Text fx:id="textDescription" layoutX="13.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="220.13671875" AnchorPane.leftAnchor="13.0" AnchorPane.topAnchor="147.05078125" />
-                              <Button fx:id="buttonSave" layoutX="465.0" layoutY="79.0" mnemonicParsing="false" onAction="#saveArea" prefHeight="30.0" text="Speichern" />
-                              <Button fx:id="buttonNew" layoutX="465.0" layoutY="119.0" mnemonicParsing="false" onAction="#newArea" prefHeight="30.0" prefWidth="68.0" text="Neu" />
-                              <Button fx:id="buttonDelete" layoutX="465.0" layoutY="163.0" mnemonicParsing="false" onAction="#deleteArea" prefHeight="30.0" prefWidth="68.0" text="Löschen" />
+                              <Button fx:id="buttonSave" layoutX="465.0" layoutY="119.0" mnemonicParsing="false" onAction="#saveArea" prefHeight="30.0" prefWidth="70.0" text="Speichern" />
+                              <Button fx:id="buttonNew" layoutX="465.0" layoutY="71.0" mnemonicParsing="false" onAction="#newArea" prefHeight="30.0" prefWidth="70.0" text="Neu" />
+                              <Button fx:id="buttonDelete" layoutX="465.0" layoutY="163.0" mnemonicParsing="false" onAction="#deleteArea" prefHeight="30.0" prefWidth="70.0" text="Löschen" />
                               <Label fx:id="labelSite" layoutX="305.0" layoutY="86.0" prefHeight="17.0" />
                               <Label fx:id="labelFloor" layoutX="303.0" layoutY="127.0" prefHeight="17.0" />
                               <Label layoutX="13.0" layoutY="85.0" text="Zuständig:">
