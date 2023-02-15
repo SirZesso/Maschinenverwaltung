@@ -98,7 +98,10 @@ public class CustomerController {
         // sites = SerializationService.deSerializeSiteDatao();
         // areas = SerializationService.deSerializeAreaDatao();
         processCells = SerializationService.deSerializeProcessCellDatao();
+
+        // areas = createDemoAreas();
         loadAreas();
+
         setAreaTabel(areas);
 
         showAreaInfo(null);
@@ -154,6 +157,7 @@ public class CustomerController {
 
     }
 
+    // TODO: Create more Demo areas
     private ObservableList<Area> createDemoAreas() {
 
         List<Area> areas = new ArrayList<>();
@@ -179,28 +183,30 @@ public class CustomerController {
         System.out.println("Exit");
         this.mainApp.showMainView();
     }
+
     @FXML
-	private void version() {
+    private void version() {
 
-		// Show the error message.
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("ProcessCell Observation Tool");
-		alert.setHeaderText("Software Versions Informationen");
-		alert.setContentText("Version: 1");
-		alert.showAndWait();
+        // Show the error message.
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("ProcessCell Observation Tool");
+        alert.setHeaderText("Software Versions Informationen");
+        alert.setContentText("Version: 1");
+        alert.showAndWait();
 
-	}
+    }
+
     @FXML
-	private void authors() {
+    private void authors() {
 
-		// Show the error message.
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("ProcessCell Observation Tool");
-		alert.setHeaderText("Persönliche Informationen");
-		alert.setContentText("Programmierer: \tPatrick Schreyer und Yannic Ziegler \nDatum: \t\t\t20.02.2023");
-		alert.showAndWait();
+        // Show the error message.
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("ProcessCell Observation Tool");
+        alert.setHeaderText("Persönliche Informationen");
+        alert.setContentText("Programmierer: \tPatrick Schreyer und Yannic Ziegler \nDatum: \t\t\t20.02.2023");
+        alert.showAndWait();
 
-	}
+    }
 
     @FXML
     void modifyArea(ActionEvent event) {
@@ -320,7 +326,7 @@ public class CustomerController {
                 areas.add(newArea);
                 setAreaTabel(areas);
                 showAreaInfo(newArea);
-                
+
             }
             areaEditView(false);
         }
@@ -391,7 +397,7 @@ public class CustomerController {
         buttonDelete.setVisible(status);
         choiceboxFloor.setVisible(status);
         choiceboxSite.setVisible(status);
-        //Unvisible
+        // Unvisible
         labelAreaName.setVisible(!status);
         labelFloor.setVisible(!status);
         labelSite.setVisible(!status);
