@@ -85,7 +85,6 @@ public class SupplierController {
     @FXML
     private TextField textfieldSpecial;
 
-
     // Methodes******************************************************
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -147,28 +146,30 @@ public class SupplierController {
         System.out.println("Exit");
         this.mainApp.showMainView();
     }
+
     @FXML
-	private void version() {
+    private void version() {
 
-		// Show the error message.
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("ProcessCell Observation Tool");
-		alert.setHeaderText("Software Versions Informationen");
-		alert.setContentText("Version: 1");
-		alert.showAndWait();
+        // Show the error message.
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("ProcessCell Observation Tool");
+        alert.setHeaderText("Software Versions Informationen");
+        alert.setContentText("Version: 1");
+        alert.showAndWait();
 
-	}
+    }
+
     @FXML
-	private void authors() {
+    private void authors() {
 
-		// Show the error message.
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("ProcessCell Observation Tool");
-		alert.setHeaderText("Persönliche Informationen");
-		alert.setContentText("Programmierer: \tPatrick Schreyer und Yannic Ziegler \nDatum: \t\t\t20.02.2023");
-		alert.showAndWait();
+        // Show the error message.
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("ProcessCell Observation Tool");
+        alert.setHeaderText("Persönliche Informationen");
+        alert.setContentText("Programmierer: \tPatrick Schreyer und Yannic Ziegler \nDatum: \t\t\t20.02.2023");
+        alert.showAndWait();
 
-	}
+    }
 
     @FXML
     void modifyProcessCell(ActionEvent event) {
@@ -275,7 +276,8 @@ public class SupplierController {
                     newLaser.setCustomer(getEnterprisebyName(choiceboxCustomer.getValue()));
                     newLaser.setType(choiceboxType.getValue());
                     newLaser.setWavelength(Integer.parseInt(textfieldSpecial.getText()));
-                    newLaser.setImagePath("images/ProcessCell_default.png");;
+                    newLaser.setImagePath("images/ProcessCell_default.png");
+                    ;
                     newLaser.setArea(new Area());
                     processCells.add(newLaser);
                     showProcessCellInfo(newLaser);
@@ -300,9 +302,9 @@ public class SupplierController {
                 String newFilePath = "src/main/resources/images/" + selectedFile.getName();
                 File newFile = new File(newFilePath);
                 Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("images/"+ selectedFile.getName());
-                selectedProcessCell.setImagePath("images/"+ selectedFile.getName());
-                
+                System.out.println("images/" + selectedFile.getName());
+                selectedProcessCell.setImagePath("images/" + selectedFile.getName());
+
             } catch (Exception ex) {
                 System.out.println("Fehler beim Kopieren des Bildes: " + ex.getMessage());
             }
@@ -328,7 +330,6 @@ public class SupplierController {
 
             // Image
             imageProcessCell.setImage(new Image(processCell.getImagePath()));
-            
 
             if (processCell instanceof Press) {
                 changeProcessCellInfo("Press");
@@ -534,17 +535,19 @@ public class SupplierController {
         // Enterprise customer = new Enterprise("Customer B", "logo_path", null);
 
         processCells.add(
-                new Press(1, "Compact_S", manufacturers.get(0), customers.get(0), MachineType.HANDARBEITSPLATZ,
-                        "images/ProcessCell_default.png",new Area(), 1000));
+                new Press(124335, "Compact S", manufacturers.get(0), customers.get(0), MachineType.HANDARBEITSPLATZ,
+                        "images/ProcessCell_default.png", new Area(), 1000));
         processCells.add(
-                new Laser(2, "Laser 1", manufacturers.get(1), customers.get(0), MachineType.HANDARBEITSPLATZ,"images/ProcessCell_default.png",new Area(), 2000));
+                new Laser(456433, "Laser 1", manufacturers.get(1), customers.get(0), MachineType.HANDARBEITSPLATZ,
+                        "images/ProcessCell_default.png", new Area(), 2000));
         processCells
-                .add(new Press(3, "Press 2", manufacturers.get(2), customers.get(1), MachineType.INTEGRIERT,
-                "images/ProcessCell_default.png",new Area(), 10000));
-        processCells.add(new Laser(4, "Laser 2", manufacturers.get(3), customers.get(1), MachineType.INTEGRIERT,"images/ProcessCell_default.png", new Area(), 2500));
+                .add(new Press(674341, "Press 2", manufacturers.get(2), customers.get(1), MachineType.INTEGRIERT,
+                        "images/ProcessCell_default.png", new Area(), 10000));
+        processCells.add(new Laser(4, "Laser 2", manufacturers.get(3), customers.get(1), MachineType.INTEGRIERT,
+                "images/ProcessCell_default.png", new Area(), 2500));
         processCells.add(
-                new Press(23658, "UFM01", manufacturers.get(0), customers.get(2), MachineType.HANDARBEITSPLATZ,
-                "images/ProcessCell_default.png",new Area(), 10000));
+                new Press(236358, "UFM01", manufacturers.get(0), customers.get(2), MachineType.HANDARBEITSPLATZ,
+                        "images/ProcessCell_default.png", new Area(), 10000));
 
         ObservableList<ProcessCell> observableList = FXCollections.observableArrayList(processCells);
         return observableList;
