@@ -148,9 +148,9 @@ public class CustomerController {
 
     private void setDetailTexts() {
         imageProcessCell.setImage(null);
-        labelProcessCellName.setText("Details zur Anlage");
-        labelProcessCellNr.setText("Selektieren Sie eine Anlage in der Tabelle");
-        labelProcessCellType.setText("oder weisen Sie eine dem Area zu. ");
+        labelProcessCellName.setText("Keine Anlagen Details");
+        labelProcessCellNr.setText("Es ist keine Anlage mit dem Area verknüpft");
+        labelProcessCellType.setText("oder selektiert.");
     }
 
     private void setAreaTabel(ObservableList<Area> areas) {
