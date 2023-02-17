@@ -83,6 +83,12 @@ public class CustomerController {
     @FXML
     private Text textDescription;
     @FXML
+    private Label labelProcessCellNr;
+    @FXML
+    private Label labelProcessCellName;
+    @FXML
+    private Label labelProcessCellType;
+    @FXML
     private ImageView imageProcessCell;
 
     // Methodes******************************************************
@@ -106,6 +112,7 @@ public class CustomerController {
 
         showAreaInfo(null);
         areaEditView(false);
+        setDetailTexts();
 
         List<Floor> floors = Arrays.asList(Floor.values());
         ObservableList<Floor> floorList = FXCollections.observableList(floors);
@@ -122,15 +129,28 @@ public class CustomerController {
 
         tableAreas.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> showAreaInfo(newValue));
+        tableAreas.getSelectionModel().selectFirst();
 
         tableProcessCells.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 imageProcessCell.setImage(new Image(newValue.getImagePath()));
+                labelProcessCellName.setText(newValue.getName());
+                labelProcessCellType.setText(String.valueOf(newValue.getType()));
+                labelProcessCellNr.setText(String.valueOf(newValue.getSerialnumber()));
                 System.out.println(newValue.getArea());
             } else {
-                imageProcessCell.setImage(null);
+                setDetailTexts();
             }
         });
+        tableProcessCells.getSelectionModel().selectFirst();
+
+    }
+
+    private void setDetailTexts() {
+        imageProcessCell.setImage(null);
+        labelProcessCellName.setText("Details zur Anlage");
+        labelProcessCellNr.setText("Selektieren Sie eine Anlage in der Tabelle");
+        labelProcessCellType.setText("oder weisen Sie eine dem Area zu. ");
     }
 
     private void setAreaTabel(ObservableList<Area> areas) {
@@ -353,6 +373,8 @@ public class CustomerController {
                     .filter(processCell -> processCell.getArea().equals(area))
                     .collect(Collectors.toList()));
             tableProcessCells.setItems(areaProcessCells);
+            tableProcessCells.getSelectionModel().selectFirst();
+
             columnSerialnumber.setCellValueFactory(cellData -> cellData.getValue().serialnumberProperty().asObject());
             columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
             columnType.setCellValueFactory(cellData -> cellData.getValue().typeProperty().asString());
