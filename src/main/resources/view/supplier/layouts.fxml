@@ -23,31 +23,37 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SupplierController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/18"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SupplierController">
    <children>
-      <BorderPane layoutX="92.0" layoutY="-22.0" prefHeight="550.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="92.0" layoutY="-22.0" prefHeight="550.0" prefWidth="750.0"
+         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+         AnchorPane.topAnchor="0.0">
          <top>
             <AnchorPane prefHeight="15.0" prefWidth="750.0" BorderPane.alignment="CENTER">
                <children>
-                  <MenuBar prefHeight="30.0" prefWidth="750.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
-                    <menus>
-                      <Menu mnemonicParsing="false" text="LogOut">
-                        <items>
-                          <MenuItem mnemonicParsing="false" onAction="#btnClickSaveExit" text="Save and Exit" />
+                  <MenuBar prefHeight="30.0" prefWidth="750.0" AnchorPane.leftAnchor="0.0"
+                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
+                     <menus>
+                        <Menu mnemonicParsing="false" text="LogOut">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#btnClickSaveExit"
+                                 text="Save and Exit" />
                               <SeparatorMenuItem mnemonicParsing="false" />
                               <MenuItem mnemonicParsing="false" onAction="#btnClickExit" text="Exit" />
-                        </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="About">
-                        <items>
-                          <MenuItem mnemonicParsing="false" onAction="#version" text="Version" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="About">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#version" text="Version" />
                               <SeparatorMenuItem mnemonicParsing="false" />
                               <MenuItem mnemonicParsing="false" onAction="#authors" text="Autors" />
-                        </items>
-                      </Menu>
-                    </menus>
+                           </items>
+                        </Menu>
+                     </menus>
                   </MenuBar>
-                  <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="7.0">
+                  <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true"
+                     preserveRatio="true" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="7.0">
                      <image>
                         <Image url="@../../images/AxNum_Logo.png" />
                      </image>
@@ -56,13 +62,17 @@
             </AnchorPane>
          </top>
          <center>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+               BorderPane.alignment="CENTER">
                <children>
-                  <HBox layoutX="31.0" layoutY="103.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox layoutX="31.0" layoutY="103.0" AnchorPane.bottomAnchor="0.0"
+                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                     AnchorPane.topAnchor="0.0">
                      <children>
                         <TableView fx:id="tableProcessCells">
                            <columns>
-                              <TableColumn fx:id="columnSerialnumber" prefWidth="117.0" text="Serienummer" />
+                              <TableColumn fx:id="columnSerialnumber" prefWidth="117.0"
+                                 text="Serienummer" />
                               <TableColumn fx:id="columnName" prefWidth="132.0" text="Name" />
                            </columns>
                         </TableView>
@@ -76,19 +86,24 @@
                                     <Insets left="10.0" top="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Allgemeine Informationen" wrappingWidth="232.1064453125">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                 text="Allgemeine Informationen" wrappingWidth="232.1064453125">
                                  <VBox.margin>
                                     <Insets left="10.0" />
                                  </VBox.margin>
                               </Text>
                               <HBox prefHeight="0.0" prefWidth="200.0">
                                  <children>
-                                    <Button fx:id="buttonNew" mnemonicParsing="false" onAction="#newProcessCell" prefHeight="25.0" prefWidth="150.0" text="+">
+                                    <Button fx:id="buttonNew" mnemonicParsing="false"
+                                       onAction="#newProcessCell" prefHeight="25.0"
+                                       prefWidth="150.0" text="+">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="buttonChangeProcessCellView" mnemonicParsing="false" onAction="#modifyProcessCell" prefHeight="25.0" prefWidth="220.0" text="Anpassen" />
+                                    <Button fx:id="buttonChangeProcessCellView"
+                                       mnemonicParsing="false" onAction="#modifyProcessCell"
+                                       prefHeight="25.0" prefWidth="220.0" text="Anpassen" />
                                  </children>
                                  <VBox.margin>
                                     <Insets left="10.0" top="20.0" />
@@ -96,8 +111,10 @@
                               </HBox>
                               <GridPane prefHeight="273.0" prefWidth="228.0">
                                  <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="86.0" minWidth="10.0" prefWidth="75.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="114.0" prefWidth="125.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="86.0"
+                                       minWidth="10.0" prefWidth="75.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0"
+                                       minWidth="114.0" prefWidth="125.0" />
                                  </columnConstraints>
                                  <rowConstraints>
                                     <RowConstraints vgrow="SOMETIMES" />
@@ -114,23 +131,38 @@
                                           <Insets />
                                        </GridPane.margin>
                                     </Label>
-                                    <Label fx:id="labelSerialnumber" prefHeight="17.0" prefWidth="192.0" GridPane.columnIndex="1" />
+                                    <Label fx:id="labelSerialnumber" prefHeight="17.0"
+                                       prefWidth="192.0" GridPane.columnIndex="1" />
                                     <Label text="Name" GridPane.rowIndex="1" />
-                                    <Label fx:id="labelName" prefHeight="17.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label prefHeight="17.0" prefWidth="87.0" text="Kunde" GridPane.rowIndex="3" />
-                                    <Label fx:id="labelCustomer" prefHeight="17.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label fx:id="labelName" prefHeight="17.0" prefWidth="192.0"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label prefHeight="17.0" prefWidth="87.0" text="Kunde"
+                                       GridPane.rowIndex="3" />
+                                    <Label fx:id="labelCustomer" prefHeight="17.0" prefWidth="192.0"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Label text="Hersteller" GridPane.rowIndex="2" />
-                                    <Label fx:id="labelManufacturer" prefHeight="17.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="labelManufacturer" prefHeight="17.0"
+                                       prefWidth="192.0" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="2" />
                                     <Label text="Type" GridPane.rowIndex="4" />
-                                    <Label fx:id="labelType" prefHeight="17.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label fx:id="labelSpecialAbout" text="Zusatz Info" GridPane.rowIndex="5" />
-                                    <Label fx:id="labelSpecial" prefHeight="17.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <TextField fx:id="textfieldSerialnumber" GridPane.columnIndex="1" />
-                                    <TextField fx:id="textfieldName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="textfieldSpecial" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <ChoiceBox fx:id="choiceboxManufacturer" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <ChoiceBox fx:id="choiceboxCustomer" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <ChoiceBox fx:id="choiceboxType" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label fx:id="labelType" prefHeight="17.0" prefWidth="192.0"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label fx:id="labelSpecialAbout" text="Zusatz Info"
+                                       GridPane.rowIndex="5" />
+                                    <Label fx:id="labelSpecial" prefHeight="17.0" prefWidth="192.0"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <TextField fx:id="textfieldSerialnumber"
+                                       GridPane.columnIndex="1" />
+                                    <TextField fx:id="textfieldName" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="1" />
+                                    <TextField fx:id="textfieldSpecial" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="5" />
+                                    <ChoiceBox fx:id="choiceboxManufacturer" prefWidth="150.0"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <ChoiceBox fx:id="choiceboxCustomer" prefWidth="150.0"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <ChoiceBox fx:id="choiceboxType" prefWidth="150.0"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
                                  <VBox.margin>
                                     <Insets left="10.0" />
@@ -141,12 +173,16 @@
                               </GridPane>
                               <VBox alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#deleteProcessCell" prefHeight="25.0" prefWidth="100.0" text="Löschen">
+                                    <Button fx:id="buttonDelete" mnemonicParsing="false"
+                                       onAction="#deleteProcessCell" prefHeight="25.0"
+                                       prefWidth="100.0" text="Löschen">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="buttonSave" mnemonicParsing="false" onAction="#saveNewProcessCell" prefHeight="25.0" prefWidth="100.0" text="Speichern">
+                                    <Button fx:id="buttonSave" mnemonicParsing="false"
+                                       onAction="#saveNewProcessCell" prefHeight="25.0"
+                                       prefWidth="100.0" text="Speichern">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
@@ -173,17 +209,21 @@
                                           <Insets left="20.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bild" wrappingWidth="232.1064453125">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bild"
+                                       wrappingWidth="232.1064453125">
                                        <VBox.margin>
                                           <Insets left="20.0" />
                                        </VBox.margin>
                                     </Text>
-                                    <Button fx:id="buttonChooseImage" mnemonicParsing="false" onAction="#chooseImage" prefHeight="25.0" prefWidth="230.0" text="Bild auswählen">
+                                    <Button fx:id="buttonChooseImage" mnemonicParsing="false"
+                                       onAction="#chooseImage" prefHeight="25.0" prefWidth="230.0"
+                                       text="Bild auswählen">
                                        <VBox.margin>
                                           <Insets left="20.0" top="20.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <ImageView fx:id="imageProcessCell" fitHeight="230.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="imageProcessCell" fitHeight="230.0"
+                                       fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
                                           <Insets left="20.0" top="20.0" />
                                        </VBox.margin>

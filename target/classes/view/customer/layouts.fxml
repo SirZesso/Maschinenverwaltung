@@ -38,7 +38,7 @@
                            <menus>
                               <Menu mnemonicParsing="false" text="LogOut">
                                  <items>
-                                    <MenuItem mnemonicParsing="false" onAction="#btnClickSaveExit" text="Safe and Exit" />
+                                    <MenuItem mnemonicParsing="false" onAction="#btnClickSaveExit" text="Save and Exit" />
                                     <SeparatorMenuItem mnemonicParsing="false" />
                                     <MenuItem mnemonicParsing="false" onAction="#btnClickExit" text="Exit" />
                                  </items>
