@@ -302,14 +302,14 @@ public class SupplierController {
                 String newFilePath = "src/main/resources/images/" + selectedFile.getName();
                 File newFile = new File(newFilePath);
                 Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("images/" + selectedFile.getName());
+                System.out.println("Bild gewählt: images/" + selectedFile.getName());
                 selectedProcessCell.setImagePath("images/" + selectedFile.getName());
-
             } catch (Exception ex) {
                 System.out.println("Fehler beim Kopieren des Bildes: " + ex.getMessage());
             }
-            showProcessCellInfo(selectedProcessCell);
         }
+        imageProcessCell.setImage(new Image(selectedProcessCell.getImagePath()));
+        showProcessCellInfo(selectedProcessCell);
     }
 
     private void showProcessCellInfo(ProcessCell processCell) {
@@ -508,6 +508,7 @@ public class SupplierController {
         manufactors.add(new Enterprise("ACI Laser GMBH", "logo_path", null));
         manufactors.add(new Enterprise("Gechter", "logo_path", null));
         manufactors.add(new Enterprise("SIC Marking", "logo_path", null));
+        manufactors.add(new Enterprise("Lucasfilm", "logo_path", null));
 
         ObservableList<Enterprise> manufactorList = FXCollections.observableList(manufactors);
         return manufactorList;
@@ -521,6 +522,7 @@ public class SupplierController {
         customers.add(new Enterprise("ETA", "logo_path", null));
         customers.add(new Enterprise("Ypsomed", "logo_path", null));
         customers.add(new Enterprise("Asic", "logo_path", null));
+        customers.add(new Enterprise("Disney", "logo_path", null));
 
         ObservableList<Enterprise> customerList = FXCollections.observableList(customers);
         return customerList;
@@ -534,20 +536,49 @@ public class SupplierController {
         // null);
         // Enterprise customer = new Enterprise("Customer B", "logo_path", null);
 
+        // Real data
         processCells.add(
-                new Press(124335, "Compact S", manufacturers.get(0), customers.get(0), MachineType.HANDARBEITSPLATZ,
-                        "images/ProcessCell_default.png", new Area(), 1000));
+                new Press(124335, "Compact 500", manufacturers.get(0), customers.get(0), MachineType.INTEGRIERT,
+                        "images/Compact500.png", new Area(), 1000));
         processCells.add(
-                new Laser(456433, "Laser 1", manufacturers.get(1), customers.get(0), MachineType.HANDARBEITSPLATZ,
-                        "images/ProcessCell_default.png", new Area(), 2000));
+                new Press(456433, "Compact L", manufacturers.get(1), customers.get(0), MachineType.INTEGRIERT,
+                        "images/CompactL.png", new Area(), 2000));
         processCells
-                .add(new Press(674341, "Press 2", manufacturers.get(2), customers.get(1), MachineType.INTEGRIERT,
-                        "images/ProcessCell_default.png", new Area(), 10000));
-        processCells.add(new Laser(4, "Laser 2", manufacturers.get(3), customers.get(1), MachineType.INTEGRIERT,
-                "images/ProcessCell_default.png", new Area(), 2500));
+                .add(new Press(674341, "Compact M", manufacturers.get(2), customers.get(1), MachineType.INTEGRIERT,
+                        "images/CompactM.png", new Area(), 10000));
         processCells.add(
-                new Press(236358, "UFM01", manufacturers.get(0), customers.get(2), MachineType.HANDARBEITSPLATZ,
-                        "images/ProcessCell_default.png", new Area(), 10000));
+                new Press(236358, "Compact S", manufacturers.get(0), customers.get(2), MachineType.INTEGRIERT,
+                        "images/CompactS.png", new Area(), 150));
+        processCells.add(
+                new Press(256471, "Compact XL", manufacturers.get(0), customers.get(2), MachineType.INTEGRIERT,
+                        "images/CompactXL.png", new Area(), 150));
+        processCells.add(
+                new Press(256471, "Compact XL", manufacturers.get(1), customers.get(1), MachineType.INTEGRIERT,
+                        "images/CompactXL.png", new Area(), 150));
+
+        // Lightsaber jokes
+        processCells.add(
+                new Laser(124782, "Laser Y", manufacturers.get(4), customers.get(3), MachineType.HANDARBEITSPLATZ,
+                        "images/LightsaberYoda.jpg", new Area(), 5400));
+        processCells.add(
+                new Laser(100066, "Laser A", manufacturers.get(4), customers.get(3), MachineType.HANDARBEITSPLATZ,
+                        "images/LightsaberAnakin.jpg", new Area(), 5600));
+        processCells.add(
+                new Laser(124782, "Laser O", manufacturers.get(4), customers.get(3), MachineType.HANDARBEITSPLATZ,
+                        "images/LightsaberObiWan.jpg", new Area(), 5400));
+        processCells.add(
+                new Laser(124782, "Laser L", manufacturers.get(4), customers.get(3), MachineType.HANDARBEITSPLATZ,
+                        "images/LightsaberLuke.jpg", new Area(), 5400));
+
+        // more jokes
+        processCells.add(
+                new Press(124782, "Gutenberg Presse", manufacturers.get(0), customers.get(3),
+                        MachineType.INTEGRIERT,
+                        "images/Gutenberg.jpg", new Area(), 1));
+        processCells.add(
+                new Press(444256, "Super Hydraulic Press", manufacturers.get(3), customers.get(1),
+                        MachineType.INTEGRIERT,
+                        "images/hydraulic_press.jpg", new Area(), 15000));
 
         ObservableList<ProcessCell> observableList = FXCollections.observableArrayList(processCells);
         return observableList;
