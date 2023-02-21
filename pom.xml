@@ -42,11 +42,11 @@
       <scope>provided</scope>
     </dependency>
 
-
   </dependencies>
 
   <build>
     <plugins>
+      <!-- FX -->
       <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
@@ -55,6 +55,35 @@
           <mainClass>main.MainApp</mainClass>
         </configuration>
       </plugin>
+      <!-- Packetieren -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>
+          maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>
+          package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <archive>
+                <manifest>
+                  <mainClass>
+                    MainApp
+                  </mainClass>
+                </manifest>
+              </archive>
+              <descriptorRefs>
+                <descriptorRef>
+                  jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 
