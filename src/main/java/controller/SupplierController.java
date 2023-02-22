@@ -4,6 +4,7 @@ import main.MainApp;
 import model.Enterprise;
 import model.customer.Area;
 import model.machine.*;
+import service.Logger;
 import service.SerializationService;
 import javafx.fxml.FXML;
 
@@ -135,6 +136,7 @@ public class SupplierController {
     @FXML
     void btnClickExit(ActionEvent event) {
         System.out.println("Exit without safe");
+        Logger.log("Supplier Exit without safe");
         this.mainApp.showMainView();
     }
 
@@ -144,6 +146,7 @@ public class SupplierController {
         SerializationService.serializeEnterpriseData(customers, "customers.ser");
         SerializationService.serializeProcessCellData(processCells);
         System.out.println("Exit");
+        Logger.log("Supplier Save and Exit");
         this.mainApp.showMainView();
     }
 

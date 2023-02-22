@@ -1,0 +1,2 @@
+00:08:42.622 - Application Started
+00:08:50.318 - Supplier Exit without safe

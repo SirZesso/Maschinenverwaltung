@@ -9,6 +9,7 @@ import java.io.IOException;
 import controller.CustomerController;
 import controller.LoginController;
 import controller.SupplierController;
+import service.*;
 
 public class MainApp extends Application {
 	private Stage stage;
@@ -20,6 +21,7 @@ public class MainApp extends Application {
 	@Override
 	public void start(Stage stage) {
 		this.stage = stage;
+		Logger.log("Application Started");
 		showMainView();
 
 	}
