@@ -12,9 +12,9 @@ public class Logger {
     private static final String LOG_DIRECTORY = "src/main/resources/logfile/";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final DateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
-    private static final DateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss.SSS");
+    private static final DateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss");
 
-    public static void log(String logdata) {
+    public static void log(LoggerType type, String logdata) {
         String filename = LOG_DIRECTORY + DATE_FORMATTER.format(new Date()) + ".txt";
 
         File logFile = new File(filename);
@@ -25,7 +25,7 @@ public class Logger {
             }
 
             FileWriter writer = new FileWriter(logFile, true);
-            writer.write(TIME_FORMATTER.format(new Date()) + " - " + logdata + "\n");
+            writer.write(TIME_FORMATTER.format(new Date()) + " - " + type + ":\t" + logdata + "\n");
             writer.close();
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the log file: " + e.getMessage());

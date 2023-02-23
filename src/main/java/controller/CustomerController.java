@@ -12,6 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import main.MainApp;
 import model.machine.*;
+import service.Logger;
+import service.LoggerType;
 import service.SerializationService;
 import model.customer.*;
 import javafx.event.ActionEvent;
@@ -179,6 +181,8 @@ public class CustomerController {
 
     // TODO: Create more Demo areas
     private ObservableList<Area> createDemoAreas() {
+
+        Logger.log(LoggerType.Customer, "create Demo Areas");
 
         List<Area> areas = new ArrayList<>();
         areas.add(new Area("W01", "T0 Montagepark", "Automatisierte Montage von T0 Komponenten", Floor.EG, 643.00,

@@ -5,6 +5,7 @@ import model.Enterprise;
 import model.customer.Area;
 import model.machine.*;
 import service.Logger;
+import service.LoggerType;
 import service.SerializationService;
 import javafx.fxml.FXML;
 
@@ -136,7 +137,7 @@ public class SupplierController {
     @FXML
     void btnClickExit(ActionEvent event) {
         System.out.println("Exit without safe");
-        Logger.log("Supplier Exit without safe");
+        Logger.log(LoggerType.Supplier, "Exit without safe");
         this.mainApp.showMainView();
     }
 
@@ -146,7 +147,7 @@ public class SupplierController {
         SerializationService.serializeEnterpriseData(customers, "customers.ser");
         SerializationService.serializeProcessCellData(processCells);
         System.out.println("Exit");
-        Logger.log("Supplier Save and Exit");
+        Logger.log(LoggerType.Supplier, "Save and Exit");
         this.mainApp.showMainView();
     }
 
@@ -221,6 +222,7 @@ public class SupplierController {
             if (result.get() == okButton) {
                 System.out.println("Button YES"); // Konsolenausgabe
                 System.out.println(selectedIndex); // Konsolenausgabe
+                Logger.log(LoggerType.Supplier, "Delete Processcell: " + tableProcessCells.getSelectionModel().getSelectedItem().getName());
                 tableProcessCells.getItems().remove(selectedIndex);
                 clearProcessCellInformations();
             } else if (result.get() == noButton) {
