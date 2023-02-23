@@ -14,6 +14,7 @@ public class AreaTest {
 
     @Test
     public void testGetSiteId() {
+        setUp();
         Assertions.assertEquals("1", area.getSiteId());
     }
 
@@ -80,6 +81,7 @@ public class AreaTest {
 
     @Test
     public void testConstructor() {
+        setUp();
         Assertions.assertEquals("1", area.getSiteId());
         Assertions.assertEquals("Area1", area.getName());
         Assertions.assertEquals("This is Area1", area.getDescription());
