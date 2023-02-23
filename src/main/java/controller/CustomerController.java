@@ -106,13 +106,8 @@ public class CustomerController {
         // areas = SerializationService.deSerializeAreaDatao();
         processCells = SerializationService.deSerializeProcessCellDatao();
 
-        if (areas.isEmpty()) {
-            areas = createDemoAreas();
-            Logger.log(LoggerType.Initialize, "New Demo Areas created");
-        } else {
-            loadAreas();
-        }
 
+        loadAreas();
         setAreaTabel(areas);
 
         showAreaInfo(null);
@@ -180,34 +175,6 @@ public class CustomerController {
         ObservableList<Site> siteList = FXCollections.observableList(sites);
         return siteList;
 
-    }
-
-    // TODO: Create more Demo areas
-    private ObservableList<Area> createDemoAreas() {
-
-        Logger.log(LoggerType.Customer, "create Demo Areas");
-
-        List<Area> areas = new ArrayList<>();
-        areas.add(new Area("W01", "T0 Montagepark", "Automatisierte Montage von T0 Komponenten", Floor.EG, 643.00,
-                "Sascha Seepferd"));
-        areas.add(new Area("W01", "T1 Assembly", "Diverse Montage und Gravuren auf Ebauches", Floor.UG1, 200.00,
-                "Nina Nielpferd"));
-        areas.add(new Area("W02", "Glaspresse", "Einpressen von Lunetten und kleinen Schlafpillen", Floor.OG3, 250.00,
-                "Leo Löwe"));
-        areas.add(new Area("W06", "Optische Kontrolle", "Auschecken der gesamten Mouvements Monté", Floor.OG1, 5.00,
-                "Emma Elefant"));
-        areas.add(new Area("W02", "Top Gun Pressmasters",
-                "Unterhalt von Stanzmaschinen in lufitger Höhe wie Cockpit Feeling", Floor.OG4, 10.00,
-                "Tom Tiger"));
-        areas.add(new Area("W01", "Wertstrom Kugellager",
-                "Eindrehen bis es keinen Wert mehr hat und gepresst wird", Floor.EG, 200.00,
-                "Peter Pfau"));
-        areas.add(new Area("W02", "Laser-Team XYZ",
-                "Aktronym Master of Desaster", Floor.UG1, 200.00,
-                "Lars Lama"));
-
-        ObservableList<Area> areaList = FXCollections.observableList(areas);
-        return areaList;
     }
 
     @FXML

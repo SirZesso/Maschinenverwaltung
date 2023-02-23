@@ -4,6 +4,7 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import main.MainApp;
+import service.CreateDummyData;
 
 
 
@@ -26,6 +27,11 @@ public class LoginController {
         System.out.println("Login As Supplier");
         this.mainApp.showSupplierView();
     }
+
+    // @FXML
+    // void creadDummyData(ActionEvent event) {
+    //     CreateDummyData.create();
+    // }
 
 
 
