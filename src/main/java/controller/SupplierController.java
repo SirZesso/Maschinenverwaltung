@@ -4,6 +4,7 @@ import main.MainApp;
 import model.Enterprise;
 import model.customer.Area;
 import model.machine.*;
+import service.FolderPathService;
 import service.Logger;
 import service.LoggerType;
 import service.SerializationService;
@@ -298,10 +299,10 @@ public class SupplierController {
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
             try {
-                String newFilePath = "src/main/resources/images/" + selectedFile.getName();
+                String newFilePath = FolderPathService.getProgramFolderPath("images/") + selectedFile.getName();
                 File newFile = new File(newFilePath);
                 Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                selectedProcessCell.setImagePath("images/" + selectedFile.getName());
+                selectedProcessCell.setImagePath(newFilePath);
             } catch (Exception ex) {
                 System.out.println("Fehler beim Kopieren des Bildes: " + ex.getMessage());
                 Logger.log(LoggerType.Error, "Fehler beim Kopieren des Bildes: " + ex.getMessage());

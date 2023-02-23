@@ -17,7 +17,7 @@ import javafx.collections.ObservableList;
 
 public class SerializationService {
 
-	private final static String PATH = FolderPathService.getProgramFolderPath();
+	private final static String PATH = FolderPathService.getProgramFolderPath("data");
 
 	private final static String PROCESSCELL_PATH = PATH + "/processCells.ser";
 	private final static String ENTERPRISE_PATH = PATH + "/";

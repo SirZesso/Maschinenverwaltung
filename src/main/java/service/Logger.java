@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class Logger {
 
-    private static final String LOG_DIRECTORY = FolderPathService.getProgramFolderPath();
+    private static final String LOG_DIRECTORY = FolderPathService.getProgramFolderPath("logfiles/");
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final DateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
     private static final DateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss");
