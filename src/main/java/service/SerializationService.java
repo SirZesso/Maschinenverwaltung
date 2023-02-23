@@ -1,5 +1,6 @@
 package service;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,7 +22,7 @@ import javafx.collections.ObservableList;
 public class SerializationService {
 
 	// private final static String FILE_PATH = "src/main/resources/serialisation/";
-	private final static String PATH = "/Users/yannicziegler/Developer/serialization";
+	private final static String PATH = getProgramFolderPath();
 
 	private final static String PROCESSCELL_PATH = PATH + "/processCells.ser";
 	private final static String ENTERPRISE_PATH = PATH + "/";
@@ -111,6 +112,25 @@ public class SerializationService {
 		}
 
 		return FXCollections.observableArrayList(areas);
+	}
+
+	private static String getProgramFolderPath() {
+		String folderName = "Maschinenverwaltung";
+		String path = "";
+		String os = System.getProperty("os.name").toLowerCase();
+		if (os.contains("win")) {
+			path = System.getenv("APPDATA") + "\\" + folderName;
+		} else if (os.contains("mac")) {
+			path = System.getProperty("user.home") + "/Library/Application Support/" + folderName;
+		} else {
+			System.err.println("Unsupported operating system.");
+			System.exit(1);
+		}
+		File folder = new File(path);
+		if (!folder.exists()) {
+			folder.mkdir();
+		}
+		return path;
 	}
 
 }
