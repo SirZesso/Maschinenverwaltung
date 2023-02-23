@@ -12,8 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import main.MainApp;
 import model.machine.*;
-import service.Logger;
-import service.LoggerType;
+import service.*;
 import service.SerializationService;
 import model.customer.*;
 import javafx.event.ActionEvent;
@@ -107,8 +106,12 @@ public class CustomerController {
         // areas = SerializationService.deSerializeAreaDatao();
         processCells = SerializationService.deSerializeProcessCellDatao();
 
-        // areas = createDemoAreas();
-        loadAreas();
+        if (areas.isEmpty()) {
+            areas = createDemoAreas();
+            Logger.log(LoggerType.Initialize, "New Demo Areas created");
+        } else {
+            loadAreas();
+        }
 
         setAreaTabel(areas);
 
