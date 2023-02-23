@@ -1,12 +1,10 @@
 package controller;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import main.MainApp;
 import service.CreateDummyData;
-
-
+import service.*;
 
 public class LoginController {
     private MainApp mainApp;
@@ -28,13 +26,10 @@ public class LoginController {
         this.mainApp.showSupplierView();
     }
 
-    // @FXML
-    // void creadDummyData(ActionEvent event) {
-    //     CreateDummyData.create();
-    // }
-
-
-
-
+    @FXML
+    void createDummyData(ActionEvent event) {
+        CreateDummyData.create();
+        Logger.log(LoggerType.Initialize, "Dummy Data created");
+    }
 
 }

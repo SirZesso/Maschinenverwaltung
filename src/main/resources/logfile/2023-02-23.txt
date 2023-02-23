@@ -23,3 +23,15 @@
 19:53:02 - Initialize:	Application Started
 19:54:30 - Initialize:	Application Started
 19:54:54 - Initialize:	Application Started
+21:26:07 - Initialize:	Application Started
+21:37:26 - Initialize:	Application Started
+21:37:28 - Initialize:	Dummy Data created
+21:37:52 - Initialize:	Application Started
+21:37:55 - Initialize:	Dummy Data created
+21:38:07 - Supplier:	Save and Exit
+21:38:12 - Initialize:	Dummy Data created
+21:42:15 - Initialize:	Application Started
+21:42:17 - Initialize:	Dummy Data created
+21:42:42 - Initialize:	Application Started
+21:42:44 - Initialize:	Dummy Data created
+21:42:54 - Supplier:	Exit without safe

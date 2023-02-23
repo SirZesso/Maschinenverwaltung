@@ -74,9 +74,8 @@ public class AreaPane extends BorderPane {
         hMachineTypes.setAlignment(Pos.CENTER_LEFT);
 
         ListView<String> machineList = new ListView<String>();
-        // TODO populate list based on entries
         machineList.maxHeight(30);
-        machineList.setItems(null); // TODO add dynamically all related machines
+        machineList.setItems(null);
 
         Button btnSaveArea = new Button();
         btnSaveArea.setText("Speichern");

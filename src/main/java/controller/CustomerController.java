@@ -12,7 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import main.MainApp;
 import model.machine.*;
-import service.*;
 import service.SerializationService;
 import model.customer.*;
 import javafx.event.ActionEvent;
@@ -105,7 +104,6 @@ public class CustomerController {
         // sites = SerializationService.deSerializeSiteDatao();
         // areas = SerializationService.deSerializeAreaDatao();
         processCells = SerializationService.deSerializeProcessCellDatao();
-
 
         loadAreas();
         setAreaTabel(areas);

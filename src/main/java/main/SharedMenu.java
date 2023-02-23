@@ -32,7 +32,7 @@ public class SharedMenu extends MenuBar {
 
         MenuItem about = new MenuItem("Autoren");
         about.setOnAction(e -> {
-            // TODO: Show app autors
+            // Show app autors
         });
 
         menuSettings.getItems().add(logout);
