@@ -12,6 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import main.MainApp;
 import model.machine.*;
+import service.Logger;
+import service.LoggerType;
 import service.SerializationService;
 import model.customer.*;
 import javafx.event.ActionEvent;
@@ -100,9 +102,6 @@ public class CustomerController {
     private void initialize() {
 
         sites = createSites();
-
-        // sites = SerializationService.deSerializeSiteDatao();
-        // areas = SerializationService.deSerializeAreaDatao();
         processCells = SerializationService.deSerializeProcessCellDatao();
 
         loadAreas();
@@ -135,7 +134,6 @@ public class CustomerController {
                 labelProcessCellName.setText(newValue.getName());
                 labelProcessCellType.setText(String.valueOf(newValue.getType()));
                 labelProcessCellNr.setText(String.valueOf(newValue.getSerialnumber()));
-                System.out.println(newValue.getArea());
             } else {
                 setDetailTexts();
             }
@@ -178,6 +176,7 @@ public class CustomerController {
     @FXML
     void btnClickExit(ActionEvent event) {
         System.out.println("Exit without safe");
+        Logger.log(LoggerType.Customer, "Exit without safe");
         this.mainApp.showMainView();
     }
 
@@ -185,7 +184,8 @@ public class CustomerController {
     void btnClickSaveExit(ActionEvent event) {
         SerializationService.serializeAreaData(areas);
         SerializationService.serializeProcessCellData(processCells);
-        System.out.println("Exit");
+        System.out.println("Logout");
+        Logger.log(LoggerType.Customer, "Logout");
         this.mainApp.showMainView();
     }
 
@@ -260,8 +260,7 @@ public class CustomerController {
             confirmationAlert.getButtonTypes().setAll(okButton, noButton);
             Optional<ButtonType> result = confirmationAlert.showAndWait();
             if (result.get() == okButton) {
-                System.out.println("Button YES"); // Konsolenausgabe
-                System.out.println(selectedIndex); // Konsolenausgabe
+                Logger.log(LoggerType.Customer, "Area deleted");
                 Area area = tableAreas.getItems().get(selectedIndex);
                 for (ProcessCell processCell : processCells) {
                     if (processCell.getArea() != null && processCell.getArea().equals(area)) {
@@ -272,7 +271,6 @@ public class CustomerController {
                 tableAreas.getItems().remove(selectedIndex);
                 clearAreaInformations();
             } else if (result.get() == noButton) {
-                System.out.println("Button NO"); // Konsolenausgabe
                 confirmationAlert.close();
             }
         } else {

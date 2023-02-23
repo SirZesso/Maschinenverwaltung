@@ -15,12 +15,8 @@ import model.machine.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
- * Beispielhafte Serialisierung einer ObservableList
- */
 public class SerializationService {
 
-	// private final static String FILE_PATH = "src/main/resources/serialisation/";
 	private final static String PATH = FolderPathService.getProgramFolderPath();
 
 	private final static String PROCESSCELL_PATH = PATH + "/processCells.ser";
@@ -36,6 +32,8 @@ public class SerializationService {
 			System.out.println(
 					"ProcessCells: Aktuelle Daten konnten nicht furr naechste Verwendendung gespeichert werden: "
 							+ e.getMessage());
+			Logger.log(LoggerType.Error,"ProcessCells: Aktuelle Daten konnten nicht furr naechste Verwendendung gespeichert werden: "
+			+ e.getMessage());
 		}
 	}
 
@@ -50,6 +48,7 @@ public class SerializationService {
 				processCells = (ArrayList<ProcessCell>) in.readObject();
 			} catch (Exception e) {
 				System.out.println("ProcessCells: Letzte Daten konnten nicht gelesen werden: " + e.getMessage());
+				Logger.log(LoggerType.Error, "ProcessCells: Letzte Daten konnten nicht gelesen werden: " + e.getMessage());
 			}
 		}
 
@@ -65,6 +64,8 @@ public class SerializationService {
 			System.out.println(
 					"Enterprises: Aktuelle Daten konnten nicht furr naechste Verwendendung gespeichert werden: "
 							+ e.getMessage());
+			Logger.log(LoggerType.Error, "Enterprises: Aktuelle Daten konnten nicht furr naechste Verwendendung gespeichert werden: "
+			+ e.getMessage());
 		}
 	}
 
@@ -79,6 +80,7 @@ public class SerializationService {
 				enterprises = (ArrayList<Enterprise>) in.readObject();
 			} catch (Exception e) {
 				System.out.println("Enterprises: Letzte Daten konnten nicht gelesen werden: " + e.getMessage());
+				Logger.log(LoggerType.Error,"Enterprises: Letzte Daten konnten nicht gelesen werden: " + e.getMessage());
 			}
 		}
 
@@ -93,6 +95,8 @@ public class SerializationService {
 		} catch (IOException e) {
 			System.out.println("Areas: Aktuelle Daten konnten nicht furr naechste Verwendendung gespeichert werden: "
 					+ e.getMessage());
+			Logger.log(LoggerType.Error, "Areas: Aktuelle Daten konnten nicht furr naechste Verwendendung gespeichert werden: "
+			+ e.getMessage());
 		}
 	}
 
@@ -107,6 +111,7 @@ public class SerializationService {
 				areas = (ArrayList<Area>) in.readObject();
 			} catch (Exception e) {
 				System.out.println("Areas: Letzte Daten konnten nicht gelesen werden: " + e.getMessage());
+				Logger.log(LoggerType.Error,"Areas: Letzte Daten konnten nicht gelesen werden: " + e.getMessage());
 			}
 		}
 

@@ -95,9 +95,6 @@ public class SupplierController {
     @FXML
     private void initialize() {
 
-        // manufacturers = createDemoManufactors();
-        // customers = createDemoCustomers();
-        // processCells = createDemoProcessCells();
         manufacturers = SerializationService.deSerializeEnterpriseDatao("manufactures.ser");
         customers = SerializationService.deSerializeEnterpriseDatao("customers.ser");
         processCells = SerializationService.deSerializeProcessCellDatao();
@@ -146,8 +143,8 @@ public class SupplierController {
         SerializationService.serializeEnterpriseData(manufacturers, "manufactures.ser");
         SerializationService.serializeEnterpriseData(customers, "customers.ser");
         SerializationService.serializeProcessCellData(processCells);
-        System.out.println("Exit");
-        Logger.log(LoggerType.Supplier, "Save and Exit");
+        System.out.println("Logout");
+        Logger.log(LoggerType.Supplier, "Logout");
         this.mainApp.showMainView();
     }
 
@@ -220,13 +217,10 @@ public class SupplierController {
             confirmationAlert.getButtonTypes().setAll(okButton, noButton);
             Optional<ButtonType> result = confirmationAlert.showAndWait();
             if (result.get() == okButton) {
-                System.out.println("Button YES"); // Konsolenausgabe
-                System.out.println(selectedIndex); // Konsolenausgabe
                 Logger.log(LoggerType.Supplier, "Delete Processcell: " + tableProcessCells.getSelectionModel().getSelectedItem().getName());
                 tableProcessCells.getItems().remove(selectedIndex);
                 clearProcessCellInformations();
             } else if (result.get() == noButton) {
-                System.out.println("Button NO"); // Konsolenausgabe
                 confirmationAlert.close();
             }
         } else {
@@ -307,10 +301,10 @@ public class SupplierController {
                 String newFilePath = "src/main/resources/images/" + selectedFile.getName();
                 File newFile = new File(newFilePath);
                 Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("Bild gewählt: images/" + selectedFile.getName());
                 selectedProcessCell.setImagePath("images/" + selectedFile.getName());
             } catch (Exception ex) {
                 System.out.println("Fehler beim Kopieren des Bildes: " + ex.getMessage());
+                Logger.log(LoggerType.Error, "Fehler beim Kopieren des Bildes: " + ex.getMessage());
             }
         }
         imageProcessCell.setImage(new Image(selectedProcessCell.getImagePath()));

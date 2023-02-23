@@ -16,6 +16,7 @@ public class LoginController {
     @FXML
     void btnClickCustomer(ActionEvent event) {
         System.out.println("Login As Customer");
+        Logger.log(LoggerType.Customer, "Login");
         this.mainApp.showCustomerView();
 
     }
@@ -23,6 +24,7 @@ public class LoginController {
     @FXML
     void btnClickSupplier(ActionEvent event) {
         System.out.println("Login As Supplier");
+        Logger.log(LoggerType.Supplier, "Login");
         this.mainApp.showSupplierView();
     }
 

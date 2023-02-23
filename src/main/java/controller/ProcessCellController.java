@@ -8,6 +8,8 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import model.customer.Area;
 import model.machine.ProcessCell;
+import service.Logger;
+import service.LoggerType;
 import javafx.scene.Node;
 
 
@@ -53,6 +55,7 @@ public class ProcessCellController {
         if (selectedProcessCell != null){
             selectedProcessCell.setArea(selectedArea);
             setTables();
+            Logger.log(LoggerType.Customer, "ProcessCell: " + selectedProcessCell.getSerialnumber() + " added to Area: "+ selectedArea.getName());
         }
 
     }
@@ -63,6 +66,7 @@ public class ProcessCellController {
         if (selectedProcessCell != null){
             selectedProcessCell.setArea(new Area());
             setTables();
+            Logger.log(LoggerType.Customer, "ProccessCell: " + selectedProcessCell.getSerialnumber() + " removed from Area: "+ selectedArea.getName());
 
         }
 
