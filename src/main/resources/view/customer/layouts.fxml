@@ -1,11 +1,279 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="ch.hftm.FXMLController">
-    <children>
-        <Button layoutX="128.0" layoutY="107.0" onAction="#btnClickAction" text="Layouts" />
-        <Label fx:id="lblOut" layoutX="53.0" layoutY="30.0" minHeight="16" minWidth="69" prefHeight="52.0" prefWidth="215.0" />
-    </children>
+<AnchorPane id="AnchorPane" prefHeight="605.0" prefWidth="925.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerController">
+   <children>
+      <BorderPane layoutX="92.0" layoutY="-22.0" prefHeight="550.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <AnchorPane prefHeight="15.0" prefWidth="750.0" BorderPane.alignment="CENTER">
+               <children>
+                  <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <MenuBar>
+                           <menus>
+                              <Menu mnemonicParsing="false" text="LogOut">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#btnClickSaveExit" text="Save and Exit" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem mnemonicParsing="false" onAction="#btnClickExit" text="Exit" />
+                                 </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="About">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#version" text="Version" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem mnemonicParsing="false" onAction="#authors" text="Autors" />
+                                 </items>
+                              </Menu>
+                           </menus>
+                        </MenuBar>
+                     </children>
+                  </StackPane>
+                  <ImageView fitHeight="29.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+                     <image>
+                        <Image url="@../../../../src/main/resources/images/ETA_Logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </top>
+         <center>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <VBox prefWidth="250.0">
+                           <children>
+                              <Label prefHeight="40.0" text="Area">
+                                 <font>
+                                    <Font name="System Bold" size="30.0" />
+                                 </font>
+                              </Label>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Area Informationen bearbeiten" />
+                              <HBox prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="buttonNew" mnemonicParsing="false" onAction="#newArea" prefWidth="70.0" text="+">
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="buttonModifyArea" mnemonicParsing="false" onAction="#modifyArea" prefWidth="200.0" text="Anpassen" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="18.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <GridPane prefHeight="312.0" prefWidth="250.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="171.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="40.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="40.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="40.0" minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="40.0" minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <StackPane alignment="CENTER_LEFT" prefWidth="200.0" GridPane.columnSpan="2">
+                                       <children>
+                                          <TextField fx:id="textfieldAreaName" prefHeight="20.0" prefWidth="400.0" promptText="Area Titel">
+                                             <font>
+                                                <Font name="Arial Bold" size="20.0" />
+                                             </font>
+                                             <StackPane.margin>
+                                                <Insets />
+                                             </StackPane.margin>
+                                          </TextField>
+                                          <Label fx:id="labelAreaName" text="AreaName">
+                                             <font>
+                                                <Font name="Arial Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" />
+                                       </GridPane.margin>
+                                    </StackPane>
+                                    <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                       <children>
+                                          <TextArea fx:id="textareaDescription" prefHeight="56.0" prefWidth="220.0" promptText="Beschreibung">
+                                             <StackPane.margin>
+                                                <Insets bottom="5.0" />
+                                             </StackPane.margin>
+                                          </TextArea>
+                                          <Text fx:id="textDescription" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="247.13671875" StackPane.alignment="TOP_LEFT" />
+                                       </children>
+                                    </StackPane>
+                                    <Label text="Manager" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <StackPane alignment="CENTER_LEFT" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <children>
+                                          <TextField fx:id="textfieldManager" maxWidth="300.0" />
+                                          <Label fx:id="labelManager" />
+                                       </children>
+                                    </StackPane>
+                                    <Label text="Werk" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                       <children>
+                                          <Label fx:id="labelSite" maxWidth="100.0" />
+                                          <ChoiceBox fx:id="choiceboxSite" maxWidth="300.0" prefWidth="300.0" />
+                                       </children>
+                                    </StackPane>
+                                    <Label text="Etage" GridPane.rowIndex="4">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                       <children>
+                                          <ChoiceBox fx:id="choiceboxFloor" maxWidth="300.0" prefWidth="300.0" />
+                                          <Label fx:id="labelFloor" prefHeight="17.0" />
+                                       </children>
+                                    </StackPane>
+                                    <Label text="Fläche" GridPane.rowIndex="5">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                       <children>
+                                          <Label fx:id="labelSurface" />
+                                          <TextField fx:id="textfieldSurface" maxWidth="300.0" />
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                                 <padding>
+                                    <Insets top="20.0" />
+                                 </padding>
+                              </GridPane>
+                              <VBox alignment="BOTTOM_LEFT" prefWidth="250.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#deleteArea" prefHeight="30.0" prefWidth="100.0" text="Löschen" />
+                                    <Button fx:id="buttonSave" mnemonicParsing="false" onAction="#saveArea" prefHeight="30.0" prefWidth="100.0" text="Speichern">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="565.0" prefWidth="382.0">
+                           <children>
+                              <Label prefHeight="40.0" text="Anlagen">
+                                 <font>
+                                    <Font name="System Bold" size="30.0" />
+                                 </font>
+                              </Label>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Anlagen dem Area zuweisen" />
+                              <Button fx:id="buttonAddProcessCell" mnemonicParsing="false" onAction="#modifyProcessCell" prefHeight="25.0" prefWidth="386.0" text="Verknüpfungen anpassen">
+                                 <VBox.margin>
+                                    <Insets top="18.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <StackPane alignment="TOP_LEFT" prefHeight="150.0" prefWidth="200.0">
+                                 <children>
+                                    <Rectangle arcHeight="1.0" arcWidth="5.0" fill="#f5f5f5" height="85.0" stroke="BLACK" strokeType="INSIDE" width="383.0">
+                                       <StackPane.margin>
+                                          <Insets top="20.0" />
+                                       </StackPane.margin>
+                                    </Rectangle>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="382.0">
+                                       <children>
+                                          <ImageView fx:id="imageProcessCell" fitHeight="61.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                                             <HBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                                             </HBox.margin>
+                                          </ImageView>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label fx:id="labelProcessCellName" prefHeight="17.0" prefWidth="185.0" VBox.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="labelProcessCellNr" VBox.vgrow="ALWAYS" />
+                                                <Label fx:id="labelProcessCellType" VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets top="20.0" />
+                                       </opaqueInsets>
+                                       <StackPane.margin>
+                                          <Insets top="20.0" />
+                                       </StackPane.margin>
+                                    </HBox>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </StackPane>
+                              <TableView fx:id="tableProcessCells">
+                                 <columns>
+                                    <TableColumn fx:id="columnSerialnumber" maxWidth="300.0" minWidth="-1.0" prefWidth="100.0" text="Serien-Nr" />
+                                    <TableColumn fx:id="columnName" maxWidth="300.0" minWidth="-1.0" prefWidth="158.0" text="Name" />
+                                    <TableColumn fx:id="columnType" maxWidth="300.0" minWidth="-1.0" prefWidth="123.0" text="Type" />
+                                 </columns>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </TableView>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </center>
+         <left>
+            <TableView fx:id="tableAreas" BorderPane.alignment="CENTER">
+               <columns>
+                  <TableColumn fx:id="columnArea" prefWidth="250.0" text="Areas" />
+               </columns>
+            </TableView>
+         </left>
+      </BorderPane>
+   </children>
 </AnchorPane>
