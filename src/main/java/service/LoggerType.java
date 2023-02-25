@@ -1,9 +1,9 @@
 package service;
 
 public enum LoggerType {
-    Supplier,
-    Customer,
-    Error,
-    View,
-    Initialize
+    SUPPLIER,
+    CUSTOMER,
+    ERROR,
+    VIEW,
+    INITIALIZE
 }

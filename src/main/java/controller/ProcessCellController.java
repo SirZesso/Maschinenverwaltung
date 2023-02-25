@@ -47,6 +47,7 @@ public class ProcessCellController {
 
     @FXML
     private void initialize() {
+        Logger.log(LoggerType.INITIALIZE, "Opend ProcessCell assignment");
 
     }
     @FXML
@@ -55,7 +56,7 @@ public class ProcessCellController {
         if (selectedProcessCell != null){
             selectedProcessCell.setArea(selectedArea);
             setTables();
-            Logger.log(LoggerType.Customer, "ProcessCell: " + selectedProcessCell.getSerialnumber() + " added to Area: "+ selectedArea.getName());
+            Logger.log(LoggerType.CUSTOMER, "ProcessCell: \"" + selectedProcessCell.getSerialnumber() + "\" added to Area: \""+ selectedArea.getName() +"\"");
         }
 
     }
@@ -66,7 +67,7 @@ public class ProcessCellController {
         if (selectedProcessCell != null){
             selectedProcessCell.setArea(new Area());
             setTables();
-            Logger.log(LoggerType.Customer, "ProccessCell: " + selectedProcessCell.getSerialnumber() + " removed from Area: "+ selectedArea.getName());
+            Logger.log(LoggerType.CUSTOMER, "ProcessCell: \"" + selectedProcessCell.getSerialnumber() + "\" removed from Area: \""+ selectedArea.getName()+"\"");
 
         }
 
