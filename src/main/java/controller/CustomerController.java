@@ -176,7 +176,7 @@ public class CustomerController {
     @FXML
     void btnClickExit(ActionEvent event) {
         System.out.println("Exit without safe");
-        Logger.log(LoggerType.Customer, "Exit without safe");
+        Logger.log(LoggerType.CUSTOMER, "Exit without safe");
         this.mainApp.showMainView();
     }
 
@@ -185,7 +185,7 @@ public class CustomerController {
         SerializationService.serializeAreaData(areas);
         SerializationService.serializeProcessCellData(processCells);
         System.out.println("Logout");
-        Logger.log(LoggerType.Customer, "Logout");
+        Logger.log(LoggerType.CUSTOMER, "Logout");
         this.mainApp.showMainView();
     }
 
@@ -217,8 +217,10 @@ public class CustomerController {
     void modifyArea(ActionEvent event) {
         if (buttonModifyArea.getText().equals("Anpassen")) {
             areaEditView(true);
+            Logger.log(LoggerType.CUSTOMER, "Change to edit view");
         } else {
             areaEditView(false);
+            Logger.log(LoggerType.CUSTOMER, "Exit edit view");
         }
     }
 
@@ -260,7 +262,7 @@ public class CustomerController {
             confirmationAlert.getButtonTypes().setAll(okButton, noButton);
             Optional<ButtonType> result = confirmationAlert.showAndWait();
             if (result.get() == okButton) {
-                Logger.log(LoggerType.Customer, "Area deleted");
+                Logger.log(LoggerType.CUSTOMER, "Area deleted");
                 Area area = tableAreas.getItems().get(selectedIndex);
                 for (ProcessCell processCell : processCells) {
                     if (processCell.getArea() != null && processCell.getArea().equals(area)) {
@@ -317,6 +319,7 @@ public class CustomerController {
                 selectedArea.setFloor(choiceboxFloor.getValue());
                 selectedArea.setManager(textfieldManager.getText());
                 selectedArea.setSurface(Double.parseDouble(textfieldSurface.getText()));
+                Logger.log(LoggerType.CUSTOMER, "Area: \"" + selectedArea.getName()+ "\" updated");
                 showAreaInfo(selectedArea);
             } else {
                 Area newArea = new Area();
@@ -328,6 +331,7 @@ public class CustomerController {
                 newArea.setSurface(Double.parseDouble(textfieldSurface.getText()));
                 areas.add(newArea);
                 setAreaTabel(areas);
+                Logger.log(LoggerType.CUSTOMER, "Area: \"" + newArea.getName()+ "\" generated");
                 showAreaInfo(newArea);
 
             }
@@ -417,31 +421,37 @@ public class CustomerController {
         if (textfieldAreaName.getText().isEmpty()) {
             errorMessage += "Name darf nicht leer sein!\n";
             textfieldAreaName.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Customer tried to save Area without name");
             valid = false;
         }
         if (textfieldManager.getText().isEmpty()) {
             errorMessage += "Es muss jemand zuständig sein.\n";
             textfieldManager.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Customer tried to save Area without manager");
             valid = false;
         }
         if (textareaDescription.getText().isEmpty()) {
             errorMessage += "Beschreibung darf nicht leer sein!\n";
             textareaDescription.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Customer tried to save Area without description");
             valid = false;
         }
         if (choiceboxSite.getValue() == null) {
             errorMessage += "Werk nicht zugewiesen.\n";
             choiceboxSite.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Customer tried to save Area without site");
             valid = false;
         }
         if (choiceboxFloor.getValue() == null) {
             errorMessage += "Etage nicht zugeweisen.\n";
             choiceboxFloor.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Customer tried to save Area without floor");
             valid = false;
         }
         if (textfieldSurface.getText().isEmpty()) {
             errorMessage += "Die Fläche wurde nicht angegeben\n";
             textfieldSurface.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Customer tried to save Area without surface");
             valid = false;
         }
         try {
@@ -450,6 +460,7 @@ public class CustomerController {
         } catch (NumberFormatException e) {
             errorMessage += "Fläche darf nur Zahlen enthalten\n";
             textfieldSurface.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Customer tried to save Area with invalid value for Surface");
             valid = false;
         }
 
