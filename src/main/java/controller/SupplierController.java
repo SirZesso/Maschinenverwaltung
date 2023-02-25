@@ -135,7 +135,7 @@ public class SupplierController {
     @FXML
     void btnClickExit(ActionEvent event) {
         System.out.println("Exit without safe");
-        Logger.log(LoggerType.Supplier, "Exit without safe");
+        Logger.log(LoggerType.SUPPLIER, "Exit without safe");
         this.mainApp.showMainView();
     }
 
@@ -145,7 +145,7 @@ public class SupplierController {
         SerializationService.serializeEnterpriseData(customers, "customers.ser");
         SerializationService.serializeProcessCellData(processCells);
         System.out.println("Logout");
-        Logger.log(LoggerType.Supplier, "Logout");
+        Logger.log(LoggerType.SUPPLIER, "Logout");
         this.mainApp.showMainView();
     }
 
@@ -218,7 +218,7 @@ public class SupplierController {
             confirmationAlert.getButtonTypes().setAll(okButton, noButton);
             Optional<ButtonType> result = confirmationAlert.showAndWait();
             if (result.get() == okButton) {
-                Logger.log(LoggerType.Supplier, "Delete Processcell: " + tableProcessCells.getSelectionModel().getSelectedItem().getName());
+                Logger.log(LoggerType.SUPPLIER, "Delete Processcell: " + tableProcessCells.getSelectionModel().getSelectedItem().getName());
                 tableProcessCells.getItems().remove(selectedIndex);
                 clearProcessCellInformations();
             } else if (result.get() == noButton) {
@@ -252,7 +252,9 @@ public class SupplierController {
                     Laser selectLaser = new Laser();
                     selectLaser = (Laser) selectedProcessCell;
                     selectLaser.setWavelength(Integer.parseInt(textfieldSpecial.getText()));
+                
                 }
+                Logger.log(LoggerType.SUPPLIER, "ProcessCell: \"" + selectedProcessCell.getName()+ "\" updated");
                 showProcessCellInfo(selectedProcessCell);
 
             } else {
@@ -266,6 +268,7 @@ public class SupplierController {
                     newPress.setNewton(Integer.parseInt(textfieldSpecial.getText()));
                     newPress.setImagePath("images/ProcessCell_default.png");
                     newPress.setArea(new Area());
+                    Logger.log(LoggerType.SUPPLIER, "Press: \"" + newPress.getName()+ "\" generated");
                     processCells.add(newPress);
                     showProcessCellInfo(newPress);
                 } else if (labelSpecification.getText().equals("Laser")) {
@@ -277,9 +280,9 @@ public class SupplierController {
                     newLaser.setType(choiceboxType.getValue());
                     newLaser.setWavelength(Integer.parseInt(textfieldSpecial.getText()));
                     newLaser.setImagePath("images/ProcessCell_default.png");
-                    ;
                     newLaser.setArea(new Area());
                     processCells.add(newLaser);
+                    Logger.log(LoggerType.SUPPLIER, "Laser: \"" + newLaser.getName()+ "\" generated");
                     showProcessCellInfo(newLaser);
                 }
 
@@ -305,7 +308,7 @@ public class SupplierController {
                 selectedProcessCell.setImagePath(newFilePath);
             } catch (Exception ex) {
                 System.out.println("Fehler beim Kopieren des Bildes: " + ex.getMessage());
-                Logger.log(LoggerType.Error, "Fehler beim Kopieren des Bildes: " + ex.getMessage());
+                Logger.log(LoggerType.ERROR, "Fehler beim Kopieren des Bildes: " + ex.getMessage());
             }
         }
         imageProcessCell.setImage(new Image(selectedProcessCell.getImagePath()));
@@ -430,6 +433,7 @@ public class SupplierController {
         if (textfieldSerialnumber.getText().isEmpty()) {
             errorMessage += "Serienummer darf nicht leer sein!\n";
             textfieldSerialnumber.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Supplier tried to save ProcessCell without serialnummber");
             valid = false;
         }
         try {
@@ -438,37 +442,46 @@ public class SupplierController {
         } catch (NumberFormatException e) {
             errorMessage += "Serienummer darf nur Zahlen enthalten\n";
             textfieldSerialnumber.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Supplier tried to save ProcessCell with unvalid serialnummber");
             valid = false;
         }
         if (textfieldName.getText().isEmpty()) {
             errorMessage += "Name darf nicht leer sein!\n";
             textfieldName.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Supplier tried to save ProcessCell without name");
             valid = false;
         }
         if (choiceboxManufacturer.getValue() == null) {
             errorMessage += "Hersteller nicht zugewiesen.\n";
             choiceboxManufacturer.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Supplier tried to save ProcessCell without manufacturer");
             valid = false;
         }
         if (choiceboxCustomer.getValue() == null) {
             errorMessage += "Kunde nicht zugeweisen.\n";
             choiceboxCustomer.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Supplier tried to save ProcessCell without customer");
             valid = false;
         }
         if (choiceboxType.getValue() == null) {
             errorMessage += "Kein Type zugeweisen.\n";
             choiceboxType.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Supplier tried to save ProcessCell without typ");
             valid = false;
         }
         if (textfieldSpecial.getText().isEmpty()) {
             errorMessage += "Informationen Fehlen!\n";
             textfieldSpecial.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Supplier tried to save ProcessCell without spezification");
             valid = false;
         }
         try {
             Integer.parseInt(textfieldSpecial.getText());
         } catch (NumberFormatException e) {
             errorMessage += "Nicht zulässige Werte definiert!\n";
+            textfieldSpecial.setStyle("-fx-background-color: #ffad99");
+            Logger.log(LoggerType.ERROR, "Supplier tried to save ProcessCell with unvalid value");
+            valid = false;
         }
 
         if (!valid) {

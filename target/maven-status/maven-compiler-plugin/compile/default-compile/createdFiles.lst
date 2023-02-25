@@ -1,3 +1,4 @@
+service\FolderPathService.class
 controller\ProcessCellController.class
 model\customer\Site.class
 main\launch.class
@@ -5,12 +6,15 @@ main\MainApp.class
 model\machine\Laser.class
 model\customer\Floor.class
 controller\LoginController.class
+service\CreateDummyData.class
 model\machine\MachineType.class
 service\SerializationService.class
 model\machine\ProcessCell.class
+service\LoggerType.class
 controller\CustomerController.class
 model\machine\Press.class
 model\customer\Area.class
 model\customer\Building.class
+service\Logger.class
 controller\SupplierController.class
 model\Enterprise.class

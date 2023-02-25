@@ -21,7 +21,7 @@ public class MainApp extends Application {
 	@Override
 	public void start(Stage stage) {
 		this.stage = stage;
-		Logger.log(LoggerType.Initialize, "Application Started");
+		Logger.log(LoggerType.INITIALIZE, "Application Started");
 		showMainView();
 
 	}
